@@ -16,9 +16,11 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
+    private final int NORMAL_CLICK = 10;
     Dialog myDialog;
     Header header;
-    String currency;
+    public int currency;
+    public String curCurrency;
     TextView curMoney;
 
     @Override
@@ -32,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
         header = new Header(0,0,1,"The Farm");
         //Displays the information on the header. (Haven't implemented button increasing so uhm.... trust me?)
         curMoney = (TextView)findViewById(R.id.currency);
-        curMoney.setText(Integer.toString(header.GetCurrency()));
+        currency = header.GetCurrency();
+        curMoney.setText(Integer.toString(currency));
     }
 
     public void openAchievements(View v) // When the achievements button is pressed, it does this
@@ -45,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
 
         Intent i = new Intent(MainActivity.this, Achievements.class);
         //passes the currency variable to the multiple screens. //I kind of sort of started a different sprint here.
-        currency = curMoney.getText().toString();
-        i.putExtra("Money", currency);
+        curCurrency = curMoney.getText().toString();
+        i.putExtra("Money", curCurrency);
         startActivity(i);
     }
 
@@ -93,7 +96,12 @@ public class MainActivity extends AppCompatActivity {
     {
         ImageView button = (ImageView) v;                                                   //
         Animation shrink = AnimationUtils.loadAnimation(this, R.anim.button_press); // This animation does something different because it is special
-        button.startAnimation(shrink);                                                      //
+        button.startAnimation(shrink);//
+
+        //increasing by clicking normally.
+        //We can later add a graphic or a text view of +10 or whatever to have a visual showing of the increase instead of just the number going up.
+        currency += NORMAL_CLICK;
+        curMoney.setText(Integer.toString(currency));
     }
 
     public void openWork(View v) //When the work button is pressed, it does this
