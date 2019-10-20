@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
         //increasing by clicking normally.
         //We can later add a graphic or a text view of +10 or whatever to have a visual showing of the increase instead of just the number going up.
         currency += NORMAL_CLICK;
+        header.SetCurrency(currency); //this will store the currency value in case we need to trade screens.
         curMoney.setText(Integer.toString(currency));
     }
 
