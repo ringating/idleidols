@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:context="Scout">
+
+    <Button
+        android:id="@+id/home_button3"
+        android:layout_width="68dp"
+        android:layout_height="47dp"
+        android:text="Home"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/academies_button"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/academies_button3"
+        android:layout_width="68dp"
+        android:layout_height="47dp"
+        android:text="Academies"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/workplace_button3"
+        app:layout_constraintStart_toEndOf="@+id/home_button3" />
+
+    <Button
+        android:id="@+id/workplace_button3"
+        android:layout_width="68dp"
+        android:layout_height="47dp"
+        android:text="Workplace"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/scout_button3"
+        app:layout_constraintStart_toEndOf="@+id/academies_button3" />
+
+    <Button
+        android:id="@+id/scout_button3"
+        android:layout_width="68dp"
+        android:layout_height="47dp"
+        android:text="Scout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/management_button3"
+        app:layout_constraintStart_toEndOf="@+id/workplace_button3" />
+
+    <Button
+        android:id="@+id/management_button3"
+        android:layout_width="68dp"
+        android:layout_height="47dp"
+        android:text="Management"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/achievements_button3"
+        app:layout_constraintStart_toEndOf="@+id/scout_button3" />
+
+    <Button
+        android:id="@+id/achievements_button3"
+        android:layout_width="68dp"
+        android:layout_height="47dp"
+        android:text="Achievements"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/management_button" />
+
+    <ImageView
+        android:id="@+id/header"
+        android:layout_width="411dp"
+        android:layout_height="104dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/header" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="295dp"
+        android:layout_height="258dp"
+        android:layout_marginStart="58dp"
+        android:layout_marginLeft="58dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="58dp"
+        android:layout_marginRight="58dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header"
+        app:srcCompat="@drawable/tomato" />
+
+    <Button
+        android:id="@+id/norm_scout"
+        android:onClick="Scout1"
+        android:layout_width="130dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="58dp"
+        android:layout_marginLeft="58dp"
+        android:layout_marginTop="40dp"
+        android:text="Scout 1x"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+    <Button
+        android:id="@+id/norm_10_scout"
+        android:layout_width="130dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="58dp"
+        android:layout_marginRight="58dp"
+        android:text="Scout 10x"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+    <Button
+        android:id="@+id/special_scout"
+        android:layout_width="130dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="145dp"
+        android:text="Super Scout 1x"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+</androidx.constraintlayout.widget.ConstraintLayout>
