@@ -9,8 +9,9 @@ public class Idol {
     private float singStat;
     private float charmStat;
     private int rarity;
+    private int image;
 
-    public Idol(String name, String affinity, float dance, float sing, float charm, int rarity)
+    public Idol(String name, String affinity, int imgId, float dance, float sing, float charm, int rarity)
     {
         setIdolName(name);
         setMainAffinity(affinity);
@@ -18,11 +19,11 @@ public class Idol {
         setSingStat(sing);
         setCharmStat(charm);
         setRarity(rarity);
+        setImage(imgId);
     }
 
     public Idol()
     {
-        setIdolName("Onion");
         generateStats(0);
         calculateRarity();
     }
@@ -31,7 +32,7 @@ public class Idol {
     {
         //TODO
         Random rand = new Random();
-        switch (rand.nextInt(2) + 1) {
+        switch (rand.nextInt(3) + 1) {
             case 1:
                 setMainAffinity("Dance");
                 break;
@@ -44,6 +45,21 @@ public class Idol {
             default:
                 setMainAffinity("Unknown");
         }
+
+        switch (rand.nextInt(2)){
+            case 0:
+                setImage(R.drawable.onion);
+                setIdolName("Onion");
+                break;
+            case 1:
+                setImage(R.drawable.tomato);
+                setIdolName("Tamto");
+                break;
+            default:
+                setImage(R.drawable.tempidol);
+                setIdolName("huh?");
+        }
+
         this.danceStat = rand.nextFloat();
         this.singStat = rand.nextFloat();
         this.charmStat = rand.nextFloat();
@@ -91,6 +107,11 @@ public class Idol {
         this.rarity = rarity;
     }
 
+    public void setImage(int imgId)
+    {
+        this.image = imgId;
+    }
+
     public String getIdolName()
     {
         return this.idolName;
@@ -119,5 +140,10 @@ public class Idol {
     public int getRarity()
     {
         return this.rarity;
+    }
+
+    public int getImage()
+    {
+        return this.image;
     }
 }
