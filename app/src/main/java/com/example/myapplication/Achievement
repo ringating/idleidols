@@ -11,31 +11,9 @@ public class Achievement
 {
     // variables
     public String name, description;
-    Image image;
-    boolean claimed, unlocked;
-    int exp, money, seeds;
-
-    // Secondary constructor
-    public Achievement(String name,
-                       String description,
-                       Image image,
-                       boolean unlocked,
-                       boolean claimed,
-                       int exp,
-                       int money,
-                       int seeds)
-    {
-        String name = name;
-        String description = description;
-        Image image = image;
-
-        isUnlocked();   // Constructor calls boolean accessors.
-        isClaimed();
-
-        int exp = exp;
-        int money = money;
-        int seeds = seeds;
-    }
+    public Image image;
+    public boolean claimed, unlocked;
+    public int exp, money, seeds;
 
     //
     // Accessor methods
