@@ -1,0 +1,47 @@
+/**
+ * Name: Brian Beeby
+ * Project: IdleIdol
+ * Task: Achievement object class
+ * Date: 10/22/19
+ */
+
+package com.example.myapplication;  // Package and imports copy-pasted from Achievements
+
+public class Achievement
+{
+    // variables
+    public String name, description;
+    Image image;
+    boolean claimed, unlocked;
+    int exp, money, seeds;
+
+    // Secondary constructor
+    public Achievement(String name,
+                       String description,
+                       Image image,
+                       boolean unlocked,
+                       boolean claimed,
+                       int exp,
+                       int money,
+                       int seeds)
+    {
+        String name = name;
+        String description = description;
+        Image image = image;
+
+        isUnlocked();   // Constructor calls boolean accessors.
+        isClaimed();
+
+        int exp = exp;
+        int money = money;
+        int seeds = seeds;
+    }
+
+    //
+    // Accessor methods
+    //
+    boolean isUnlocked() {return unlocked;}
+
+    boolean isClaimed() {return claimed;}
+
+}
