@@ -22,7 +22,9 @@ public class Idol {
 
     public Idol()
     {
-
+        setIdolName("Onion");
+        generateStats(0);
+        calculateRarity();
     }
 
     public void generateStats(float weight)
@@ -42,6 +44,9 @@ public class Idol {
             default:
                 setMainAffinity("Unknown");
         }
+        this.danceStat = rand.nextFloat();
+        this.singStat = rand.nextFloat();
+        this.charmStat = rand.nextFloat();
     }
 
     public void calculateRarity()
