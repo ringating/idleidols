@@ -17,6 +17,19 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     Dialog myDialog;
+    private final int NORMAL_CLICK = 10;
+    Agency agency;
+
+    //these are the variables regarding the header.
+    private int currency;
+    TextView curMoney;
+    private int seeds;
+    TextView curTokens;
+    private int level;
+    TextView curLevel;
+    private String name;
+    TextView agencyName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) // Some android stuff, probably important
@@ -24,6 +37,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         myDialog = new Dialog(this);
+        //Creates the Agency object in the context of the application instead of just the page.
+        agency = (Agency) getApplicationContext();
+
+        //Displays the information on the header.
+        curMoney = (TextView)findViewById(R.id.currency);
+        currency = agency.GetCurrentCurrency();
+        curMoney.setText(Integer.toString(currency));
+
+        curTokens = (TextView)findViewById(R.id.seed);
+        seeds = agency.GetCurrentSeeds();
+        curTokens.setText(Integer.toString(seeds));
+
+        curLevel = (TextView)findViewById(R.id.level);
+        agency.SetLevel(01); //TODO this is just a place holder. Will change later!
+        level = agency.GetLevel();
+        curLevel.setText(Integer.toString(level));
+
+        agencyName = (TextView)findViewById(R.id.agencyName);
+        agency.SetName("AgencyName"); //TODO this is just a place holder!
+        name = agency.GetName();
+        agencyName.setText(name);
     }
 
     public void openAchievements(View v) // When the achievements button is pressed, it does this
@@ -31,8 +65,16 @@ public class MainActivity extends AppCompatActivity {
     {
         ImageView button = (ImageView) v;                                                   //
         Animation shrink = AnimationUtils.loadAnimation(this, R.anim.button_press); // Adds some animation to the tapping, makes it look like I know what I'm doing (I don't)
+
         button.startAnimation(shrink);                                                      //
         startActivity(new Intent(MainActivity.this, Achievements.class));
+
+        button.startAnimation(shrink);//
+        curMoney = (TextView) findViewById(R.id.currency);
+
+        Intent i = new Intent(MainActivity.this, Achievements.class);
+        startActivity(i);
+
     }
 
     public void openManagement(View v) //When the management button is pressed, it does this
@@ -78,7 +120,18 @@ public class MainActivity extends AppCompatActivity {
     {
         ImageView button = (ImageView) v;                                                   //
         Animation shrink = AnimationUtils.loadAnimation(this, R.anim.button_press); // This animation does something different because it is special
+
         button.startAnimation(shrink);                                                      //
+
+        button.startAnimation(shrink);//
+
+        //increasing by clicking normally.
+        //We can later add a graphic or a text view of +10 or whatever to have a visual showing of the increase instead of just the number going up.
+        currency += NORMAL_CLICK;
+        agency.SetCurrency(currency); //this will store the currency value in case we need to trade screens.
+        agency.SetTotalCurrency(agency.GetTotalCurrency() + currency); //store the total collected currency.
+        curMoney.setText(Integer.toString(currency));
+
     }
 
     public void openWork(View v) //When the work button is pressed, it does this

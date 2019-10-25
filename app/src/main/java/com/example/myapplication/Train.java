@@ -21,6 +21,7 @@ import org.w3c.dom.Text;
 public class Train extends AppCompatActivity {
 
     Dialog myDialog;
+    Agency agency;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +29,21 @@ public class Train extends AppCompatActivity {
         setContentView(R.layout.idol_train);
         myDialog = new Dialog(this);
 
+        //This is where the agency passes along data to the page.
+        agency = (Agency) getApplicationContext();
+
+        TextView currency = findViewById(R.id.currency);
+        currency.setText(Integer.toString(agency.GetCurrentCurrency()));
+
+        TextView seeds = findViewById(R.id.seed);
+        seeds.setText(Integer.toString(agency.GetCurrentSeeds()));
+
+        TextView level = findViewById(R.id.level);
+        level.setText(Integer.toString(agency.GetLevel()));
+
+        TextView name = findViewById(R.id.agencyName);
+        name.setText(agency.GetName());
+        
         GoHome(); //goes to home screen on button click
         GoAcademies();
         GoWorkplace();
