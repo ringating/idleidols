@@ -81,3 +81,7 @@ lint/generated/
 lint/outputs/
 lint/tmp/
 # lint/reports/
+.idea/.name
+.idea/codeStyles/Project.xml
+.idea/misc.xml
+.idea/runConfigurations.xml
