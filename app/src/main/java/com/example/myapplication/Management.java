@@ -21,6 +21,7 @@ import org.w3c.dom.Text;
 public class Management extends AppCompatActivity {
 
     Dialog myDialog;
+    Agency agency;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,23 @@ public class Management extends AppCompatActivity {
         setContentView(R.layout.management);
         myDialog = new Dialog(this);
 
-        GoHome(); //goes to home screen on button click
+        //This is where the agency passes along data to the page.
+        agency = (Agency) getApplicationContext();
+
+        TextView currency = findViewById(R.id.currency);
+        currency.setText(Integer.toString(agency.GetCurrentCurrency()));
+
+        TextView seeds = findViewById(R.id.seed);
+        seeds.setText(Integer.toString(agency.GetCurrentSeeds()));
+
+        TextView level = findViewById(R.id.level);
+        level.setText(Integer.toString(agency.GetLevel()));
+
+        TextView name = findViewById(R.id.agencyName);
+        name.setText(agency.GetName());
+
+        //The button menu button functions
+        GoHome();
         GoAcademies();
         GoWorkplace();
         GoScout();

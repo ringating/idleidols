@@ -17,11 +17,18 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private final int NORMAL_CLICK = 10;
+    Agency agency;
     Dialog myDialog;
-    Header header;
-    public int currency;
-    public String curCurrency;
+    //these are the variables regarding the header.
+    private int currency;
     TextView curMoney;
+    private int seeds;
+    TextView curTokens;
+    private int level;
+    TextView curLevel;
+    private String name;
+    TextView agencyName;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) // Some android stuff, probably important
@@ -30,12 +37,27 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         myDialog = new Dialog(this);
 
-        //creates a Header Object for the information of a header
-        header = new Header(0,0,1,"The Farm");
-        //Displays the information on the header. (Haven't implemented button increasing so uhm.... trust me?)
+        //Creates the Agency object in the context of the application instead of just the page.
+        agency = (Agency) getApplicationContext();
+
+        //Displays the information on the header.
         curMoney = (TextView)findViewById(R.id.currency);
-        currency = header.GetCurrency();
+        currency = agency.GetCurrentCurrency();
         curMoney.setText(Integer.toString(currency));
+
+        curTokens = (TextView)findViewById(R.id.seed);
+        seeds = agency.GetCurrentSeeds();
+        curTokens.setText(Integer.toString(seeds));
+
+        curLevel = (TextView)findViewById(R.id.level);
+        agency.SetLevel(01); //TODO this is just a place holder. Will change later!
+        level = agency.GetLevel();
+        curLevel.setText(Integer.toString(level));
+
+        agencyName = (TextView)findViewById(R.id.agencyName);
+        agency.SetName("AgencyName"); //TODO this is just a place holder!
+        name = agency.GetName();
+        agencyName.setText(name);
     }
 
     public void openAchievements(View v) // When the achievements button is pressed, it does this
@@ -47,9 +69,6 @@ public class MainActivity extends AppCompatActivity {
         curMoney = (TextView) findViewById(R.id.currency);
 
         Intent i = new Intent(MainActivity.this, Achievements.class);
-        //passes the currency variable to the multiple screens. //I kind of sort of started a different sprint here.
-        curCurrency = curMoney.getText().toString();
-        i.putExtra("Money", curCurrency);
         startActivity(i);
     }
 
@@ -101,7 +120,8 @@ public class MainActivity extends AppCompatActivity {
         //increasing by clicking normally.
         //We can later add a graphic or a text view of +10 or whatever to have a visual showing of the increase instead of just the number going up.
         currency += NORMAL_CLICK;
-        header.SetCurrency(currency); //this will store the currency value in case we need to trade screens.
+        agency.SetCurrency(currency); //this will store the currency value in case we need to trade screens.
+        agency.SetTotalCurrency(agency.GetTotalCurrency() + currency); //store the total collected currency.
         curMoney.setText(Integer.toString(currency));
     }
 
