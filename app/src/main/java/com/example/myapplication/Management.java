@@ -25,7 +25,7 @@ public class Management extends AppCompatActivity {
 
     Dialog myDialog;
     Agency agency;
-    ArrayList<Idol> idols;      // placeholder array of idols
+    int mode = 0;
 
     public static final DecimalFormat df =  new DecimalFormat("0.00");
 
@@ -34,7 +34,6 @@ public class Management extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.management);
         myDialog = new Dialog(this);
-        idols = new ArrayList<>();
 
         //This is where the agency passes along data to the page.
         agency = (Agency) getApplicationContext();
@@ -59,19 +58,8 @@ public class Management extends AppCompatActivity {
         GoManagement();
         GoAchievements();
 
-        populateArray();        // placeholder, generates a random list of random idols
-
         generateList();         // dynamically creates a table layout based on number of idols
 
-    }
-
-    public void populateArray()
-    {
-        Random rand = new Random();
-        for (int i = 0; i < rand.nextInt(50); i++)
-        {
-            idols.add(new Idol());
-        }
     }
 
     public void generateList()
@@ -88,16 +76,16 @@ public class Management extends AppCompatActivity {
 
         int id = 0;
 
-        for (int i = 0; i <= (idols.size() / 4); i++)
+        for (int i = 0; i <= (agency.numberOfIdols() / 4); i++)
         {
             TableRow row = new TableRow(this);  //Generates a new row ever four row elements
             row.setLayoutParams(lp);
 
-            for (int n = 0; n < 4 && id < idols.size(); n++) {
+            for (int n = 0; n < 4 && id < agency.numberOfIdols(); n++) {
                 ImageView button = new ImageView(this);         //Four buttons are generated each row
                 button.setId(id);                                       //Each button is set a unique id
                 button.setLayoutParams(bp);
-                button.setBackgroundResource(idols.get(id).getImage()); //The image of the button is taken from the index of the Idol array
+                button.setBackgroundResource(agency.getIdol(id).getImage()); //The image of the button is taken from the index of the Idol array
                 row.addView(button);
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -108,12 +96,14 @@ public class Management extends AppCompatActivity {
 
                         Bundle bundle = new Bundle();
 
-                        bundle.putString("name", idols.get(v.getId()).getIdolName());
-                        bundle.putString("rarity", Integer.toString(idols.get(v.getId()).getRarity()));
-                        bundle.putString("dance", df.format(idols.get(v.getId()).getDanceStat()));
-                        bundle.putString("sing", df.format(idols.get(v.getId()).getSingStat()));
-                        bundle.putString("charm", df.format(idols.get(v.getId()).getCharmStat()));         //Send the data of a specific idol at index "id" to the Card Fragment to be displayed
-                        bundle.putInt("image", idols.get(v.getId()).getImage());
+                        Idol temp = agency.getIdol(v.getId());
+
+                        bundle.putString("name", temp.getIdolName());
+                        bundle.putString("rarity", Integer.toString(temp.getRarity()));
+                        bundle.putString("dance", df.format(temp.getDanceStat()));
+                        bundle.putString("sing", df.format(temp.getSingStat()));
+                        bundle.putString("charm", df.format(temp.getCharmStat()));         //Send the data of a specific idol at index "id" to the Card Fragment to be displayed
+                        bundle.putInt("image", temp.getImage());
 
                         IdolCardDialog card = new IdolCardDialog();
                         card.setArguments(bundle);                                                         //Show the Idol Card with relevant information
@@ -133,8 +123,7 @@ public class Management extends AppCompatActivity {
         Button combine = (Button) v;
         Animation shrink = AnimationUtils.loadAnimation(this,R.anim.button_press);
         combine.startAnimation(shrink);
-        idols.add(new Idol());
-        generateList();
+
     }
 
     public void ReleaseButton(View v)
@@ -142,10 +131,6 @@ public class Management extends AppCompatActivity {
         Button release = (Button) v;
         Animation shrink = AnimationUtils.loadAnimation(this,R.anim.button_press);
         release.startAnimation(shrink);
-        if (!idols.isEmpty()) {
-            idols.remove(idols.size() - 1);
-        }
-        generateList();
     }
 
     //The Following methods are for the bottom screen

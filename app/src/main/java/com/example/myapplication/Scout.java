@@ -13,9 +13,13 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+
 public class Scout extends AppCompatActivity {
     Dialog myDialog;
     Agency agency;
+
+    public static final DecimalFormat df =  new DecimalFormat("0.00");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,19 +57,21 @@ public class Scout extends AppCompatActivity {
         Animation shrink = AnimationUtils.loadAnimation(this,R.anim.button_press);
         scout.startAnimation(shrink);
 
-        //pulls up a idol Card. We might make a scout screen, we might not. Depends. Might be funky with the 10 summon tho.
-        TextView exitButton;
-        myDialog.setContentView(R.layout.idolcard);
-        exitButton = myDialog.findViewById(R.id.exitButton);
-        exitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myDialog.dismiss();
-            }
-        });
+        Bundle bundle = new Bundle();
 
-        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        myDialog.show();
+        Idol temp = new Idol();
+        agency.addIdol(temp);
+
+        bundle.putString("name", temp.getIdolName());
+        bundle.putString("rarity", Integer.toString(temp.getRarity()));
+        bundle.putString("dance", df.format(temp.getDanceStat()));
+        bundle.putString("sing", df.format(temp.getSingStat()));
+        bundle.putString("charm", df.format(temp.getCharmStat()));         //Send the data of the Idol to the Card Fragment to be displayed
+        bundle.putInt("image", temp.getImage());
+
+        IdolCardDialog card = new IdolCardDialog();
+        card.setArguments(bundle);                                                         //Show the Idol Card with relevant information
+        card.show(getSupportFragmentManager(), "IdolCardDialog");
     }
 
     public void Scout10(View v)

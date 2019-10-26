@@ -10,6 +10,7 @@ public class Idol {
     private float charmStat;
     private int rarity;
     private int image;
+    private boolean isBeingUsed;
 
     public Idol(String name, String affinity, int imgId, float dance, float sing, float charm, int rarity)
     {
@@ -68,7 +69,7 @@ public class Idol {
     public void calculateRarity()
     {
         //TODO
-        this.rarity = (int)(this.danceStat + this.charmStat + this.singStat);
+        this.rarity = (int)(this.danceStat * 100 + this.charmStat * 100 + this.singStat * 100);
     }
 
     public Idol combineIdol(Idol other)
