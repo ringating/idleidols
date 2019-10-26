@@ -9,23 +9,22 @@
 
     <ImageView
         android:id="@+id/idolImage"
-        android:layout_width="162dp"
-        android:layout_height="154dp"
-        android:layout_alignParentStart="true"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="17dp"
         android:layout_marginLeft="17dp"
-        android:layout_marginTop="17dp"
-        app:srcCompat="@drawable/onion" />
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="17dp" />
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="84dp"
+        android:id="@+id/name"
+        android:layout_width="118dp"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="22dp"
         android:layout_toEndOf="@+id/idolImage"
         android:layout_toRightOf="@+id/idolImage"
@@ -35,7 +34,7 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
+        android:layout_below="@+id/name"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="13dp"
@@ -48,12 +47,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView2"
-        android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="13dp"
         android:layout_toEndOf="@+id/idolImage"
         android:layout_toRightOf="@+id/idolImage"
-        android:text="Stats" />
+        android:text="Stats:" />
 
     <TextView
         android:id="@+id/exitButton"
@@ -67,4 +66,85 @@
         android:padding="5dp"
         android:background="@drawable/circlebackground"
         />
+
+    <TextView
+        android:id="@+id/rarity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="54dp"
+        android:layout_toEndOf="@+id/textView2"
+        android:layout_toRightOf="@+id/textView2"
+        android:text="0" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="102dp"
+        android:layout_toEndOf="@+id/idolImage"
+        android:layout_toRightOf="@+id/idolImage"
+        android:text="Dance:" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView4"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@+id/idolImage"
+        android:layout_toRightOf="@+id/idolImage"
+        android:text="Sing:" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView5"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@+id/idolImage"
+        android:layout_toRightOf="@+id/idolImage"
+        android:text="Charm:" />
+
+    <TextView
+        android:id="@+id/dance"
+        android:layout_width="98dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="54dp"
+        android:layout_marginStart="54dp"
+        android:layout_marginTop="102dp"
+        android:layout_toEndOf="@+id/idolImage"
+        android:layout_toRightOf="@+id/idolImage"
+        android:text="0" />
+
+    <TextView
+        android:id="@+id/sing"
+        android:layout_width="98dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView4"
+        android:layout_marginLeft="54dp"
+        android:layout_marginStart="54dp"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@+id/idolImage"
+        android:layout_toRightOf="@+id/idolImage"
+        android:text="0" />
+
+    <TextView
+        android:id="@+id/charm"
+        android:layout_width="97dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView5"
+        android:layout_marginLeft="54dp"
+        android:layout_marginStart="54dp"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@+id/idolImage"
+        android:layout_toRightOf="@+id/idolImage"
+        android:text="0" />
 </RelativeLayout>
