@@ -98,7 +98,7 @@ public class Achievements extends AppCompatActivity {
                 agency.SetCurrentExp(agency.GetCurrentExp());
             }
         }
-        else
+        /*else
         {
             //TODO Change this to throw an error card obviously. Or maybe the progress?
             TextView exitButton;
@@ -113,7 +113,7 @@ public class Achievements extends AppCompatActivity {
 
             myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             myDialog.show();
-        }
+        }*/
     }
 
     public void ClaimNumberOfIdols (View v)
@@ -149,7 +149,7 @@ public class Achievements extends AppCompatActivity {
                 agency.SetCurrentExp(agency.GetCurrentExp());
             }
         }
-        else
+        /*else
         {
             //TODO Change this to throw an error card obviously. Or maybe the progress?
             TextView exitButton;
@@ -164,7 +164,7 @@ public class Achievements extends AppCompatActivity {
 
             myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             myDialog.show();
-        }
+        }*/
     }
 
 

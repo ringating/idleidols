@@ -13,9 +13,13 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+
 public class Scout extends AppCompatActivity {
     Dialog myDialog;
     Agency agency;
+
+    public static final DecimalFormat df =  new DecimalFormat("0.00");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,27 +56,57 @@ public class Scout extends AppCompatActivity {
         Button scout = (Button) v;
         Animation shrink = AnimationUtils.loadAnimation(this,R.anim.button_press);
         scout.startAnimation(shrink);
+        if (agency.GetCurrentSeeds() > 0)
+        {
+            agency.SetSeeds(agency.GetCurrentSeeds() - 1);
+            TextView seeds = findViewById(R.id.seed);
+            seeds.setText(Integer.toString(agency.GetCurrentSeeds()));
+            Bundle bundle = new Bundle();
 
-        //pulls up a idol Card. We might make a scout screen, we might not. Depends. Might be funky with the 10 summon tho.
-        TextView exitButton;
-        myDialog.setContentView(R.layout.idolcard);
-        exitButton = myDialog.findViewById(R.id.exitButton);
-        exitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myDialog.dismiss();
-            }
-        });
+            Idol temp = new Idol();
+            agency.addIdol(temp);
 
-        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        myDialog.show();
+            bundle.putString("name", temp.getIdolName());
+            bundle.putString("rarity", Integer.toString(temp.getRarity()));
+            bundle.putString("dance", df.format(temp.getDanceStat()));
+            bundle.putString("sing", df.format(temp.getSingStat()));
+            bundle.putString("charm", df.format(temp.getCharmStat()));         //Send the data of the Idol to the Card Fragment to be displayed
+            bundle.putInt("image", temp.getImage());
+
+            IdolCardDialog card = new IdolCardDialog();
+            card.setArguments(bundle);                                                         //Show the Idol Card with relevant information
+            card.show(getSupportFragmentManager(), "IdolCardDialog");
+        }
     }
 
-    public void Scout10(View v)
-    {
+    public void Scout10(View v) {
         Button scout = (Button) v;
-        Animation shrink = AnimationUtils.loadAnimation(this,R.anim.button_press);
+        Animation shrink = AnimationUtils.loadAnimation(this, R.anim.button_press);
         scout.startAnimation(shrink);
+        if (agency.GetCurrentSeeds() >= 10)
+        {
+            agency.SetSeeds(agency.GetCurrentSeeds() - 10);
+            TextView seeds = findViewById(R.id.seed);
+            seeds.setText(Integer.toString(agency.GetCurrentSeeds()));
+
+            for (int i = 0; i < 10; i++) {
+                Bundle bundle = new Bundle();
+
+                Idol temp = new Idol();
+                agency.addIdol(temp);
+
+                bundle.putString("name", temp.getIdolName());
+                bundle.putString("rarity", Integer.toString(temp.getRarity()));
+                bundle.putString("dance", df.format(temp.getDanceStat()));
+                bundle.putString("sing", df.format(temp.getSingStat()));
+                bundle.putString("charm", df.format(temp.getCharmStat()));         //Send the data of the Idol to the Card Fragment to be displayed
+                bundle.putInt("image", temp.getImage());
+
+                IdolCardDialog card = new IdolCardDialog();
+                card.setArguments(bundle);                                                         //Show the Idol Card with relevant information
+                card.show(getSupportFragmentManager(), "IdolCardDialog");
+            }
+        }
     }
 
     public void SpecialScout (View v)
