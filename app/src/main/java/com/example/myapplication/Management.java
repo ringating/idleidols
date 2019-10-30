@@ -78,7 +78,7 @@ public class Management extends AppCompatActivity {
 
         for (int i = 0; i <= (agency.numberOfIdols() / 4); i++)
         {
-            TableRow row = new TableRow(this);  //Generates a new row ever four row elements
+            TableRow row = new TableRow(this);  //Generates a new row every four row elements
             row.setLayoutParams(lp);
 
             for (int n = 0; n < 4 && id < agency.numberOfIdols(); n++) {
