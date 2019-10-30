@@ -10,7 +10,7 @@ public class Task
     public String description;
     public int reqLevel;
     public boolean unlocked;
-    public int numSlots;
+    //public int numSlots;
     public int[] idolSlots; //
     public long startTime; //
     public long processTime;
@@ -20,12 +20,9 @@ public class Task
 
     public Task(String name, String description, int numSlots, int reqLevel, boolean unlocked, long processTime, int danceAff, int singAff, int charmAff)
     {
-//        SetName(name);
-//        SetDescription(description);
-//        SetReqLevel(reqLevel);
         this.name = name;
         this.description = description;
-        this.numSlots = numSlots;
+        //this.numSlots = numSlots;
         this.reqLevel = reqLevel;
         this.unlocked = unlocked;
         this.processTime = processTime; // in milliseconds
@@ -34,13 +31,12 @@ public class Task
         this.charmAff = charmAff;
 
         startTime = 0;
+
+        idolSlots = new int[numSlots];
+        unsetAllIdols();
     }
 
-//    private void SetName(String name){ this.name = name; }
-//    private void SetDescription(String description){ this.name = description; }
-//    private void SetReqLevel(int reqLevel){ this.reqLevel = reqLevel; }
-
-    public boolean startTask(Agency agency)
+    public boolean startTask()
     {
         if(getNumSlottedIdols() < 1)
         {
@@ -57,13 +53,12 @@ public class Task
     }
 
     // check level against this task's required level
-    public boolean isUnlocked(Agency agency)
+    public boolean isUnlocked(int agencyLevel)
     {
-
-        return agency.GetLevel() >= reqLevel;
+        return agencyLevel >= reqLevel;
     }
 
-    public float calcAffinityMultiplier()
+    public float getAffinityMultiplier()
     {
         //TODO
         return 1f;
@@ -81,7 +76,6 @@ public class Task
     
     public boolean setIdol(int idolID, int slotIndex)
     {
-        // do we need to reference the agency for anything in here?
         if(slotIndex >= idolSlots.length || slotIndex < 0)
         {
             return false;
