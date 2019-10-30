@@ -10,7 +10,9 @@ public class Agency extends Application {
     private int totalSeeds;
     private int level;
     private String agencyName;
-    //private Idol[] idols;
+    private Idol[] idols;
+    private int curNumOfIdols;
+    private int maxNumOfIdols;
 
     public void SetCurrency(int currency)
     {
@@ -60,6 +62,21 @@ public class Agency extends Application {
         return agencyName;
     }
 
-    //public Idol[] GetIdols() { return idols; }
+    public Idol[] GetIdols() { return idols; }
+
+    public int GetCurNumOfIdols(Idol[] idols)
+    {
+        return idols.length;
+    }
+
+    public void SetMaxNumOfIdols(int maxNumOfIdols)
+    {
+        this.maxNumOfIdols = maxNumOfIdols;
+    }
+
+    public int GetMaxNumOfIdols()
+    {
+        return this.maxNumOfIdols;
+    }
 
 }

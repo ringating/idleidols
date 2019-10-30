@@ -37,7 +37,7 @@ public class Scout extends AppCompatActivity {
 
         TextView name = findViewById(R.id.agencyName);
         name.setText(agency.GetName());
-        
+
         GoHome(); //goes to home screen on button click
         GoAcademies();
         GoWorkplace();

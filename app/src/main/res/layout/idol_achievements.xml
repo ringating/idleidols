@@ -17,11 +17,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView8"
+        android:id="@+id/Achievement1"
         android:layout_width="366dp"
         android:layout_height="133dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="95dp"
+        android:onClick="ClaimAgencyAchievement"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/activity_card" />
@@ -32,6 +33,7 @@
         android:layout_height="133dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="216dp"
+        android:onClick="ClaimNumberOfIdols"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/activity_card" />
@@ -64,7 +66,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="236dp"
-        android:text="Unlocked Achievement Name (unclaimed)"
+        android:text="Starting the Garden"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -97,7 +99,7 @@
         android:layout_marginStart="116dp"
         android:layout_marginLeft="116dp"
         android:layout_marginTop="148dp"
-        android:text="description"
+        android:text="Create an Agency"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -108,7 +110,7 @@
         android:layout_marginStart="116dp"
         android:layout_marginLeft="116dp"
         android:layout_marginTop="268dp"
-        android:text="description"
+        android:text="Earn a total of 5 seed tokens"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -119,7 +121,7 @@
         android:layout_marginStart="116dp"
         android:layout_marginLeft="116dp"
         android:layout_marginTop="176dp"
-        android:text="reward"
+        android:text="Reward: Seed Tokens x5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -141,7 +143,7 @@
         android:layout_marginStart="116dp"
         android:layout_marginLeft="116dp"
         android:layout_marginTop="296dp"
-        android:text="reward"
+        android:text="Reward: Seed Tokens x5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -164,7 +166,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="116dp"
-        android:text="Locked Achievement Name"
+        android:text="You Made One!"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

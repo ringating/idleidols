@@ -19,7 +19,12 @@ public class Achievements extends AppCompatActivity {
     Dialog myDialog;
 
     Agency agency;
+    TextView curMoney;
+    TextView curTokens;
+    TextView curLevel;
 
+    Achievement createAgencyAchievement = Achievement.CREATE_AGENCY;
+    Achievement get2Idols = Achievement.NUMBER_OF_IDOLS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,18 +36,19 @@ public class Achievements extends AppCompatActivity {
         //This is where the agency passes along data to the page.
         agency = (Agency) getApplicationContext();
 
-        TextView currency = findViewById(R.id.currency);
-        currency.setText(Integer.toString(agency.GetCurrentCurrency()));
+        curMoney = (TextView)findViewById(R.id.currency);
+        curMoney.setText(Integer.toString(agency.GetCurrentCurrency()));
 
-        TextView seeds = findViewById(R.id.seed);
-        seeds.setText(Integer.toString(agency.GetCurrentSeeds()));
+        curTokens = (TextView)findViewById(R.id.seed);
+        curTokens.setText(Integer.toString(agency.GetCurrentSeeds()));
 
-        TextView level = findViewById(R.id.level);
-        level.setText(Integer.toString(agency.GetLevel()));
+        curLevel = (TextView)findViewById(R.id.level);
+        agency.SetLevel(01); //TODO this is just a place holder. Will change later!
+        curLevel.setText(Integer.toString(agency.GetLevel()));
 
         TextView name = findViewById(R.id.agencyName);
         name.setText(agency.GetName());
-        
+
         GoHome(); //goes to home screen on button click
         GoAcademies();
         GoWorkplace();
@@ -52,33 +58,62 @@ public class Achievements extends AppCompatActivity {
 
     }
 
-    public void ShowCard(View v)
+    public void ClaimAgencyAchievement(View v)
     {
-        //this is the animation for clicking on the idol image
-        ImageView button = (ImageView) v;
-        Animation shrink = AnimationUtils.loadAnimation(this,R.anim.button_press);
-        button.startAnimation(shrink);
-        //this is in the window now
-        TextView exitButton;
-        myDialog.setContentView(R.layout.workcard);
-        exitButton = myDialog.findViewById(R.id.exitButton);
-        exitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myDialog.dismiss();
-            }
-        });
+        ImageView agencyAchievement = (ImageView) v;
+        if(createAgencyAchievement.canBeClaimed(agency) && !createAgencyAchievement.GetIsClaimed())
+        {
+            Animation shrink = AnimationUtils.loadAnimation(this,R.anim.button_press);
+            agencyAchievement.startAnimation(shrink);
+            createAgencyAchievement.ClaimAchievement(agency);
+            curTokens.setText(Integer.toString(agency.GetCurrentSeeds()));
+        }
+        else
+        {
+            //TODO Change this to throw an error card obviously. Or maybe the progress?
+            TextView exitButton;
+            myDialog.setContentView(R.layout.workcard);
+            exitButton = myDialog.findViewById(R.id.exitButton);
+            exitButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    myDialog.dismiss();
+                }
+            });
 
-        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        myDialog.show();
+            myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            myDialog.show();
+        }
     }
 
-    public void ReleaseButton(View v)
+    public void ClaimNumberOfIdols (View v)
     {
-        Button release = (Button) v;
-        Animation shrink = AnimationUtils.loadAnimation(this,R.anim.button_press);
-        release.startAnimation(shrink);
+        ImageView idolAchievement = (ImageView) v;
+        if(get2Idols.canBeClaimed(agency) && !get2Idols.GetIsClaimed())
+        {
+            Animation shrink = AnimationUtils.loadAnimation(this,R.anim.button_press);
+            idolAchievement.startAnimation(shrink);
+            get2Idols.ClaimAchievement(agency);
+            curTokens.setText(Integer.toString(agency.GetCurrentSeeds()));
+        }
+        else
+        {
+            //TODO Change this to throw an error card obviously. Or maybe the progress?
+            TextView exitButton;
+            myDialog.setContentView(R.layout.workcard);
+            exitButton = myDialog.findViewById(R.id.exitButton);
+            exitButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    myDialog.dismiss();
+                }
+            });
+
+            myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            myDialog.show();
+        }
     }
+
 
     //The Following methods are for the bottom screen
     private void GoHome()

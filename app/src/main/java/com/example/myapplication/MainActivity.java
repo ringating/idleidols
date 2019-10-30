@@ -17,17 +17,12 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     Dialog myDialog;
-    private final int NORMAL_CLICK = 10;
     Agency agency;
 
     //these are the variables regarding the header.
-    private int currency;
     TextView curMoney;
-    private int seeds;
     TextView curTokens;
-    private int level;
     TextView curLevel;
-    private String name;
     TextView agencyName;
 
 
@@ -42,22 +37,18 @@ public class MainActivity extends AppCompatActivity {
 
         //Displays the information on the header.
         curMoney = (TextView)findViewById(R.id.currency);
-        currency = agency.GetCurrentCurrency();
-        curMoney.setText(Integer.toString(currency));
+        curMoney.setText(Integer.toString(agency.GetCurrentCurrency()));
 
         curTokens = (TextView)findViewById(R.id.seed);
-        seeds = agency.GetCurrentSeeds();
-        curTokens.setText(Integer.toString(seeds));
+        curTokens.setText(Integer.toString(agency.GetCurrentSeeds()));
 
         curLevel = (TextView)findViewById(R.id.level);
         agency.SetLevel(01); //TODO this is just a place holder. Will change later!
-        level = agency.GetLevel();
-        curLevel.setText(Integer.toString(level));
+        curLevel.setText(Integer.toString(agency.GetLevel()));
 
         agencyName = (TextView)findViewById(R.id.agencyName);
         agency.SetName("AgencyName"); //TODO this is just a place holder!
-        name = agency.GetName();
-        agencyName.setText(name);
+        agencyName.setText(agency.GetName());
     }
 
     public void openAchievements(View v) // When the achievements button is pressed, it does this
@@ -118,6 +109,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void idolDoThing(View v) //When the idol is pressed, it does this
     {
+        final int NORMAL_CLICK = 10;
+
         ImageView button = (ImageView) v;                                                   //
         Animation shrink = AnimationUtils.loadAnimation(this, R.anim.button_press); // This animation does something different because it is special
 
@@ -127,10 +120,9 @@ public class MainActivity extends AppCompatActivity {
 
         //increasing by clicking normally.
         //We can later add a graphic or a text view of +10 or whatever to have a visual showing of the increase instead of just the number going up.
-        currency += NORMAL_CLICK;
-        agency.SetCurrency(currency); //this will store the currency value in case we need to trade screens.
-        agency.SetTotalCurrency(agency.GetTotalCurrency() + currency); //store the total collected currency.
-        curMoney.setText(Integer.toString(currency));
+        agency.SetCurrency(agency.GetCurrentCurrency() + NORMAL_CLICK); //this will store the currency value in case we need to trade screens.
+        agency.SetTotalCurrency(agency.GetTotalCurrency() + NORMAL_CLICK); //store the total collected currency.
+        curMoney.setText(Integer.toString(agency.GetCurrentCurrency()));
 
     }
 
