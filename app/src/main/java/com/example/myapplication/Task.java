@@ -1,30 +1,34 @@
 package com.example.myapplication;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class Task
 {
-    private String name;
-    private String description;
-    private int reqLevel;
-    private boolean unlocked;
-    private Idol slot[]; //
-    private long startTime; //
-    private long processTime;
-    private int danceAff;
-    private int singAff;
-    private int charmAff;
+    public String name;
+    public String description;
+    public int reqLevel;
+    public boolean unlocked;
+    public int numSlots;
+    public int[] idolSlots; //
+    public long startTime; //
+    public long processTime;
+    public int danceAff;
+    public int singAff;
+    public int charmAff;
 
-    public Task(String name, String description, int reqLevel, boolean unlocked, long processTime, int danceAff, int singAff, int charmAff)
+    public Task(String name, String description, int numSlots, int reqLevel, boolean unlocked, long processTime, int danceAff, int singAff, int charmAff)
     {
 //        SetName(name);
 //        SetDescription(description);
 //        SetReqLevel(reqLevel);
         this.name = name;
         this.description = description;
+        this.numSlots = numSlots;
         this.reqLevel = reqLevel;
         this.unlocked = unlocked;
-        this.processTime = processTime;
+        this.processTime = processTime; // in milliseconds
         this.danceAff = danceAff;
         this.singAff = singAff;
         this.charmAff = charmAff;
@@ -36,28 +40,30 @@ public class Task
 //    private void SetDescription(String description){ this.name = description; }
 //    private void SetReqLevel(int reqLevel){ this.reqLevel = reqLevel; }
 
-    private boolean startTask()
+    public boolean startTask(Agency agency)
     {
-        boolean ret;
+        if(getNumSlottedIdols() < 1)
+        {
+            return false;
+        }
+
         if (startTime == 0)
         {
             startTime = Calendar.getInstance().getTimeInMillis();
-            ret = true;
+            return true;
         }
-        else
-        {
-            ret = false;
-        }
-        return ret;
+
+        return false;
     }
 
-    public boolean isUnlocked(int n)
+    // check level against this task's required level
+    public boolean isUnlocked(Agency agency)
     {
-        //TODO
-        return true;
+
+        return agency.GetLevel() >= reqLevel;
     }
 
-    private float calcAffinityMultiplier()
+    public float calcAffinityMultiplier()
     {
         //TODO
         return 1f;
@@ -68,19 +74,57 @@ public class Task
         return getRemainingTime() < 0;
     }
 
-    private long getRemainingTime()
+    public long getRemainingTime()
     {
         return processTime - (Calendar.getInstance().getTimeInMillis() - startTime);
     }
-
-    public void setIdol(Idol slotIdol)
+    
+    public boolean setIdol(int idolID, int slotIndex)
     {
-        //TODO
+        // do we need to reference the agency for anything in here?
+        if(slotIndex >= idolSlots.length || slotIndex < 0)
+        {
+            return false;
+        }
+
+        idolSlots[slotIndex] = idolID;
+        return true;
     }
 
-    public Idol getIdol(int id)
+    public boolean unsetIdol(int slotIndex)
     {
-        //TODO
-        return new Idol();
+        if(slotIndex >= idolSlots.length || slotIndex < 0)
+        {
+            return false;
+        }
+
+        idolSlots[slotIndex] = -1;
+        return true;
+    }
+
+    public void unsetAllIdols()
+    {
+        for (int i = 0; i < idolSlots.length; ++i)
+        {
+            idolSlots[i] = -1;
+        }
+    }
+
+    public int[] getIdolSlots(int id)
+    {
+        return idolSlots.clone();
+    }
+
+    public int getNumSlottedIdols()
+    {
+        int count = 0;
+        for (int i = 0; i < idolSlots.length; ++i)
+        {
+            if(idolSlots[i] >= 0)
+            {
+                count++;
+            }
+        }
+        return count;
     }
 }
