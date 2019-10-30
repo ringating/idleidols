@@ -19,9 +19,9 @@ public class Achievements extends AppCompatActivity {
     Dialog myDialog;
 
     Agency agency;
-    TextView curMoney;
-    TextView curTokens;
-    TextView curLevel;
+    TextView currency;
+    TextView seeds;
+    TextView level;
 
     Achievement createAgencyAchievement = Achievement.CREATE_AGENCY;
     Achievement get2Idols = Achievement.NUMBER_OF_IDOLS;
@@ -36,15 +36,15 @@ public class Achievements extends AppCompatActivity {
         //This is where the agency passes along data to the page.
         agency = (Agency) getApplicationContext();
 
-        curMoney = (TextView)findViewById(R.id.currency);
-        curMoney.setText(Integer.toString(agency.GetCurrentCurrency()));
+        currency = (TextView)findViewById(R.id.currency);
+        currency.setText(Integer.toString(agency.GetCurrentCurrency()));
 
-        curTokens = (TextView)findViewById(R.id.seed);
-        curTokens.setText(Integer.toString(agency.GetCurrentSeeds()));
+        seeds = (TextView)findViewById(R.id.seed);
+        seeds.setText(Integer.toString(agency.GetCurrentSeeds()));
 
-        curLevel = (TextView)findViewById(R.id.level);
+        level = (TextView)findViewById(R.id.level);
         agency.SetLevel(01); //TODO this is just a place holder. Will change later!
-        curLevel.setText(Integer.toString(agency.GetLevel()));
+        level.setText(Integer.toString(agency.GetLevel()));
 
         TextView name = findViewById(R.id.agencyName);
         name.setText(agency.GetName());
@@ -66,7 +66,7 @@ public class Achievements extends AppCompatActivity {
             Animation shrink = AnimationUtils.loadAnimation(this,R.anim.button_press);
             agencyAchievement.startAnimation(shrink);
             createAgencyAchievement.ClaimAchievement(agency);
-            curTokens.setText(Integer.toString(agency.GetCurrentSeeds()));
+            seeds.setText(Integer.toString(agency.GetCurrentSeeds()));
         }
         else
         {
@@ -94,7 +94,7 @@ public class Achievements extends AppCompatActivity {
             Animation shrink = AnimationUtils.loadAnimation(this,R.anim.button_press);
             idolAchievement.startAnimation(shrink);
             get2Idols.ClaimAchievement(agency);
-            curTokens.setText(Integer.toString(agency.GetCurrentSeeds()));
+            currency.setText(Integer.toString(agency.GetCurrentCurrency()));
         }
         else
         {

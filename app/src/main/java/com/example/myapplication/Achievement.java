@@ -35,8 +35,8 @@ public enum Achievement     // Using the Java enum class
             "Collect a total of 5 seed tokens",
             R.drawable.rename_image,
             0,
-            0,
-            5
+            500,
+            0
     ) {
 
         @Override
