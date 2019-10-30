@@ -95,7 +95,7 @@ public class Agency extends Application {
 
     public void SetExpNeededToLevel(int level)
     {
-        this.expNeededToLevelUp = level * EXP_LEVEL_MODIFIER;
+        this.expNeededToLevelUp += level * EXP_LEVEL_MODIFIER;
     }
 
     public int GetExpNeededToLevel()
