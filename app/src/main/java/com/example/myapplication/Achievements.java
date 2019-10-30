@@ -68,7 +68,7 @@ public class Achievements extends AppCompatActivity {
             createAgencyAchievement.ClaimAchievement(agency);
             seeds.setText(Integer.toString(agency.GetCurrentSeeds()));
         }
-        else
+        /*else
         {
             //TODO Change this to throw an error card obviously. Or maybe the progress?
             TextView exitButton;
@@ -83,7 +83,7 @@ public class Achievements extends AppCompatActivity {
 
             myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             myDialog.show();
-        }
+        }*/
     }
 
     public void ClaimNumberOfIdols (View v)
@@ -96,7 +96,7 @@ public class Achievements extends AppCompatActivity {
             get2Idols.ClaimAchievement(agency);
             currency.setText(Integer.toString(agency.GetCurrentCurrency()));
         }
-        else
+        /*else
         {
             //TODO Change this to throw an error card obviously. Or maybe the progress?
             TextView exitButton;
@@ -111,7 +111,7 @@ public class Achievements extends AppCompatActivity {
 
             myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             myDialog.show();
-        }
+        }*/
     }
 
 

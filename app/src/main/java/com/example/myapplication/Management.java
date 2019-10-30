@@ -94,20 +94,33 @@ public class Management extends AppCompatActivity {
                         Animation shrink = AnimationUtils.loadAnimation( getBaseContext(), R.anim.button_press); // Adds some animation to the tapping, makes it look like I know what I'm doing (I don't)
                         button.startAnimation(shrink);                                                           //
 
-                        Bundle bundle = new Bundle();
+                        switch (mode)
+                        {
+                            case 0:
+                                Bundle bundle = new Bundle();
 
-                        Idol temp = agency.getIdol(v.getId());
+                                Idol temp = agency.getIdol(v.getId());
 
-                        bundle.putString("name", temp.getIdolName());
-                        bundle.putString("rarity", Integer.toString(temp.getRarity()));
-                        bundle.putString("dance", df.format(temp.getDanceStat()));
-                        bundle.putString("sing", df.format(temp.getSingStat()));
-                        bundle.putString("charm", df.format(temp.getCharmStat()));         //Send the data of a specific idol at index "id" to the Card Fragment to be displayed
-                        bundle.putInt("image", temp.getImage());
+                                bundle.putString("name", temp.getIdolName());
+                                bundle.putString("rarity", Integer.toString(temp.getRarity()));
+                                bundle.putString("dance", df.format(temp.getDanceStat()));
+                                bundle.putString("sing", df.format(temp.getSingStat()));
+                                bundle.putString("charm", df.format(temp.getCharmStat()));         //Send the data of a specific idol at index "id" to the Card Fragment to be displayed
+                                bundle.putInt("image", temp.getImage());
 
-                        IdolCardDialog card = new IdolCardDialog();
-                        card.setArguments(bundle);                                                         //Show the Idol Card with relevant information
-                        card.show(getSupportFragmentManager(), "IdolCardDialog");
+                                IdolCardDialog card = new IdolCardDialog();
+                                card.setArguments(bundle);                                                         //Show the Idol Card with relevant information
+                                card.show(getSupportFragmentManager(), "IdolCardDialog");
+                                break;
+                            case 2:
+                                agency.removeIdolAtIndex(v.getId());
+                                generateList();
+                                ImageView border = findViewById(R.id.warningBorder);
+                                border.setVisibility(View.INVISIBLE);
+                                mode = 1;
+                                break;
+                            default:
+                        }
                     }
                 });
                 id++;
@@ -131,6 +144,12 @@ public class Management extends AppCompatActivity {
         Button release = (Button) v;
         Animation shrink = AnimationUtils.loadAnimation(this,R.anim.button_press);
         release.startAnimation(shrink);
+        if (agency.numberOfIdols() > 0)
+        {
+            ImageView border = findViewById(R.id.warningBorder);
+            border.setVisibility(View.VISIBLE);
+            mode = 2;
+        }
     }
 
     //The Following methods are for the bottom screen
