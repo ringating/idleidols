@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         curTokens.setText(Integer.toString(agency.GetCurrentSeeds()));
 
         curLevel = (TextView)findViewById(R.id.level);
-        agency.SetLevel(01); //TODO this is just a place holder. Will change later!
         curLevel.setText(Integer.toString(agency.GetLevel()));
 
         agencyName = (TextView)findViewById(R.id.agencyName);

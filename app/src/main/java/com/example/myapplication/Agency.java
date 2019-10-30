@@ -17,6 +17,20 @@ public class Agency extends Application {
     private int curExp;
 
     private final int EXP_LEVEL_MODIFIER = 100;
+    private final int LEVEL_INCREMENT = 5;
+    private final int IDOL_NUM_INCREMENT = 3;
+    private final int INITIAL_MAX_NUM_IDOL = 10;
+
+    public Agency()
+    {
+        this.curCurrency = 0;
+        this.totalCurrency = 0;
+        this.curSeeds = 0;
+        this.totalSeeds = 0;
+        this.level = 1;
+        this.curNumOfIdols = 1;
+        this.maxNumOfIdols = INITIAL_MAX_NUM_IDOL;
+    }
 
     public void SetCurrency(int currency)
     {
@@ -73,9 +87,12 @@ public class Agency extends Application {
         return idols.length;
     }
 
-    public void SetMaxNumOfIdols(int maxNumOfIdols)
+    public void SetMaxNumOfIdols(int level)
     {
-        this.maxNumOfIdols = maxNumOfIdols;
+        if(level % LEVEL_INCREMENT == 0)
+        {
+            this.maxNumOfIdols += IDOL_NUM_INCREMENT;
+        }
     }
 
     public int GetMaxNumOfIdols()
