@@ -13,6 +13,10 @@ public class Agency extends Application {
     private Idol[] idols;
     private int curNumOfIdols;
     private int maxNumOfIdols;
+    private int expNeededToLevelUp;
+    private int curExp;
+
+    private final int EXP_LEVEL_MODIFIER = 100;
 
     public void SetCurrency(int currency)
     {
@@ -62,7 +66,7 @@ public class Agency extends Application {
         return agencyName;
     }
 
-    public Idol[] GetIdols() { return idols; }
+    public Idol[] GetIdols() { return this.idols; }
 
     public int GetCurNumOfIdols(Idol[] idols)
     {
@@ -77,6 +81,26 @@ public class Agency extends Application {
     public int GetMaxNumOfIdols()
     {
         return this.maxNumOfIdols;
+    }
+
+    public void SetCurrentExp(int exp)
+    {
+        this.curExp = exp;
+    }
+
+    public int GetCurrentExp()
+    {
+        return this.curExp;
+    }
+
+    public void SetExpNeededToLevel(int level)
+    {
+        this.expNeededToLevelUp = level * EXP_LEVEL_MODIFIER;
+    }
+
+    public int GetExpNeededToLevel()
+    {
+        return this.expNeededToLevelUp;
     }
 
 }
