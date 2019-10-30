@@ -13,7 +13,7 @@ public class Agency extends Application {
     private int totalSeeds;
     private int level;
     private String agencyName;
-    List<Idol> idols = new ArrayList<>();
+    private List<Idol> idols = new ArrayList<>();
 
     public void SetCurrency(int currency)
     {
