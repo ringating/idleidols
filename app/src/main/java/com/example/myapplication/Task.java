@@ -10,7 +10,7 @@ public class Task
     public String description;
     public int reqLevel;
     public boolean unlocked;
-    //public int numSlots;
+    public int numSlots;
     public int[] idolSlots; //
     public long startTime; //
     public long processTime;
@@ -22,7 +22,7 @@ public class Task
     {
         this.name = name;
         this.description = description;
-        //this.numSlots = numSlots;
+        this.numSlots = numSlots;
         this.reqLevel = reqLevel;
         this.unlocked = unlocked;
         this.processTime = processTime; // in milliseconds
@@ -32,7 +32,7 @@ public class Task
 
         startTime = 0;
 
-        idolSlots = new int[numSlots];
+        idolSlots = new int[this.numSlots];
         unsetAllIdols();
     }
 

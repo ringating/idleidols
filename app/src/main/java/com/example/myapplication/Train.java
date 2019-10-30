@@ -51,6 +51,16 @@ public class Train extends AppCompatActivity {
         GoManagement();
         GoAchievements();
 
+        Task testTask = new Task("Task Name", "Task Description", 4, 1, false, 1000, 1,1,1);
+
+        TextView title1 = findViewById(R.id.textView2);
+        title1.setText(testTask.name);
+
+        TextView description1 = findViewById(R.id.textView4);
+        description1.setText(testTask.description);
+
+        TextView slotCount1 = findViewById(R.id.textView5);
+        slotCount1.setText("Occupied Slots: " + testTask.getNumSlottedIdols() + "/" + testTask.numSlots);
     }
 
     public void ShowCard(View v)
