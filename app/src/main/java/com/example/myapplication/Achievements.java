@@ -83,6 +83,14 @@ public class Achievements extends AppCompatActivity {
                 agency.SetCurrentExp(agency.GetCurrentExp() - agency.GetExpNeededToLevel());
                 agency.SetExpNeededToLevel(agency.GetLevel());
                 expBar.setMax(agency.GetExpNeededToLevel());
+
+                //pops up the Level Up Card
+                myDialog.setContentView(R.layout.level_up_card);
+                TextView levelUpText = myDialog.findViewById(R.id.levelUpText);
+                String newLevelUpText = levelUpText.getText().toString() + agency.GetLevel();
+                levelUpText.setText(newLevelUpText);
+                myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                myDialog.show();
             }
             else
             {
@@ -126,6 +134,14 @@ public class Achievements extends AppCompatActivity {
                 agency.SetCurrentExp(agency.GetCurrentExp() - agency.GetExpNeededToLevel());
                 agency.SetExpNeededToLevel(agency.GetLevel());
                 expBar.setMax(agency.GetExpNeededToLevel());
+
+                //pops up the Level Up Card
+                myDialog.setContentView(R.layout.level_up_card);
+                TextView levelUpText = myDialog.findViewById(R.id.levelUpText);
+                String newLevelUpText = levelUpText.getText().toString() + agency.GetLevel();
+                levelUpText.setText(newLevelUpText);
+                myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                myDialog.show();
             }
             else
             {
