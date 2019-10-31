@@ -11,4 +11,5 @@
     <color name="blue">#74C1F9</color>
     <color name="teal">#9BEFDF</color>
     <color name="spookyRed">#FF0000</color>
+    <color name="spookierBlack">#000000</color>
 </resources>

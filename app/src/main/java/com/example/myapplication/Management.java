@@ -4,8 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -18,16 +16,24 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Random;
 
-public class Management extends AppCompatActivity {
+public class Management extends AppCompatActivity implements WarningDialog.Sender{
 
     Dialog myDialog;
     Agency agency;
     int mode = 0;
+    boolean accept = false;
 
     public static final DecimalFormat df =  new DecimalFormat("0.00");
+
+    public void Send(boolean accept, int extra)
+    {
+        if (extra != -1)
+        {
+            agency.removeIdolAtIndex(extra);
+            generateList();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,10 +100,12 @@ public class Management extends AppCompatActivity {
                         Animation shrink = AnimationUtils.loadAnimation( getBaseContext(), R.anim.button_press); // Adds some animation to the tapping, makes it look like I know what I'm doing (I don't)
                         button.startAnimation(shrink);                                                           //
 
+                        Bundle bundle;
+
                         switch (mode)
                         {
                             case 0:
-                                Bundle bundle = new Bundle();
+                                bundle = new Bundle();
 
                                 Idol temp = agency.getIdol(v.getId());
 
@@ -113,11 +121,14 @@ public class Management extends AppCompatActivity {
                                 card.show(getSupportFragmentManager(), "IdolCardDialog");
                                 break;
                             case 2:
-                                agency.removeIdolAtIndex(v.getId());
-                                generateList();
-                                ImageView border = findViewById(R.id.warningBorder);
-                                border.setVisibility(View.INVISIBLE);
-                                mode = 1;
+                                bundle = new Bundle();
+
+                                bundle.putInt("index", v.getId());
+                                bundle.putString("message", "Are you sure you want to remove " + agency.getIdol(v.getId()).getIdolName() + " from existence?");
+
+                                WarningDialog warning = new WarningDialog();
+                                warning.setArguments(bundle);
+                                warning.show(getSupportFragmentManager(), "WarningDialog");
                                 break;
                             default:
                         }
@@ -144,9 +155,15 @@ public class Management extends AppCompatActivity {
         Button release = (Button) v;
         Animation shrink = AnimationUtils.loadAnimation(this,R.anim.button_press);
         release.startAnimation(shrink);
-        if (agency.numberOfIdols() > 0)
+        ImageView border = findViewById(R.id.warningBorder);
+        if (mode == 2)
         {
-            ImageView border = findViewById(R.id.warningBorder);
+            mode = 0;
+            border.setVisibility(View.INVISIBLE);
+        }
+        else if (agency.numberOfIdols() > 0)
+        {
+
             border.setVisibility(View.VISIBLE);
             mode = 2;
         }
