@@ -26,7 +26,7 @@ public class Management extends AppCompatActivity implements WarningDialog.Sende
 
     public static final DecimalFormat df =  new DecimalFormat("0.00");
 
-    public void Send(boolean accept, int extra)
+    public void Send(boolean accept, int extra) //This is called when the "ok" button is pressed in WarningDialog
     {
         if (extra != -1)
         {
@@ -72,27 +72,27 @@ public class Management extends AppCompatActivity implements WarningDialog.Sende
     {
         TableLayout table = findViewById(R.id.table);
         table.removeAllViews();
-        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
-        lp.gravity = Gravity.CENTER_HORIZONTAL;
-        final TableRow.LayoutParams bp = new TableRow.LayoutParams(300,300);
-        bp.leftMargin = 15;
-        bp.rightMargin = 15;
-        bp.bottomMargin = 30;
-        bp.gravity = Gravity.CENTER;
+        TableRow.LayoutParams rowLayout = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);    // Row Layout
+        rowLayout.gravity = Gravity.CENTER_HORIZONTAL;                                                      //
+        final TableRow.LayoutParams buttonLayout = new TableRow.LayoutParams(300,300);   //
+        buttonLayout.leftMargin = 15;                                                           //
+        buttonLayout.rightMargin = 15;                                                          // Button Layout
+        buttonLayout.bottomMargin = 30;                                                         //
+        buttonLayout.gravity = Gravity.CENTER;                                                  //
 
-        int id = 0;
+        int id = 0;  // ID for each button
 
         for (int i = 0; i <= (agency.numberOfIdols() / 4); i++)
         {
             TableRow row = new TableRow(this);  //Generates a new row every four row elements
-            row.setLayoutParams(lp);
+            row.setLayoutParams(rowLayout);
 
             for (int n = 0; n < 4 && id < agency.numberOfIdols(); n++) {
                 ImageView button = new ImageView(this);         //Four buttons are generated each row
                 button.setId(id);                                       //Each button is set a unique id
-                button.setLayoutParams(bp);
+                button.setLayoutParams(buttonLayout);                   //The layout is set for the button
                 button.setBackgroundResource(agency.getIdol(id).getImage()); //The image of the button is taken from the index of the Idol array
-                row.addView(button);
+                row.addView(button);                                         //The button is finally added to the row
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -102,7 +102,7 @@ public class Management extends AppCompatActivity implements WarningDialog.Sende
 
                         Bundle bundle;
 
-                        switch (mode)
+                        switch (mode)   //The button will do different things depending on what "mode" management is in
                         {
                             case 0:
                                 bundle = new Bundle();
@@ -123,12 +123,12 @@ public class Management extends AppCompatActivity implements WarningDialog.Sende
                             case 2:
                                 bundle = new Bundle();
 
-                                bundle.putInt("index", v.getId());
-                                bundle.putString("message", "Are you sure you want to remove " + agency.getIdol(v.getId()).getIdolName() + " from existence?");
+                                bundle.putInt("index", v.getId());  //Sends the index of the idol being affected for the interface
+                                bundle.putString("message", "Are you sure you want to remove " + agency.getIdol(v.getId()).getIdolName() + " from existence?"); //Custom message for WarningDialog
 
                                 WarningDialog warning = new WarningDialog();
                                 warning.setArguments(bundle);
-                                warning.show(getSupportFragmentManager(), "WarningDialog");
+                                warning.show(getSupportFragmentManager(), "WarningDialog"); //Show warning
                                 break;
                             default:
                         }
@@ -137,7 +137,7 @@ public class Management extends AppCompatActivity implements WarningDialog.Sende
                 id++;
             }
 
-            table.addView(row, i);
+            table.addView(row, i);  //The row is added to the table
 
         }
     }

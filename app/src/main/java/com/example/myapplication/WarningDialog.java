@@ -19,7 +19,7 @@ public class WarningDialog extends DialogFragment {
     private Sender data;
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(Context context) { //Ensures that Send is implemented in the parent activity
         super.onAttach(context);
         try {
             this.data = (Sender) context;
@@ -34,9 +34,9 @@ public class WarningDialog extends DialogFragment {
     private TextView message;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setStyle(STYLE_NO_TITLE, R.style.DialogTheme_transparent);
+    public void onCreate(@Nullable Bundle savedInstanceState) {         //
+        super.onCreate(savedInstanceState);                             // Removes the annoying white corners from the rounded warning dialog
+        setStyle(STYLE_NO_TITLE, R.style.DialogTheme_transparent);      //
     }
 
     @Nullable
