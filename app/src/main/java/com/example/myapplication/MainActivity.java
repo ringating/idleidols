@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     TextView curTokens;
     TextView curLevel;
     TextView agencyName;
+    ProgressBar expBar;
 
 
     @Override
@@ -49,6 +51,13 @@ public class MainActivity extends AppCompatActivity {
         agencyName = (TextView)findViewById(R.id.agencyName);
         agency.SetName("AgencyName"); //TODO this is just a place holder!
         agencyName.setText(agency.GetName());
+
+        expBar = (ProgressBar)findViewById(R.id.expBar);
+        agency.SetCurrentExp(0); //TODO initializer?
+        agency.SetExpNeededToLevel(agency.GetLevel());
+        expBar.setMax(agency.GetExpNeededToLevel());
+        expBar.setProgress(agency.GetCurrentExp());
+
     }
 
     public void openAchievements(View v) // When the achievements button is pressed, it does this

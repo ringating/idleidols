@@ -14,7 +14,7 @@ public enum Achievement     // Using the Java enum class
             "You made one!",
             "Create an Agency",
             R.drawable.rename_image,
-            0,
+            150,
             0,
             5
     ){
@@ -34,7 +34,7 @@ public enum Achievement     // Using the Java enum class
             "Starting the Garden",
             "Collect a total of 5 seed tokens",
             R.drawable.rename_image,
-            0,
+            50,
             500,
             0
     ) {
@@ -190,7 +190,7 @@ public enum Achievement     // Using the Java enum class
         agency.SetTotalCurrency(agency.GetTotalCurrency() + this.money);
         agency.SetSeeds(agency.GetCurrentSeeds() + this.seeds);
         agency.SetTotalSeeds(agency.GetTotalSeeds() + this.seeds);
-        //agency.SetExp(agenecy.GetCurrentExp() + this.exp);
+        agency.SetCurrentExp(agency.GetCurrentExp() + this.exp);
 
         //return this.isClaimed;
     }

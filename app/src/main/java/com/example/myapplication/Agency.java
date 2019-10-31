@@ -2,6 +2,9 @@ package com.example.myapplication;
 
 import android.app.Application;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Agency extends Application {
 
     private int curCurrency;
@@ -10,9 +13,12 @@ public class Agency extends Application {
     private int totalSeeds;
     private int level;
     private String agencyName;
-    private Idol[] idols;
-    private int curNumOfIdols;
-    private int maxNumOfIdols;
+    private int expNeededToLevelUp;
+    private int curExp;
+
+    private final int EXP_LEVEL_MODIFIER = 100;
+
+    private List<Idol> idols = new ArrayList<>();
 
     public void SetCurrency(int currency)
     {
@@ -62,21 +68,55 @@ public class Agency extends Application {
         return agencyName;
     }
 
-    public Idol[] GetIdols() { return idols; }
+    public List<Idol> GetIdols() { return this.idols; }
 
-    public int GetCurNumOfIdols(Idol[] idols)
+    public boolean noIdols()
     {
-        return idols.length;
+        return idols.isEmpty();
     }
 
-    public void SetMaxNumOfIdols(int maxNumOfIdols)
+    public Idol getIdol(int i)
     {
-        this.maxNumOfIdols = maxNumOfIdols;
+        return idols.get(i);
     }
 
-    public int GetMaxNumOfIdols()
+    public void addIdol(Idol idol)
     {
-        return this.maxNumOfIdols;
+        idols.add(idol);
     }
 
+    public void removeIdol(Idol idol)
+    {
+        idols.remove(idol);
+    }
+
+    public void removeIdolAtIndex(int i)
+    {
+        idols.remove(i);
+    }
+
+    public void SetCurrentExp(int exp)
+    {
+        this.curExp = exp;
+    }
+
+    public int GetCurrentExp()
+    {
+        return this.curExp;
+    }
+
+    public void SetExpNeededToLevel(int level)
+    {
+        this.expNeededToLevelUp += level * EXP_LEVEL_MODIFIER;
+    }
+
+    public int GetExpNeededToLevel()
+    {
+        return this.expNeededToLevelUp;
+    }
+
+    public int numberOfIdols()
+    {
+        return idols.size();
+    }
 }

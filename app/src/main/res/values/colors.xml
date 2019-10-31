@@ -4,9 +4,11 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="lightPink">#F8DEE9</color>
+    <color name="violet">#D684FF</color>
     <color name="pink">#FFC3DC</color>
     <color name="darkPink">#702E58</color>
     <color name="lightBlue">#A9D6F7</color>
     <color name="blue">#74C1F9</color>
     <color name="teal">#9BEFDF</color>
+    <color name="spookyRed">#FF0000</color>
 </resources>

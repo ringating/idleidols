@@ -85,3 +85,4 @@ lint/tmp/
 .idea/codeStyles/Project.xml
 .idea/misc.xml
 .idea/runConfigurations.xml
+build.gradle

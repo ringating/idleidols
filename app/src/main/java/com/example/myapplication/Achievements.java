@@ -10,6 +10,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,6 +23,7 @@ public class Achievements extends AppCompatActivity {
     TextView currency;
     TextView seeds;
     TextView level;
+    ProgressBar expBar;
 
     Achievement createAgencyAchievement = Achievement.CREATE_AGENCY;
     Achievement get2Idols = Achievement.NUMBER_OF_IDOLS;
@@ -49,6 +51,10 @@ public class Achievements extends AppCompatActivity {
         TextView name = findViewById(R.id.agencyName);
         name.setText(agency.GetName());
 
+        expBar = (ProgressBar)findViewById(R.id.expBar);
+        expBar.setMax(agency.GetExpNeededToLevel());
+        expBar.setProgress(agency.GetCurrentExp());
+
         GoHome(); //goes to home screen on button click
         GoAcademies();
         GoWorkplace();
@@ -67,8 +73,32 @@ public class Achievements extends AppCompatActivity {
             agencyAchievement.startAnimation(shrink);
             createAgencyAchievement.ClaimAchievement(agency);
             seeds.setText(Integer.toString(agency.GetCurrentSeeds()));
+
+            //This is the code for checking EXP
+            if(agency.GetCurrentExp() >= agency.GetExpNeededToLevel())
+            {
+                agency.SetLevel(agency.GetLevel() + 1);
+                level.setText(Integer.toString(agency.GetLevel()));
+                expBar.setProgress(agency.GetCurrentExp() - agency.GetExpNeededToLevel());
+                agency.SetCurrentExp(agency.GetCurrentExp() - agency.GetExpNeededToLevel());
+                agency.SetExpNeededToLevel(agency.GetLevel());
+                expBar.setMax(agency.GetExpNeededToLevel());
+
+                //pops up the Level Up Card
+                myDialog.setContentView(R.layout.level_up_card);
+                TextView levelUpText = myDialog.findViewById(R.id.levelUpText);
+                String newLevelUpText = levelUpText.getText().toString() + agency.GetLevel();
+                levelUpText.setText(newLevelUpText);
+                myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                myDialog.show();
+            }
+            else
+            {
+                expBar.setProgress(agency.GetCurrentExp());
+                agency.SetCurrentExp(agency.GetCurrentExp());
+            }
         }
-        else
+        /*else
         {
             //TODO Change this to throw an error card obviously. Or maybe the progress?
             TextView exitButton;
@@ -83,7 +113,7 @@ public class Achievements extends AppCompatActivity {
 
             myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             myDialog.show();
-        }
+        }*/
     }
 
     public void ClaimNumberOfIdols (View v)
@@ -95,8 +125,31 @@ public class Achievements extends AppCompatActivity {
             idolAchievement.startAnimation(shrink);
             get2Idols.ClaimAchievement(agency);
             currency.setText(Integer.toString(agency.GetCurrentCurrency()));
+
+            if(agency.GetCurrentExp() >= agency.GetExpNeededToLevel())
+            {
+                agency.SetLevel(agency.GetLevel() + 1);
+                level.setText(Integer.toString(agency.GetLevel()));
+                expBar.setProgress(agency.GetCurrentExp() - agency.GetExpNeededToLevel());
+                agency.SetCurrentExp(agency.GetCurrentExp() - agency.GetExpNeededToLevel());
+                agency.SetExpNeededToLevel(agency.GetLevel());
+                expBar.setMax(agency.GetExpNeededToLevel());
+
+                //pops up the Level Up Card
+                myDialog.setContentView(R.layout.level_up_card);
+                TextView levelUpText = myDialog.findViewById(R.id.levelUpText);
+                String newLevelUpText = levelUpText.getText().toString() + agency.GetLevel();
+                levelUpText.setText(newLevelUpText);
+                myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                myDialog.show();
+            }
+            else
+            {
+                expBar.setProgress(agency.GetCurrentExp());
+                agency.SetCurrentExp(agency.GetCurrentExp());
+            }
         }
-        else
+        /*else
         {
             //TODO Change this to throw an error card obviously. Or maybe the progress?
             TextView exitButton;
@@ -111,7 +164,7 @@ public class Achievements extends AppCompatActivity {
 
             myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
             myDialog.show();
-        }
+        }*/
     }
 
 

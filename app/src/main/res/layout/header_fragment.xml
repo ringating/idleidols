@@ -4,6 +4,15 @@
     android:layout_height="100dp"
     android:background="@drawable/header">
 
+    <ProgressBar
+        android:id="@+id/expBar"
+        android:layout_width="283dp"
+        android:layout_height="25dp"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:progressDrawable="@drawable/experience_bar"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="115dp"/>
+
     <TextView
         android:id="@+id/currency"
         android:layout_width="wrap_content"
