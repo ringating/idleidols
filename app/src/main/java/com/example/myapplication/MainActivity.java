@@ -12,11 +12,21 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
 
     Dialog myDialog;
+    Agency agency;
+
+    //these are the variables regarding the header.
+    TextView curMoney;
+    TextView curTokens;
+    TextView curLevel;
+    TextView agencyName;
+    ProgressBar expBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) // Some android stuff, probably important
@@ -24,6 +34,30 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         myDialog = new Dialog(this);
+        //Creates the Agency object in the context of the application instead of just the page.
+        agency = (Agency) getApplicationContext();
+
+        //Displays the information on the header.
+        curMoney = (TextView)findViewById(R.id.currency);
+        curMoney.setText(Integer.toString(agency.GetCurrentCurrency()));
+
+        curTokens = (TextView)findViewById(R.id.seed);
+        curTokens.setText(Integer.toString(agency.GetCurrentSeeds()));
+
+        curLevel = (TextView)findViewById(R.id.level);
+        agency.SetLevel(01); //TODO this is just a place holder. Will change later!
+        curLevel.setText(Integer.toString(agency.GetLevel()));
+
+        agencyName = (TextView)findViewById(R.id.agencyName);
+        agency.SetName("AgencyName"); //TODO this is just a place holder!
+        agencyName.setText(agency.GetName());
+
+        expBar = (ProgressBar)findViewById(R.id.expBar);
+        agency.SetCurrentExp(0); //TODO initializer?
+        agency.SetExpNeededToLevel(agency.GetLevel());
+        expBar.setMax(agency.GetExpNeededToLevel());
+        expBar.setProgress(agency.GetCurrentExp());
+
     }
 
     public void openAchievements(View v) // When the achievements button is pressed, it does this
@@ -31,8 +65,16 @@ public class MainActivity extends AppCompatActivity {
     {
         ImageView button = (ImageView) v;                                                   //
         Animation shrink = AnimationUtils.loadAnimation(this, R.anim.button_press); // Adds some animation to the tapping, makes it look like I know what I'm doing (I don't)
+
         button.startAnimation(shrink);                                                      //
         startActivity(new Intent(MainActivity.this, Achievements.class));
+
+        button.startAnimation(shrink);//
+        curMoney = (TextView) findViewById(R.id.currency);
+
+        Intent i = new Intent(MainActivity.this, Achievements.class);
+        startActivity(i);
+
     }
 
     public void openManagement(View v) //When the management button is pressed, it does this
@@ -76,9 +118,21 @@ public class MainActivity extends AppCompatActivity {
 
     public void idolDoThing(View v) //When the idol is pressed, it does this
     {
+        final int NORMAL_CLICK = 10;
+
         ImageView button = (ImageView) v;                                                   //
         Animation shrink = AnimationUtils.loadAnimation(this, R.anim.button_press); // This animation does something different because it is special
+
         button.startAnimation(shrink);                                                      //
+
+        button.startAnimation(shrink);//
+
+        //increasing by clicking normally.
+        //We can later add a graphic or a text view of +10 or whatever to have a visual showing of the increase instead of just the number going up.
+        agency.SetCurrency(agency.GetCurrentCurrency() + NORMAL_CLICK); //this will store the currency value in case we need to trade screens.
+        agency.SetTotalCurrency(agency.GetTotalCurrency() + NORMAL_CLICK); //store the total collected currency.
+        curMoney.setText(Integer.toString(agency.GetCurrentCurrency()));
+
     }
 
     public void openWork(View v) //When the work button is pressed, it does this

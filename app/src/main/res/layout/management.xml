@@ -7,14 +7,29 @@
     android:background="@drawable/background"
     tools:context=".Management">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="411dp"
-        android:layout_height="104dp"
+    <fragment
+        android:id="@+id/header"
+        android:name="com.example.myapplication.HeaderFragment"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/header" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/warningBorder"
+        android:layout_width="410dp"
+        android:layout_height="585dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginBottom="45dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/warning_border"
+        tools:srcCompat="@drawable/warning_border" />
 
     <Button
         android:id="@+id/combine"
@@ -48,75 +63,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/combine"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/idol1"
-        android:layout_width="155dp"
-        android:layout_height="161dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="28dp"
-        android:adjustViewBounds="false"
-        android:background="@drawable/onion"
-        android:onClick="ShowIdolCard"
-        android:scaleType="fitCenter"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/combine"
-        app:srcCompat="@drawable/onion" />
-
-    <ImageView
-        android:id="@+id/idol4"
-        android:onClick="ShowIdolCard"
-        android:layout_width="155dp"
-        android:layout_height="161dp"
-        android:layout_marginStart="220dp"
-        android:layout_marginLeft="220dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
-        android:adjustViewBounds="false"
-        android:background="@drawable/onion"
-        android:scaleType="fitCenter"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idol3"
-        app:srcCompat="@drawable/onion" />
-
-    <ImageView
-        android:id="@+id/idol3"
-        android:onClick="ShowIdolCard"
-        android:layout_width="155dp"
-        android:layout_height="161dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
-        android:adjustViewBounds="false"
-        android:background="@drawable/tomato"
-        android:scaleType="fitCenter"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/idol1"
-        app:layout_constraintTop_toBottomOf="@+id/releaseButton"
-        app:srcCompat="@drawable/tomato" />
-
-    <ImageView
-        android:id="@+id/idol2"
-        android:onClick="ShowIdolCard"
-        android:layout_width="155dp"
-        android:layout_height="161dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="30dp"
-        android:adjustViewBounds="false"
-        android:background="@drawable/tomato"
-        android:scaleType="fitCenter"
-        app:layout_constraintEnd_toStartOf="@+id/idol4"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idol1"
-        app:srcCompat="@drawable/tomato" />
 
     <Button
         android:id="@+id/home_button"
@@ -171,5 +117,22 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/management_button" />
+
+    <ScrollView
+        android:id="@+id/scroll"
+        android:layout_width="408dp"
+        android:layout_height="511dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/releaseButton">
+
+        <TableLayout
+            android:id="@+id/table"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

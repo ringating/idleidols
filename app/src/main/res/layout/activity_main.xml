@@ -7,19 +7,20 @@
     tools:context=".MainActivity"
     android:background="@drawable/background">
 
-    <ImageView
+    <fragment
         android:id="@+id/header"
-        android:layout_width="414dp"
-        android:layout_height="104dp"
+        android:name="com.example.myapplication.HeaderFragment"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/header"
-        tools:ignore="ContentDescription" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/managementButton"
         android:layout_width="70dp"
         android:layout_height="70dp"
+        android:layout_marginLeft="32dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="8dp"
         android:contentDescription="@string/managementButton_desc"
@@ -32,6 +33,7 @@
         android:id="@+id/recruitButton"
         android:layout_width="70dp"
         android:layout_height="70dp"
+        android:layout_marginLeft="24dp"
         android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/managementButton"
@@ -101,51 +103,6 @@
         app:layout_constraintTop_toBottomOf="@+id/managementButton"
         app:srcCompat="@drawable/tempsidebutton"
         android:onClick="openWork"/>
-
-    <TextView
-        android:id="@+id/agencyName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="78dp"
-        android:layout_marginStart="116dp"
-        android:text="myAgency"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/header"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/money"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:layout_marginStart="150dp"
-        android:text="999999"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/header"
-        app:layout_constraintStart_toStartOf="@+id/header" />
-
-    <TextView
-        android:id="@+id/gacha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:layout_marginStart="300dp"
-        android:text="999999"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/header"
-        app:layout_constraintStart_toStartOf="@+id/header" />
-
-    <TextView
-        android:id="@+id/level"
-        android:layout_width="95dp"
-        android:layout_height="89dp"
-        android:layout_marginBottom="13dp"
-        android:layout_marginStart="10dp"
-        android:gravity="center"
-        android:text="99"
-        android:textSize="70sp"
-        app:layout_constraintBottom_toBottomOf="@+id/header"
-        app:layout_constraintStart_toStartOf="@+id/header" />
 
     <ImageView
         android:id="@+id/imageView10"

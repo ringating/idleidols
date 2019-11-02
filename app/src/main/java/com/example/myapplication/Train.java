@@ -21,12 +21,28 @@ import org.w3c.dom.Text;
 public class Train extends AppCompatActivity {
 
     Dialog myDialog;
+    Agency agency;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.idol_train);
         myDialog = new Dialog(this);
+
+        //This is where the agency passes along data to the page.
+        agency = (Agency) getApplicationContext();
+
+        TextView currency = findViewById(R.id.currency);
+        currency.setText(Integer.toString(agency.GetCurrentCurrency()));
+
+        TextView seeds = findViewById(R.id.seed);
+        seeds.setText(Integer.toString(agency.GetCurrentSeeds()));
+
+        TextView level = findViewById(R.id.level);
+        level.setText(Integer.toString(agency.GetLevel()));
+
+        TextView name = findViewById(R.id.agencyName);
+        name.setText(agency.GetName());
 
         GoHome(); //goes to home screen on button click
         GoAcademies();
@@ -35,6 +51,16 @@ public class Train extends AppCompatActivity {
         GoManagement();
         GoAchievements();
 
+        Task testTask = new Task("Task Name", "Task Description", 4, 1, false, 1000, 1,1,1);
+
+        TextView title1 = findViewById(R.id.textView2);
+        title1.setText(testTask.name);
+
+        TextView description1 = findViewById(R.id.textView4);
+        description1.setText(testTask.description);
+
+        TextView slotCount1 = findViewById(R.id.textView5);
+        slotCount1.setText("Occupied Slots: " + testTask.getNumSlottedIdols() + "/" + testTask.numSlots);
     }
 
     public void ShowCard(View v)

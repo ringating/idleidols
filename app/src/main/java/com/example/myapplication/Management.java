@@ -4,23 +4,36 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import java.text.DecimalFormat;
 
-public class Management extends AppCompatActivity {
+public class Management extends AppCompatActivity implements WarningDialog.Sender{
 
     Dialog myDialog;
+    Agency agency;
+    int mode = 0;
+    boolean accept = false;
+
+    public static final DecimalFormat df =  new DecimalFormat("0.00");
+
+    public void Send(boolean accept, int extra) //This is called when the "ok" button is pressed in WarningDialog
+    {
+        if (extra != -1)
+        {
+            agency.removeIdolAtIndex(extra);
+            generateList();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,34 +41,105 @@ public class Management extends AppCompatActivity {
         setContentView(R.layout.management);
         myDialog = new Dialog(this);
 
-        GoHome(); //goes to home screen on button click
+        //This is where the agency passes along data to the page.
+        agency = (Agency) getApplicationContext();
+
+        TextView currency = findViewById(R.id.currency);
+        currency.setText(Integer.toString(agency.GetCurrentCurrency()));
+
+        TextView seeds = findViewById(R.id.seed);
+        seeds.setText(Integer.toString(agency.GetCurrentSeeds()));
+
+        TextView level = findViewById(R.id.level);
+        level.setText(Integer.toString(agency.GetLevel()));
+
+        TextView name = findViewById(R.id.agencyName);
+        name.setText(agency.GetName());
+
+        //The button menu button functions
+        GoHome();
         GoAcademies();
         GoWorkplace();
         GoScout();
         GoManagement();
         GoAchievements();
 
+        generateList();         // dynamically creates a table layout based on number of idols
+
     }
 
-    public void ShowIdolCard(View v)
+    public void generateList()
     {
-        //this is the animation for clicking on the idol image
-        ImageView button = (ImageView) v;
-        Animation shrink = AnimationUtils.loadAnimation(this,R.anim.button_press);
-        button.startAnimation(shrink);
-        //this is in the window now
-        TextView exitButton;
-        myDialog.setContentView(R.layout.idolcard);
-        exitButton = myDialog.findViewById(R.id.exitButton);
-        exitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myDialog.dismiss();
-            }
-        });
+        TableLayout table = findViewById(R.id.table);
+        table.removeAllViews();
+        TableRow.LayoutParams rowLayout = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);    // Row Layout
+        rowLayout.gravity = Gravity.CENTER_HORIZONTAL;                                                      //
+        final TableRow.LayoutParams buttonLayout = new TableRow.LayoutParams(300,300);   //
+        buttonLayout.leftMargin = 15;                                                           //
+        buttonLayout.rightMargin = 15;                                                          // Button Layout
+        buttonLayout.bottomMargin = 30;                                                         //
+        buttonLayout.gravity = Gravity.CENTER;                                                  //
 
-        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        myDialog.show();
+        int id = 0;  // ID for each button
+
+        for (int i = 0; i <= (agency.numberOfIdols() / 4); i++)
+        {
+            TableRow row = new TableRow(this);  //Generates a new row every four row elements
+            row.setLayoutParams(rowLayout);
+
+            for (int n = 0; n < 4 && id < agency.numberOfIdols(); n++) {
+                ImageView button = new ImageView(this);         //Four buttons are generated each row
+                button.setId(id);                                       //Each button is set a unique id
+                button.setLayoutParams(buttonLayout);                   //The layout is set for the button
+                button.setBackgroundResource(agency.getIdol(id).getImage()); //The image of the button is taken from the index of the Idol array
+                row.addView(button);                                         //The button is finally added to the row
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ImageView button = (ImageView) v;                                                        //
+                        Animation shrink = AnimationUtils.loadAnimation( getBaseContext(), R.anim.button_press); // Adds some animation to the tapping, makes it look like I know what I'm doing (I don't)
+                        button.startAnimation(shrink);                                                           //
+
+                        Bundle bundle;
+
+                        switch (mode)   //The button will do different things depending on what "mode" management is in
+                        {
+                            case 0:
+                                bundle = new Bundle();
+
+                                Idol temp = agency.getIdol(v.getId());
+
+                                bundle.putString("name", temp.getIdolName());
+                                bundle.putString("rarity", Integer.toString(temp.getRarity()));
+                                bundle.putString("dance", df.format(temp.getDanceStat()));
+                                bundle.putString("sing", df.format(temp.getSingStat()));
+                                bundle.putString("charm", df.format(temp.getCharmStat()));         //Send the data of a specific idol at index "id" to the Card Fragment to be displayed
+                                bundle.putInt("image", temp.getImage());
+
+                                IdolCardDialog card = new IdolCardDialog();
+                                card.setArguments(bundle);                                                         //Show the Idol Card with relevant information
+                                card.show(getSupportFragmentManager(), "IdolCardDialog");
+                                break;
+                            case 2:
+                                bundle = new Bundle();
+
+                                bundle.putInt("index", v.getId());  //Sends the index of the idol being affected for the interface
+                                bundle.putString("message", "Are you sure you want to remove " + agency.getIdol(v.getId()).getIdolName() + " from existence?"); //Custom message for WarningDialog
+
+                                WarningDialog warning = new WarningDialog();
+                                warning.setArguments(bundle);
+                                warning.show(getSupportFragmentManager(), "WarningDialog"); //Show warning
+                                break;
+                            default:
+                        }
+                    }
+                });
+                id++;
+            }
+
+            table.addView(row, i);  //The row is added to the table
+
+        }
     }
 
     public void CombineButton(View v) //combine method goes here
@@ -63,6 +147,7 @@ public class Management extends AppCompatActivity {
         Button combine = (Button) v;
         Animation shrink = AnimationUtils.loadAnimation(this,R.anim.button_press);
         combine.startAnimation(shrink);
+
     }
 
     public void ReleaseButton(View v)
@@ -70,6 +155,18 @@ public class Management extends AppCompatActivity {
         Button release = (Button) v;
         Animation shrink = AnimationUtils.loadAnimation(this,R.anim.button_press);
         release.startAnimation(shrink);
+        ImageView border = findViewById(R.id.warningBorder);
+        if (mode == 2)
+        {
+            mode = 0;
+            border.setVisibility(View.INVISIBLE);
+        }
+        else if (agency.numberOfIdols() > 0)
+        {
+
+            border.setVisibility(View.VISIBLE);
+            mode = 2;
+        }
     }
 
     //The Following methods are for the bottom screen

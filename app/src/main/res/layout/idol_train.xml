@@ -5,15 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".MainActivity">
+    tools:context=".Train">
 
-    <ImageView
-        android:id="@+id/imageView11"
-        android:layout_width="0dp"
-        android:layout_height="103dp"
+    <fragment
+        android:id="@+id/header"
+        android:name="com.example.myapplication.HeaderFragment"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/header" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/divider6"

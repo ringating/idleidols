@@ -5,22 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    tools:context=".MainActivity">
+    tools:context=".Achievements">
 
-    <ImageView
-        android:id="@+id/imageView11"
-        android:layout_width="0dp"
-        android:layout_height="103dp"
+    <fragment
+        android:id="@+id/header"
+        android:name="com.example.myapplication.HeaderFragment"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/header" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imageView8"
+        android:id="@+id/Achievement1"
         android:layout_width="366dp"
         android:layout_height="133dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="95dp"
+        android:onClick="ClaimAgencyAchievement"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/activity_card" />
@@ -31,30 +33,10 @@
         android:layout_height="133dp"
         android:layout_marginLeft="5dp"
         android:layout_marginTop="216dp"
+        android:onClick="ClaimNumberOfIdols"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/activity_card" />
-
-    <ImageView
-        android:id="@+id/imageView13"
-        android:layout_width="366dp"
-        android:layout_height="133dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="334dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/activity_card" />
-
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="225dp"
-        android:layout_height="21dp"
-        android:layout_marginStart="116dp"
-        android:layout_marginLeft="116dp"
-        android:layout_marginTop="412dp"
-        android:text="reward"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView7"
@@ -63,31 +45,9 @@
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="236dp"
-        android:text="Unlocked Achievement Name (unclaimed)"
+        android:text="Starting the Garden"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/imageView10"
-        android:layout_width="73dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="232dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:srcCompat="@drawable/achieve_unlocked" />
-
-    <ImageView
-        android:id="@+id/imageView19"
-        android:layout_width="73dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="264dp"
-        android:layout_marginLeft="264dp"
-        android:layout_marginTop="226dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:srcCompat="@drawable/achieve_claimed" />
 
     <TextView
         android:id="@+id/textView4"
@@ -96,7 +56,7 @@
         android:layout_marginStart="116dp"
         android:layout_marginLeft="116dp"
         android:layout_marginTop="148dp"
-        android:text="description"
+        android:text="Create an Agency"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -107,7 +67,7 @@
         android:layout_marginStart="116dp"
         android:layout_marginLeft="116dp"
         android:layout_marginTop="268dp"
-        android:text="description"
+        android:text="Earn a total of 5 seed tokens"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -118,18 +78,7 @@
         android:layout_marginStart="116dp"
         android:layout_marginLeft="116dp"
         android:layout_marginTop="176dp"
-        android:text="reward"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView9"
-        android:layout_width="225dp"
-        android:layout_height="21dp"
-        android:layout_marginStart="116dp"
-        android:layout_marginLeft="116dp"
-        android:layout_marginTop="384dp"
-        android:text="description"
+        android:text="Reward: Seed Tokens x5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -140,7 +89,7 @@
         android:layout_marginStart="116dp"
         android:layout_marginLeft="116dp"
         android:layout_marginTop="296dp"
-        android:text="reward"
+        android:text="Reward: Seed Tokens x5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -163,7 +112,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="116dp"
-        android:text="Locked Achievement Name"
+        android:text="You Made One!"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -177,17 +126,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
         app:srcCompat="@drawable/achieve_unlocked" />
-
-    <TextView
-        android:id="@+id/textView10"
-        android:layout_width="306dp"
-        android:layout_height="21dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
-        android:layout_marginTop="352dp"
-        android:text="Unlocked Achievement Name (claimed)"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView2"

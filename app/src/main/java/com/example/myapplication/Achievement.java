@@ -1,48 +1,54 @@
-/**
- * Name: Brian Beeby
- * Project: IdleIdol
- * Task: Achievement object class
- * Date: 10/23/19
- */
 
 package com.example.myapplication;  // Package and imports copy-pasted from Achievements
+
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.view.View;
+import android.widget.TextView;
 
 public enum Achievement     // Using the Java enum class
 {
     // 5 sample achievements
-    SAMPLE_1(
-            "Sample 1",
-            "This is a sample achievement",
+    CREATE_AGENCY(
+            "You made one!",
+            "Create an Agency",
             R.drawable.rename_image,
-            100,
-            100,
-            100
-    ) {
-
+            150,
+            0,
+            5
+    ){
         @Override
-        public boolean shouldUnlock(Object... args)
+        public boolean canBeClaimed(Object... args)
         {
-            // Let's pretend this achievement requires a certain amount of coins
-            int coins = ((Integer) args[0]).intValue(); // notice the unsafe cast
-            return coins > 500;
+            Agency agency = (Agency)args[0];
+            if(agency != null)
+            {
+                this.SetCanClaim(true);
+            }
+            return this.GetCanClaim();
         }
     },
 
-    SAMPLE_2(
-            "Sample 2",
-            "This is a sample achievement",
+    NUMBER_OF_IDOLS(
+            "Starting the Garden",
+            "Collect a total of 5 seed tokens",
             R.drawable.rename_image,
-            300,
-            20,
-            150
+            50,
+            500,
+            0
     ) {
 
         @Override
-        public boolean shouldUnlock(Object... args)
+        public boolean canBeClaimed(Object... args)
         {
-            // Let's pretend this achievement requires a certain amount of coins
-            int coins = ((Integer) args[0]).intValue(); // notice the unsafe cast
-            return coins > 500;
+            Agency agency = (Agency)args[0];
+            if(agency.GetTotalSeeds() == 5)
+            {
+                this.SetCanClaim(true);
+            }
+
+            return this.GetCanClaim();
         }
     },
 
@@ -56,7 +62,7 @@ public enum Achievement     // Using the Java enum class
     ) {
 
         @Override
-        public boolean shouldUnlock(Object... args)
+        public boolean canBeClaimed(Object... args)
         {
             // Let's pretend this achievement requires a certain amount of coins
             int coins = ((Integer) args[0]).intValue(); // notice the unsafe cast
@@ -74,7 +80,7 @@ public enum Achievement     // Using the Java enum class
     ) {
 
         @Override
-        public boolean shouldUnlock(Object... args)
+        public boolean canBeClaimed(Object... args)
         {
             // Let's pretend this achievement requires a certain amount of coins
             int coins = ((Integer) args[0]).intValue(); // notice the unsafe cast
@@ -92,7 +98,7 @@ public enum Achievement     // Using the Java enum class
     ) {
 
         @Override
-        public boolean shouldUnlock(Object... args)
+        public boolean canBeClaimed(Object... args)
         {
             // Let's pretend this achievement requires a certain amount of coins
             int coins = ((Integer) args[0]).intValue(); // notice the unsafe cast
@@ -124,11 +130,11 @@ public enum Achievement     // Using the Java enum class
     /**
      * This achievement can be unlocked
      */
-    private boolean visible;
+    private boolean isClaimed;
     /**
      * This achievement has been unlocked
      */
-    private boolean unlocked;
+    private boolean canClaim;
 
     Achievement(String title, String description, int imageDrawable, int exp, int money, int seeds)
     {
@@ -138,8 +144,8 @@ public enum Achievement     // Using the Java enum class
         this.exp = exp;
         this.money = money;
         this.seeds = seeds;
-        this.visible = false;
-        this.unlocked = false;
+        this.isClaimed = false;
+        this.canClaim = false;
     }
 
     /*
@@ -149,28 +155,43 @@ public enum Achievement     // Using the Java enum class
      *  and ordering needs to be done in each individual override!
      */
 
-    /**
-     * Test whether this achievement can be unlocked
-     * @param args Whatever parameters are needed for this specific achievement
-     * @return
-     */
-    public abstract boolean shouldUnlock(Object... args);
-
-    /**
-     * isVisible
-     * @return true if achievement is claimed; hence visible
-     */
-    public boolean isVisible()
-    {
-        return visible;
-    }
 
     /**
      * isUnlocked
      * @return true if achievement is unlocked
      */
-    public boolean isUnlocked()
+    public abstract boolean canBeClaimed(Object... args);
+
+    public void SetCanClaim(boolean newClaimState)
     {
-        return unlocked;
+        this.canClaim = newClaimState;
+    }
+
+    public boolean GetCanClaim()
+    {
+        return this.canClaim;
+    }
+
+    public void SetIsClaimed(boolean newClaimState)
+    {
+        this.isClaimed = newClaimState;
+    }
+
+    public boolean GetIsClaimed()
+    {
+        return this.isClaimed;
+    }
+
+    public void ClaimAchievement(Agency agency)
+    {
+        //TODO change this to return something so we can set multiple states of the Achievement Later
+        this.SetIsClaimed(true);
+        agency.SetCurrency(agency.GetCurrentCurrency() + this.money);
+        agency.SetTotalCurrency(agency.GetTotalCurrency() + this.money);
+        agency.SetSeeds(agency.GetCurrentSeeds() + this.seeds);
+        agency.SetTotalSeeds(agency.GetTotalSeeds() + this.seeds);
+        agency.SetCurrentExp(agency.GetCurrentExp() + this.exp);
+
+        //return this.isClaimed;
     }
 }
