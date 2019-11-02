@@ -28,6 +28,7 @@ public class AchievementFragment extends Fragment
         // Required empty public constructor
     }
 
+    // This method is a static factory method.
     public static AchievementFragment createAchievementFragment(Achievement achievement)
     {
         AchievementFragment fragment = new AchievementFragment();

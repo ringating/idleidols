@@ -14,9 +14,11 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
-public class Achievements extends AppCompatActivity {
-
+public class Achievements extends AppCompatActivity
+{
     Dialog myDialog;
 
     Agency agency;
@@ -29,11 +31,13 @@ public class Achievements extends AppCompatActivity {
     Achievement get2Idols = Achievement.NUMBER_OF_IDOLS;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.idol_achievements);
         myDialog = new Dialog(this);
 
+        loadAchievements();
 
         //This is where the agency passes along data to the page.
         agency = (Agency) getApplicationContext();
@@ -45,7 +49,7 @@ public class Achievements extends AppCompatActivity {
         seeds.setText(Integer.toString(agency.GetCurrentSeeds()));
 
         level = (TextView)findViewById(R.id.level);
-        agency.SetLevel(01); //TODO this is just a place holder. Will change later!
+        agency.SetLevel(01); // TODO: This is just a place holder; will change later!
         level.setText(Integer.toString(agency.GetLevel()));
 
         TextView name = findViewById(R.id.agencyName);
@@ -55,12 +59,33 @@ public class Achievements extends AppCompatActivity {
         expBar.setMax(agency.GetExpNeededToLevel());
         expBar.setProgress(agency.GetCurrentExp());
 
-        GoHome(); //goes to home screen on button click
+        GoHome(); // goes to home screen on button click
         GoAcademies();
         GoWorkplace();
         GoScout();
         GoManagement();
         GoAchievements();
+
+    }
+
+    private void loadAchievements()
+    {
+        /*
+         * For each enum value in Achievements:
+         *      Create an instance of the achievement fragment using factory method;
+         *      Add the achievement to the linear layout using begin transaction stuff.
+         */
+
+        for (Achievement value : Achievement.values())
+        {
+            FragmentManager manager = getSupportFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
+
+            AchievementFragment fragment = AchievementFragment.createAchievementFragment(value);
+            transaction.add(R.id.achievements_list, fragment);
+            transaction.commit();
+            
+        }
 
     }
 
@@ -100,7 +125,7 @@ public class Achievements extends AppCompatActivity {
         }
         /*else
         {
-            //TODO Change this to throw an error card obviously. Or maybe the progress?
+            // TODO Change this to throw an error card obviously. Or maybe the progress?
             TextView exitButton;
             myDialog.setContentView(R.layout.workcard);
             exitButton = myDialog.findViewById(R.id.exitButton);
@@ -151,7 +176,7 @@ public class Achievements extends AppCompatActivity {
         }
         /*else
         {
-            //TODO Change this to throw an error card obviously. Or maybe the progress?
+            // TODO Change this to throw an error card obviously. Or maybe the progress?
             TextView exitButton;
             myDialog.setContentView(R.layout.workcard);
             exitButton = myDialog.findViewById(R.id.exitButton);
@@ -167,8 +192,9 @@ public class Achievements extends AppCompatActivity {
         }*/
     }
 
-
-    //The Following methods are for the bottom screen
+    //
+    // The following methods are the bottom-screen buttons:
+    //
     private void GoHome()
     {
         Button homeButton = (Button) findViewById(R.id.home_button4);

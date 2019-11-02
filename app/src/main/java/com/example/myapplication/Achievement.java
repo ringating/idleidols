@@ -184,7 +184,8 @@ public enum Achievement     // Using the Java enum class
 
     public void ClaimAchievement(Agency agency)
     {
-        //TODO change this to return something so we can set multiple states of the Achievement Later
+        // TODO: Change this from a void to return something
+        //  so we can set multiple states of the Achievement later.
         this.SetIsClaimed(true);
         agency.SetCurrency(agency.GetCurrentCurrency() + this.money);
         agency.SetTotalCurrency(agency.GetTotalCurrency() + this.money);
