@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         agencyName.setText(agency.GetName());
 
         expBar = (ProgressBar)findViewById(R.id.expBar);
-        agency.SetCurrentExp(0); //TODO initializer?
         agency.SetExpNeededToLevel(agency.GetLevel());
         expBar.setMax(agency.GetExpNeededToLevel());
         expBar.setProgress(agency.GetCurrentExp());

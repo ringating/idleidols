@@ -2,6 +2,8 @@ package com.example.myapplication;
 
 import android.app.Application;
 
+import java.util.ArrayList;
+
 public class Agency extends Application {
 
     private int curCurrency;
@@ -10,7 +12,7 @@ public class Agency extends Application {
     private int totalSeeds;
     private int level;
     private String agencyName;
-    private Idol[] idols;
+    private ArrayList<Idol> idols;
     private int curNumOfIdols;
     private int maxNumOfIdols;
     private int expNeededToLevelUp;
@@ -27,6 +29,7 @@ public class Agency extends Application {
         this.totalCurrency = 0;
         this.curSeeds = 0;
         this.totalSeeds = 0;
+        this.curExp = 0;
         this.level = 1;
         this.curNumOfIdols = 1;
         this.maxNumOfIdols = INITIAL_MAX_NUM_IDOL;
@@ -80,11 +83,11 @@ public class Agency extends Application {
         return agencyName;
     }
 
-    public Idol[] GetIdols() { return this.idols; }
+    public ArrayList<Idol> GetIdols() { return this.idols; }
 
-    public int GetCurNumOfIdols(Idol[] idols)
+    public int GetCurNumOfIdols(ArrayList<Idol> idols)
     {
-        return idols.length;
+        return idols.size();
     }
 
     public void SetMaxNumOfIdols(int level)

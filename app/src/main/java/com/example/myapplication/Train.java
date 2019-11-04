@@ -8,20 +8,30 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
+
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 public class Train extends AppCompatActivity {
 
     Dialog myDialog;
     Agency agency;
+
+    ArrayList<Idol> idols;      // placeholder array of idols
+    public static final DecimalFormat df =  new DecimalFormat("0.00");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +53,13 @@ public class Train extends AppCompatActivity {
 
         TextView name = findViewById(R.id.agencyName);
         name.setText(agency.GetName());
+
+        ProgressBar expBar = findViewById(R.id.expBar);
+        agency.SetExpNeededToLevel(agency.GetLevel());
+        expBar.setMax(agency.GetExpNeededToLevel());
+        expBar.setProgress(agency.GetCurrentExp());
+
+        idols = agency.GetIdols();
 
         GoHome(); //goes to home screen on button click
         GoAcademies();
@@ -74,11 +91,51 @@ public class Train extends AppCompatActivity {
         myDialog.show();
     }
 
-    public void ReleaseButton(View v)
+    public void ShowIdolList(View v)
     {
-        Button release = (Button) v;
+        ImageView idolIcon = (ImageView) v;
         Animation shrink = AnimationUtils.loadAnimation(this,R.anim.button_press);
-        release.startAnimation(shrink);
+        idolIcon.startAnimation(shrink);
+        //opens the window
+        myDialog.setContentView(R.layout.idol_list_menu);
+
+        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        myDialog.show();
+
+        displayList();
+    }
+
+    private void displayList()
+    {
+        TableLayout table = findViewById(R.id.idolViewMenu);
+        TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);
+        lp.gravity = Gravity.CENTER_HORIZONTAL;
+        final TableRow.LayoutParams bp = new TableRow.LayoutParams(300,300);
+        bp.leftMargin = 15;
+        bp.rightMargin = 15;
+        bp.bottomMargin = 30;
+        bp.gravity = Gravity.CENTER;
+
+        int count = 0;
+
+        for (int i = 0; i <= (idols.size() / 4); i++)
+        {
+            TableRow row = new TableRow(this);  //Generates a new row ever four row elements
+            row.setLayoutParams(lp);
+            for(int j = 0; j < 4 && count < idols.size(); j++)
+            {
+                ImageView icon = new ImageView(this);
+                icon.setId(idols.get(count).getIdolId());
+                icon.setLayoutParams(bp);
+                icon.setBackgroundResource(idols.get(count).getImage());
+                row.addView(icon);
+
+                count++;
+            }
+
+            table.addView(row, i);
+
+        }
     }
 
     //The Following methods are for the bottom screen

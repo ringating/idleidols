@@ -45,7 +45,6 @@ public class Achievements extends AppCompatActivity {
         seeds.setText(Integer.toString(agency.GetCurrentSeeds()));
 
         level = (TextView)findViewById(R.id.level);
-        agency.SetLevel(01); //TODO this is just a place holder. Will change later!
         level.setText(Integer.toString(agency.GetLevel()));
 
         TextView name = findViewById(R.id.agencyName);

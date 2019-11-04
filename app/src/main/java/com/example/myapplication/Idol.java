@@ -10,6 +10,7 @@ public class Idol {
     private float charmStat;
     private int rarity;
     private int image;
+    private int id;
 
     public Idol(String name, String affinity, int imgId, float dance, float sing, float charm, int rarity)
     {
@@ -146,4 +147,8 @@ public class Idol {
     {
         return this.image;
     }
+
+    public int getIdolId(){ return  this.id; }
+
+    public void setIdolId(int id) { this.id = id; }
 }
