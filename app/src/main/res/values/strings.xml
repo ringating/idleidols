@@ -14,10 +14,10 @@
     <string name="work_standup">Run-down Bar Standup Routine</string>
     <string name="work_musical">Hollywood Bowl</string>
     <string name="work_reality">Reality TV Shoot</string>
-    <string name="work_money1">$200 per gig</string>
-    <string name="work_money2">$500 per gig</string>
-    <string name="work_money3">$2000 per gig</string>
-    <string name="work_duration1">Duration: 30 minutes</string>
-    <string name="work_duration2">Duration: 2 hours</string>
-    <string name="work_duration3">Duration: 8 hours</string>
+    <string name="work_money1">$100 per gig</string>
+    <string name="work_money2">$100 per gig</string>
+    <string name="work_money3">$100 per gig</string>
+    <string name="work_duration1">Duration: 0 minutes</string>
+    <string name="work_duration2">Duration: 0 hours</string>
+    <string name="work_duration3">Duration: 0 hours</string>
 </resources>
