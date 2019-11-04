@@ -36,9 +36,12 @@ public class Academy extends Task
     {
         super.unsetAllIdols();
 
-        for(int i = 0; i < this.idolStartTimes.length; ++i)
+        if(idolStartTimes != null)
         {
-            this.idolStartTimes[i] = 0;
+            for(int i = 0; i < this.idolStartTimes.length; ++i)
+            {
+                this.idolStartTimes[i] = 0;
+            }
         }
     }
 
