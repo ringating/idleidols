@@ -51,7 +51,9 @@ public class Train extends AppCompatActivity {
         GoManagement();
         GoAchievements();
 
-        Task testTask = new Task("Task Name", "Task Description", 4, 1, false, 1000, 1,1,1);
+        Academy testTask = new Academy("Task Name", "Task Description",
+                4, 1, false,
+                0.1f, 0.2f, 0.3f);
 
         TextView title1 = findViewById(R.id.textView2);
         title1.setText(testTask.name);

@@ -19,6 +19,13 @@ public class Work extends AppCompatActivity {
     Dialog myDialog;
     Agency agency;
 
+    //temp stuff
+    int numIdols = 0;
+    boolean[] slotted = new boolean[4];
+    Workplace testTask;
+    boolean haveNotEarned = true;
+
+    TextView curMoney;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,10 +55,20 @@ public class Work extends AppCompatActivity {
         GoManagement();
         GoAchievements();
 
+        testTask = new Workplace("Task Name", "Task Description",
+                4, 1, false,
+                0, 100, 1, 1, 1);
+
+
+
     }
 
     public void ShowCard(View v)
     {
+        //temp stuff
+        haveNotEarned = true;
+        slotted = new boolean[4];
+
         //this is the animation for clicking on the idol image
         ImageView button = (ImageView) v;
         Animation shrink = AnimationUtils.loadAnimation(this,R.anim.button_press);
@@ -69,6 +86,79 @@ public class Work extends AppCompatActivity {
 
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialog.show();
+    }
+
+    public boolean TempAllSlotted()
+    {
+        return slotted[0] && slotted[1] && slotted[2] && slotted[3];
+    }
+
+    public void TempSetIdol1(View v)
+    {
+        // set idol in slot 1
+        slotted[0] = true;
+        ImageView idolFace = (ImageView) v;
+        Idol tempIdol = new Idol();
+        idolFace.setImageResource(tempIdol.getImage());
+
+        if(TempAllSlotted() && haveNotEarned)
+        {
+            agency.SetCurrency(agency.GetCurrentCurrency() + testTask.rewardCurrency);
+            curMoney = (TextView)findViewById(R.id.currency);
+            curMoney.setText(Integer.toString(agency.GetCurrentCurrency()));
+            haveNotEarned = false;
+        }
+    }
+
+    public void TempSetIdol2(View v)
+    {
+        // set idol in slot 2
+        slotted[1] = true;
+        ImageView idolFace = (ImageView) v;
+        Idol tempIdol = new Idol();
+        idolFace.setImageResource(tempIdol.getImage());
+
+        if(TempAllSlotted() && haveNotEarned)
+        {
+            agency.SetCurrency(agency.GetCurrentCurrency() + testTask.rewardCurrency);
+            curMoney = (TextView)findViewById(R.id.currency);
+            curMoney.setText(Integer.toString(agency.GetCurrentCurrency()));
+            haveNotEarned = false;
+        }
+    }
+
+    public void TempSetIdol3(View v)
+    {
+        // set idol in slot 3
+        slotted[2] = true;
+        ImageView idolFace = (ImageView) v;
+        Idol tempIdol = new Idol();
+        idolFace.setImageResource(tempIdol.getImage());
+
+        if(TempAllSlotted() && haveNotEarned)
+        {
+            agency.SetCurrency(agency.GetCurrentCurrency() + testTask.rewardCurrency);
+            curMoney = (TextView)findViewById(R.id.currency);
+            curMoney.setText(Integer.toString(agency.GetCurrentCurrency()));
+            haveNotEarned = false;
+        }
+    }
+
+    public void TempSetIdol4(View v)
+    {
+        // set idol in slot 4
+        slotted[3] = true;
+        ImageView idolFace = (ImageView) v;
+        Idol tempIdol = new Idol();
+        idolFace.setImageResource(tempIdol.getImage());
+
+        if(TempAllSlotted() && haveNotEarned)
+        {
+            agency.SetCurrency(agency.GetCurrentCurrency() + testTask.rewardCurrency);
+            curMoney = (TextView)findViewById(R.id.currency);
+            curMoney.setText(Integer.toString(agency.GetCurrentCurrency()));
+            haveNotEarned = false;
+        }
     }
 
     public void ReleaseButton(View v)
