@@ -11,11 +11,14 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Management extends AppCompatActivity implements WarningDialog.Sender{
 
@@ -74,7 +77,7 @@ public class Management extends AppCompatActivity implements WarningDialog.Sende
         table.removeAllViews();
         TableRow.LayoutParams rowLayout = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);    // Row Layout
         rowLayout.gravity = Gravity.CENTER_HORIZONTAL;                                                      //
-        final TableRow.LayoutParams buttonLayout = new TableRow.LayoutParams(300,300);   //
+        final LinearLayout.LayoutParams buttonLayout = new LinearLayout.LayoutParams(300,300);   //
         buttonLayout.leftMargin = 15;                                                           //
         buttonLayout.rightMargin = 15;                                                          // Button Layout
         buttonLayout.bottomMargin = 30;                                                         //
@@ -107,9 +110,11 @@ public class Management extends AppCompatActivity implements WarningDialog.Sende
                             case 0:
                                 bundle = new Bundle();
 
-                                Idol temp = agency.getIdol(v.getId());
+                                ArrayList<Idol> temp = new ArrayList<>();
 
-                                bundle.putParcelable("idol", temp);
+                                temp.add(agency.getIdol(v.getId()));
+
+                                bundle.putParcelableArrayList("idol", temp);
 
                                 IdolCardDialog card = new IdolCardDialog();
                                 card.setArguments(bundle);                                                         //Show the Idol Card with relevant information
