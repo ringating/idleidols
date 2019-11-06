@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+
 import android.os.Bundle;
 import android.text.Layout;
 import android.view.LayoutInflater;

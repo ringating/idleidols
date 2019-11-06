@@ -66,8 +66,8 @@
         android:layout_marginStart="-246dp"
         android:layout_marginLeft="-246dp"
         android:layout_marginTop="12dp"
-        android:layout_toEndOf="@+id/idolImage"
-        android:layout_toRightOf="@+id/idolImage"
+        android:layout_toEndOf="@+id/idolFragment"
+        android:layout_toRightOf="@+id/idolFragment"
         android:text="Facility Name" />
 
     <TextView
@@ -103,8 +103,8 @@
         android:layout_marginStart="-279dp"
         android:layout_marginLeft="-279dp"
         android:layout_marginTop="164dp"
-        android:layout_toEndOf="@+id/idolImage"
-        android:layout_toRightOf="@+id/idolImage"
+        android:layout_toEndOf="@+id/idolFragment"
+        android:layout_toRightOf="@+id/idolFragment"
         android:text="Progress" />
 
 </RelativeLayout>
