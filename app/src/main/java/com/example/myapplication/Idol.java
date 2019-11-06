@@ -1,8 +1,11 @@
 package com.example.myapplication;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.Random;
 
-public class Idol {
+public class Idol implements Parcelable {
     private String idolName;
     private String mainAffinity;
     private float danceStat;
@@ -27,6 +30,12 @@ public class Idol {
     {
         generateStats(0);
         calculateRarity();
+    }
+
+    public Idol(Parcel in)
+    {
+        super();
+        readFromParcel(in);
     }
 
     public void generateStats(float weight)
@@ -146,5 +155,46 @@ public class Idol {
     public int getImage()
     {
         return this.image;
+    }
+
+    //Parcelable methods
+    public static final Parcelable.Creator<Idol> IDOL_CREATOR = new Parcelable.Creator<Idol>()
+    {
+        public Idol createFromParcel(Parcel in)
+        {
+            return new Idol(in);
+        }
+
+        public Idol[] newArray(int size)
+        {
+            return new Idol[size];
+        }
+    };
+
+    public void readFromParcel(Parcel in)
+    {
+        this.idolName = in.readString();
+        this.mainAffinity = in.readString();
+        this.image = in.readInt();
+        this.danceStat = in.readFloat();
+        this.singStat = in.readFloat();
+        this.charmStat = in.readFloat();
+        this.rarity = in.readInt();
+    }
+
+    public int describeContents()
+    {
+        return 0;
+    }
+
+    public void writeToParcel(Parcel dest, int flags)
+    {
+        dest.writeString(this.idolName);
+        dest.writeString(this.mainAffinity);
+        dest.writeInt(this.image);
+        dest.writeFloat(this.danceStat);
+        dest.writeFloat(this.singStat);
+        dest.writeFloat(this.charmStat);
+        dest.writeInt(this.rarity);
     }
 }
