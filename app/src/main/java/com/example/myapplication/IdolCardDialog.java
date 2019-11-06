@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.Locale;
+
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
@@ -43,12 +45,14 @@ public class IdolCardDialog extends DialogFragment {
 
         exit = view.findViewById(R.id.exitButton);
 
-        idolName.setText(getArguments().getString("name"));
-        rarity.setText(getArguments().getString("rarity"));
-        dance.setText(getArguments().getString("dance"));
-        sing.setText(getArguments().getString("sing"));
-        charm.setText(getArguments().getString("charm"));
-        image.setBackgroundResource(getArguments().getInt("image"));
+        Idol temp = getArguments().getParcelable("idol");
+
+        idolName.setText(temp.getIdolName());
+        rarity.setText(String.format(Locale.US, "%d", temp.getRarity()));
+        dance.setText(String.format(Locale.US, "%f", temp.getDanceStat()));
+        sing.setText(String.format(Locale.US, "%f", temp.getSingStat()));
+        charm.setText(String.format(Locale.US, "%f", temp.getCharmStat()));
+        image.setBackgroundResource(temp.getImage());
 
         exit.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -109,12 +109,7 @@ public class Management extends AppCompatActivity implements WarningDialog.Sende
 
                                 Idol temp = agency.getIdol(v.getId());
 
-                                bundle.putString("name", temp.getIdolName());
-                                bundle.putString("rarity", Integer.toString(temp.getRarity()));
-                                bundle.putString("dance", df.format(temp.getDanceStat()));
-                                bundle.putString("sing", df.format(temp.getSingStat()));
-                                bundle.putString("charm", df.format(temp.getCharmStat()));         //Send the data of a specific idol at index "id" to the Card Fragment to be displayed
-                                bundle.putInt("image", temp.getImage());
+                                bundle.putParcelable("idol", temp);
 
                                 IdolCardDialog card = new IdolCardDialog();
                                 card.setArguments(bundle);                                                         //Show the Idol Card with relevant information

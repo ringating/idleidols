@@ -1,8 +1,10 @@
 package com.example.myapplication;
 
+import android.os.Parcelable;
+import android.os.Parcel;
 import java.util.Random;
 
-public class Idol {
+public class Idol implements Parcelable {
     private String idolName;
     private String mainAffinity;
     private float danceStat;
@@ -12,7 +14,17 @@ public class Idol {
     private int image;
     private boolean isBeingUsed;
 
-    public Idol(String name, String affinity, int imgId, float dance, float sing, float charm, int rarity)
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public Idol createFromParcel(Parcel in) {
+            return new Idol(in);
+        }
+
+        public Idol[] newArray(int size) {
+            return new Idol[size];
+        }
+    };
+
+    public Idol(String name, String affinity, float dance, float sing, float charm, int rarity, int imgId)
     {
         setIdolName(name);
         setMainAffinity(affinity);
@@ -21,6 +33,17 @@ public class Idol {
         setCharmStat(charm);
         setRarity(rarity);
         setImage(imgId);
+    }
+
+    public Idol(Parcel in)
+    {
+        setIdolName(in.readString());
+        setMainAffinity(in.readString());
+        setDanceStat(in.readFloat());
+        setSingStat(in.readFloat());
+        setCharmStat(in.readFloat());
+        setRarity(in.readInt());
+        setImage(in.readInt());
     }
 
     public Idol()
@@ -146,5 +169,23 @@ public class Idol {
     public int getImage()
     {
         return this.image;
+    }
+
+    @Override
+    public int describeContents()
+    {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags)
+    {
+        dest.writeString(this.idolName);
+        dest.writeString(this.mainAffinity);
+        dest.writeFloat(this.danceStat);
+        dest.writeFloat(this.singStat);
+        dest.writeFloat(this.charmStat);
+        dest.writeInt(this.rarity);
+        dest.writeInt(this.image);
     }
 }
