@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 public class Scout extends AppCompatActivity {
     Dialog myDialog;
@@ -63,10 +64,14 @@ public class Scout extends AppCompatActivity {
             seeds.setText(Integer.toString(agency.GetCurrentSeeds()));
             Bundle bundle = new Bundle();
 
-            Idol temp = new Idol();
-            agency.addIdol(temp);
+            Idol tempIdol = new Idol();
+            agency.addIdol(tempIdol);
 
-            bundle.putParcelable("idol", temp);
+            ArrayList<Idol> temp = new ArrayList<>();
+
+            temp.add(tempIdol);
+
+            bundle.putParcelableArrayList("idol", temp);
 
             IdolCardDialog card = new IdolCardDialog();
             card.setArguments(bundle);                                                         //Show the Idol Card with relevant information
