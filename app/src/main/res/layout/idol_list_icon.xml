@@ -5,11 +5,9 @@
 
     <ImageView
         android:id="@+id/idolIcon"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:src="@drawable/onion"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="15dp"
         />
 
 </LinearLayout>

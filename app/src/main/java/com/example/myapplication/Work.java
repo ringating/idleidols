@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 public class Work extends AppCompatActivity {
 
@@ -96,10 +97,27 @@ public class Work extends AppCompatActivity {
     public void TempSetIdol1(View v)
     {
         // set idol in slot 1
-        slotted[0] = true;
-        ImageView idolFace = (ImageView) v;
-        Idol tempIdol = new Idol();
-        idolFace.setImageResource(tempIdol.getImage());
+        if(!slotted[0])
+        {
+            slotted[0] = true;
+            final ImageView idolFace = (ImageView) v;
+
+            final FragmentManager idolListDialog = getSupportFragmentManager();
+            final IdolListMenuDialog idolListMenu = new IdolListMenuDialog();
+            Bundle sendToIdolList = new Bundle();
+            sendToIdolList.putParcelableArrayList("IdolArrayList", agency.GetIdols());
+            idolListMenu.setArguments(sendToIdolList);
+
+            idolFace.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    idolListMenu.show(idolListDialog, "IdolListMenu");
+                    Idol tempIdol = new Idol();
+                    idolFace.setImageResource(tempIdol.getImage());
+                }
+            });
+        }
 
         if(TempAllSlotted() && haveNotEarned)
         {

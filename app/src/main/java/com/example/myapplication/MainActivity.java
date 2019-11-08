@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         curMoney.setText(Integer.toString(agency.GetCurrentCurrency()));
 
         curTokens = (TextView)findViewById(R.id.seed);
+        agency.SetSeeds(50); //TODO Testing purposes!
         curTokens.setText(Integer.toString(agency.GetCurrentSeeds()));
 
         curLevel = (TextView)findViewById(R.id.level);
