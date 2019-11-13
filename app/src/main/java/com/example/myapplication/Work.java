@@ -15,6 +15,9 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class Work extends AppCompatActivity {
 
     Dialog myDialog;
@@ -28,6 +31,10 @@ public class Work extends AppCompatActivity {
 
     TextView curMoney;
 
+    Timer timer;
+    TextView testOutput;
+    boolean testTaskInProgress = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,18 +44,18 @@ public class Work extends AppCompatActivity {
         //This is where the agency passes along data to the page.
         agency = (Agency) getApplicationContext();
 
+
+        // header stuff
         TextView currency = findViewById(R.id.currency);
         currency.setText(Integer.toString(agency.GetCurrentCurrency()));
-
         TextView seeds = findViewById(R.id.seed);
         seeds.setText(Integer.toString(agency.GetCurrentSeeds()));
-
         TextView level = findViewById(R.id.level);
         level.setText(Integer.toString(agency.GetLevel()));
-
         TextView name = findViewById(R.id.agencyName);
         name.setText(agency.GetName());
 
+        // navbar stuff
         GoHome(); //goes to home screen on button click
         GoAcademies();
         GoWorkplace();
@@ -56,16 +63,55 @@ public class Work extends AppCompatActivity {
         GoManagement();
         GoAchievements();
 
+        // test task
         testTask = new Workplace("Task Name", "Task Description",
                 4, 1, false,
-                0, 100, 1, 1, 1);
+                10000, 100, 1, 1, 1);
 
+        testOutput = findViewById(R.id.textView5);
+
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                UpdateText();
+            }
+
+        }, 0, 500);
 
 
     }
 
+    public void UpdateText()
+    {
+        testOutput.setText("remaining time: " + Math.max(((float)testTask.getRemainingTime() / (float)1000), (float)0) + " sec\n" +
+                "[" + testTask.getIdolID(0) + ", " +
+                testTask.getIdolID(1) + ", " +
+                testTask.getIdolID(2) + ", " +
+                testTask.getIdolID(3) + "]"
+        );
+    }
+
     public void ShowCard(View v)
     {
+        if(testTaskInProgress)
+        {
+            testTaskInProgress = false;
+            testTask.resetTask();
+        }
+        else
+        {
+            testTaskInProgress = true;
+
+            testTask.setIdol(10, 0);
+            testTask.setIdol(20, 1);
+            testTask.setIdol(30, 2);
+            testTask.setIdol(40, 3);
+
+            testTask.startTask();
+        }
+
+        /*
         //temp stuff
         haveNotEarned = true;
         slotted = new boolean[4];
@@ -87,6 +133,7 @@ public class Work extends AppCompatActivity {
 
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialog.show();
+        */
     }
 
     public boolean TempAllSlotted()

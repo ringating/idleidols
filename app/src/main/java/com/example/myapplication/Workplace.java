@@ -52,6 +52,12 @@ public class Workplace extends Task
         return false;
     }
 
+    public void resetTask()
+    {
+        unsetAllIdols();
+        this.startTime = 0;
+    }
+
     public long getStartTime(){ return startTime; }
 
     public long getRemainingTime()
