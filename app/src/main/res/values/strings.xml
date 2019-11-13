@@ -4,8 +4,8 @@
     <string name="recruitButton_desc">Recruitment</string>
     <string name="achievementButton_desc">Achievements</string>
     <string name="settingsButton_desc">Settings</string>
-	
-	<!-- <string name="app_name">My Application</string> -->
+
+    <!-- <string name="app_name">My Application</string> -->
     <string name="academy_dance">Dance Academy</string>
     <string name="academy_sing">Singing Class</string>
     <string name="academy_act">Acting School</string>
@@ -20,4 +20,7 @@
     <string name="work_duration1">Duration: 30 minutes</string>
     <string name="work_duration2">Duration: 2 hours</string>
     <string name="work_duration3">Duration: 8 hours</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
