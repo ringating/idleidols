@@ -26,23 +26,21 @@ public class IdolCardDialog extends DialogFragment {
 
         LinearLayout fragmentContainer = view.findViewById(R.id.cardLayout);
 
-        int id = 0;
-        for (Idol idol : idols)
+        for (int i = 0; i < idols.size(); i++)
         {
-            LinearLayout fragment = new LinearLayout(getContext());
-            fragment.setId(id);
+            LinearLayout linearDummy = new LinearLayout(getActivity());
+            linearDummy.setOrientation(LinearLayout.VERTICAL);
+            linearDummy.setId(i);
 
             Bundle bundle = new Bundle();
-            bundle.putParcelable("idol", idol);
+            bundle.putParcelable("idol", idols.get(i));
             IdolCardFragment idolCard = new IdolCardFragment();
 
             idolCard.setArguments(bundle);
 
-            getFragmentManager().beginTransaction().add(fragment.getId(), idolCard, "tag").commit();
+            getFragmentManager().beginTransaction().add(linearDummy.getId(), idolCard, "tag" + i).commit();
 
-            fragmentContainer.addView(fragment);
-
-            id++;
+            fragmentContainer.addView(linearDummy);
         }
 
         return view;

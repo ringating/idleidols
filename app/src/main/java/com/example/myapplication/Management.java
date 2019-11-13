@@ -147,7 +147,6 @@ public class Management extends AppCompatActivity implements WarningDialog.Sende
         Button combine = (Button) v;
         Animation shrink = AnimationUtils.loadAnimation(this,R.anim.button_press);
         combine.startAnimation(shrink);
-
     }
 
     public void ReleaseButton(View v)
