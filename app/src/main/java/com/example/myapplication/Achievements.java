@@ -84,7 +84,7 @@ public class Achievements extends AppCompatActivity
             AchievementFragment fragment = AchievementFragment.createAchievementFragment(value);
             transaction.add(R.id.achievements_list, fragment);
             transaction.commit();
-            
+
         }
 
     }

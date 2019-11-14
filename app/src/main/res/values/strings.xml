@@ -4,8 +4,8 @@
     <string name="recruitButton_desc">Recruitment</string>
     <string name="achievementButton_desc">Achievements</string>
     <string name="settingsButton_desc">Settings</string>
-	
-	<!-- <string name="app_name">My Application</string> -->
+
+    <!-- <string name="app_name">My Application</string> -->
     <string name="academy_dance">Dance Academy</string>
     <string name="academy_sing">Singing Class</string>
     <string name="academy_act">Acting School</string>
