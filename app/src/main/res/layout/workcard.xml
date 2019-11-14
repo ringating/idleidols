@@ -17,7 +17,8 @@
         android:layout_marginStart="13dp"
         android:layout_marginLeft="13dp"
         android:layout_marginTop="62dp"
-        app:srcCompat="@drawable/onion" />
+        android:onClick="TempSetIdol1"
+        app:srcCompat="@drawable/no_idol" />
 
     <ImageView
         android:id="@+id/idolImage"
@@ -29,7 +30,8 @@
         android:layout_marginStart="258dp"
         android:layout_marginLeft="258dp"
         android:layout_marginTop="62dp"
-        app:srcCompat="@drawable/onion" />
+        android:onClick="TempSetIdol4"
+        app:srcCompat="@drawable/no_idol" />
 
     <ImageView
         android:id="@+id/idolImage4"
@@ -41,7 +43,8 @@
         android:layout_marginStart="178dp"
         android:layout_marginLeft="178dp"
         android:layout_marginTop="62dp"
-        app:srcCompat="@drawable/onion" />
+        android:onClick="TempSetIdol3"
+        app:srcCompat="@drawable/no_idol" />
 
     <ImageView
         android:id="@+id/idolImage5"
@@ -53,7 +56,8 @@
         android:layout_marginStart="93dp"
         android:layout_marginLeft="93dp"
         android:layout_marginTop="62dp"
-        app:srcCompat="@drawable/onion" />
+        android:onClick="TempSetIdol2"
+        app:srcCompat="@drawable/no_idol" />
 
     <TextView
         android:id="@+id/name"

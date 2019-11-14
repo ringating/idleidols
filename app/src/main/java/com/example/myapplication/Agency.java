@@ -18,7 +18,7 @@ public class Agency extends Application {
 
     private final int EXP_LEVEL_MODIFIER = 100;
 
-    private List<Idol> idols = new ArrayList<>();
+    private ArrayList<Idol> idols = new ArrayList<>();
 
     public void SetCurrency(int currency)
     {
@@ -68,7 +68,7 @@ public class Agency extends Application {
         return agencyName;
     }
 
-    public List<Idol> GetIdols() { return this.idols; }
+    public ArrayList<Idol> GetIdols() { return this.idols; }
 
     public boolean noIdols()
     {
