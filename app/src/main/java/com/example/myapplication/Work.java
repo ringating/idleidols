@@ -14,8 +14,11 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 public class Work extends AppCompatActivity {
+
+    private static final String TAG = "Workplace";
 
     Dialog myDialog;
     Agency agency;
@@ -60,8 +63,6 @@ public class Work extends AppCompatActivity {
                 4, 1, false,
                 0, 100, 1, 1, 1);
 
-
-
     }
 
     public void ShowCard(View v)
@@ -74,109 +75,21 @@ public class Work extends AppCompatActivity {
         ImageView button = (ImageView) v;
         Animation shrink = AnimationUtils.loadAnimation(this,R.anim.button_press);
         button.startAnimation(shrink);
-        //this is in the window now
-        TextView exitButton;
-        myDialog.setContentView(R.layout.workcard);
-        exitButton = myDialog.findViewById(R.id.exitButton);
-        exitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myDialog.dismiss();
-            }
-        });
 
-        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        myDialog.show();
+        FragmentManager taskCard = getSupportFragmentManager();
+        //Sends information to IdolListMenuDialog
+        TaskIdolCard taskIdolCard = new TaskIdolCard();
+        Bundle sendToIdolList = new Bundle();
+        sendToIdolList.putParcelableArrayList("IdolArrayList", agency.GetIdols());
+        taskIdolCard.setArguments(sendToIdolList);
+
+        //Opens the TaskIdolCard
+        taskIdolCard.show(taskCard, "TaskCard");
     }
 
     public boolean TempAllSlotted()
     {
         return slotted[0] && slotted[1] && slotted[2] && slotted[3];
-    }
-
-    public void TempSetIdol1(View v)
-    {
-        // set idol in slot 1
-        if(!slotted[0])
-        {
-            slotted[0] = true;
-            final ImageView idolFace = (ImageView) v;
-
-            final FragmentManager idolListDialog = getSupportFragmentManager();
-            final IdolListMenuDialog idolListMenu = new IdolListMenuDialog();
-            Bundle sendToIdolList = new Bundle();
-            sendToIdolList.putParcelableArrayList("IdolArrayList", agency.GetIdols());
-            idolListMenu.setArguments(sendToIdolList);
-
-            idolFace.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    idolListMenu.show(idolListDialog, "IdolListMenu");
-                    Idol tempIdol = new Idol();
-                    idolFace.setImageResource(tempIdol.getImage());
-                }
-            });
-        }
-
-        if(TempAllSlotted() && haveNotEarned)
-        {
-            agency.SetCurrency(agency.GetCurrentCurrency() + testTask.rewardCurrency);
-            curMoney = (TextView)findViewById(R.id.currency);
-            curMoney.setText(Integer.toString(agency.GetCurrentCurrency()));
-            haveNotEarned = false;
-        }
-    }
-
-    public void TempSetIdol2(View v)
-    {
-        // set idol in slot 2
-        slotted[1] = true;
-        ImageView idolFace = (ImageView) v;
-        Idol tempIdol = new Idol();
-        idolFace.setImageResource(tempIdol.getImage());
-
-        if(TempAllSlotted() && haveNotEarned)
-        {
-            agency.SetCurrency(agency.GetCurrentCurrency() + testTask.rewardCurrency);
-            curMoney = (TextView)findViewById(R.id.currency);
-            curMoney.setText(Integer.toString(agency.GetCurrentCurrency()));
-            haveNotEarned = false;
-        }
-    }
-
-    public void TempSetIdol3(View v)
-    {
-        // set idol in slot 3
-        slotted[2] = true;
-        ImageView idolFace = (ImageView) v;
-        Idol tempIdol = new Idol();
-        idolFace.setImageResource(tempIdol.getImage());
-
-        if(TempAllSlotted() && haveNotEarned)
-        {
-            agency.SetCurrency(agency.GetCurrentCurrency() + testTask.rewardCurrency);
-            curMoney = (TextView)findViewById(R.id.currency);
-            curMoney.setText(Integer.toString(agency.GetCurrentCurrency()));
-            haveNotEarned = false;
-        }
-    }
-
-    public void TempSetIdol4(View v)
-    {
-        // set idol in slot 4
-        slotted[3] = true;
-        ImageView idolFace = (ImageView) v;
-        Idol tempIdol = new Idol();
-        idolFace.setImageResource(tempIdol.getImage());
-
-        if(TempAllSlotted() && haveNotEarned)
-        {
-            agency.SetCurrency(agency.GetCurrentCurrency() + testTask.rewardCurrency);
-            curMoney = (TextView)findViewById(R.id.currency);
-            curMoney.setText(Integer.toString(agency.GetCurrentCurrency()));
-            haveNotEarned = false;
-        }
     }
 
     public void ReleaseButton(View v)

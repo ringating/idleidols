@@ -17,7 +17,6 @@
         android:layout_marginStart="13dp"
         android:layout_marginLeft="13dp"
         android:layout_marginTop="62dp"
-        android:onClick="TempSetIdol1"
         app:srcCompat="@drawable/no_idol" />
 
     <ImageView
@@ -107,4 +106,5 @@
         android:layout_toEndOf="@+id/idolImage"
         android:layout_toRightOf="@+id/idolImage"
         android:text="Progress" />
+
 </RelativeLayout>
