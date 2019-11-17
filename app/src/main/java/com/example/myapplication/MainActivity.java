@@ -2,11 +2,10 @@ package com.example.myapplication;
 // package com.example.idleidol;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -15,7 +14,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SettingsDialogFragment.EditNameDialogListener {
+
+    static final int GET_RENAME_AGENCY = 1;
 
     Dialog myDialog;
     Agency agency;
@@ -59,6 +60,28 @@ public class MainActivity extends AppCompatActivity {
         expBar.setMax(agency.GetExpNeededToLevel());
         expBar.setProgress(agency.GetCurrentExp());
 
+        ImageView settings = findViewById(R.id.settingsButton);
+        Animation shrink = AnimationUtils.loadAnimation(this, R.anim.button_press);
+        settings.startAnimation(shrink);
+        final SettingsDialogFragment settingsMenu = new SettingsDialogFragment();
+        final FragmentManager fragmentManager = this.getSupportFragmentManager();
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                settingsMenu.show(fragmentManager, "SettingsMenu");
+            }
+        });
+
+    }
+
+    @Override
+    public void onFinishEditDialog(String newName)
+    {
+        if(!newName.equals(agency.GetName()))
+        {
+            agency.SetName(newName);
+            agencyName.setText(agency.GetName());
+        }
     }
 
     public void openAchievements(View v) // When the achievements button is pressed, it does this
@@ -95,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
         startActivity(new Intent(MainActivity.this, Scout.class));
     }
-
+/*
     public void openSettings(View v) //Opens a popup window, will probably change in the future
     {
         ImageView button = (ImageView) v;
@@ -116,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         myDialog.show();
     }
-
+*/
     public void idolDoThing(View v) //When the idol is pressed, it does this
     {
         final int NORMAL_CLICK = 10;

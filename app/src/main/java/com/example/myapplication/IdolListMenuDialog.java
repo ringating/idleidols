@@ -1,25 +1,19 @@
 package com.example.myapplication;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.Toast;
+
 
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-
 import java.util.ArrayList;
 
 public class IdolListMenuDialog extends DialogFragment {
@@ -60,7 +54,6 @@ public class IdolListMenuDialog extends DialogFragment {
                     if(idolArrayList.get(position) != null)
                     {
                         SendIdol(idolArrayList.get(position));
-                        Toast.makeText(getActivity(), idolArrayList.get(position).getIdolName(), Toast.LENGTH_SHORT).show();
                         getDialog().dismiss();
                     }
                 }
