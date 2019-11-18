@@ -1,19 +1,25 @@
 package com.example.myapplication;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import java.util.ArrayList;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 
 public class IdolCardDialog extends DialogFragment {
-    private static final String TAG = "IdolCardDialog";
 
     @Nullable
     @Override
@@ -22,25 +28,39 @@ public class IdolCardDialog extends DialogFragment {
     {
         View view = inflater.inflate(R.layout.idol_card_scroll_container, container, false);
 
+        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        setStyle(DialogFragment.STYLE_NO_FRAME, android.R.style.Theme);
+
         ArrayList<Idol> idols = getArguments().getParcelableArrayList("idol");
 
-        LinearLayout fragmentContainer = view.findViewById(R.id.cardLayout);
+        LinearLayout idolListContainer = view.findViewById(R.id.cardLayout);
 
-        for (int i = 0; i < idols.size(); i++)
+        LinearLayout.LayoutParams layout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layout.bottomMargin = 40;
+
+        for (Idol idol: idols)
         {
-            LinearLayout linearDummy = new LinearLayout(getActivity());
-            linearDummy.setOrientation(LinearLayout.VERTICAL);
-            linearDummy.setId(i);
+            LinearLayout fragmentContainer = new LinearLayout(getActivity());
+
+            fragmentContainer.setLayoutParams(layout);
+
+            fragmentContainer.setOrientation(LinearLayout.VERTICAL);
+            fragmentContainer.setId(View.generateViewId());
+
+            FragmentManager fragmentManager = getChildFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
             Bundle bundle = new Bundle();
-            bundle.putParcelable("idol", idols.get(i));
-            IdolCardFragment idolCard = new IdolCardFragment();
+            bundle.putParcelable("idol", idol);
 
-            idolCard.setArguments(bundle);
+            IdolCardFragment fragment = new IdolCardFragment();
+            fragment.setArguments(bundle);
 
-            getFragmentManager().beginTransaction().add(linearDummy.getId(), idolCard, "tag" + i).commit();
+            fragmentTransaction.add(fragmentContainer.getId(), fragment);
+            fragmentTransaction.commit();
 
-            fragmentContainer.addView(linearDummy);
+            idolListContainer.addView(fragmentContainer);
         }
 
         return view;
