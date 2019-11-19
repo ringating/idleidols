@@ -95,12 +95,6 @@ public class Idol implements Parcelable {
         this.rarity = (int)(this.danceStat * 100 + this.charmStat * 100 + this.singStat * 100);
     }
 
-    public Idol combineIdol(Idol other)
-    {
-        //TODO
-        return null;
-    }
-
     public void setIdolName(String name)
     {
         this.idolName = name;

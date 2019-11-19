@@ -119,4 +119,17 @@ public class Agency extends Application {
     {
         return idols.size();
     }
+
+    public Idol combineIdols(int idolIndex1, int idolIndex2)
+    {
+        //TODO: ADD MATHEMATICAL IDOL COMBINING MAGIC
+        removeIdolAtIndex(idolIndex1);
+        removeIdolAtIndex(idolIndex2);
+
+        Idol idol = new Idol();
+
+        addIdol(idol);
+
+        return idol;
+    }
 }
