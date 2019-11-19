@@ -26,7 +26,7 @@ public class Management extends AppCompatActivity implements WarningDialog.Sende
     Agency agency;
     int mode = 0;
     int idolsIterate = 0;
-    int[] idols = new int[2];
+    int[] idols = new int[2]; // array of idol indexes to be combined together in matrimony
     boolean accept = false;
 
     public static final DecimalFormat df =  new DecimalFormat("0.00");
