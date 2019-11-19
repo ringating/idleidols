@@ -11,11 +11,14 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Management extends AppCompatActivity implements WarningDialog.Sender{
 
@@ -107,14 +110,11 @@ public class Management extends AppCompatActivity implements WarningDialog.Sende
                             case 0:
                                 bundle = new Bundle();
 
-                                Idol temp = agency.getIdol(v.getId());
+                                ArrayList<Idol> temp = new ArrayList<>();
 
-                                bundle.putString("name", temp.getIdolName());
-                                bundle.putString("rarity", Integer.toString(temp.getRarity()));
-                                bundle.putString("dance", df.format(temp.getDanceStat()));
-                                bundle.putString("sing", df.format(temp.getSingStat()));
-                                bundle.putString("charm", df.format(temp.getCharmStat()));         //Send the data of a specific idol at index "id" to the Card Fragment to be displayed
-                                bundle.putInt("image", temp.getImage());
+                                temp.add(agency.getIdol(v.getId()));
+
+                                bundle.putParcelableArrayList("idol", temp);
 
                                 IdolCardDialog card = new IdolCardDialog();
                                 card.setArguments(bundle);                                                         //Show the Idol Card with relevant information
@@ -147,7 +147,6 @@ public class Management extends AppCompatActivity implements WarningDialog.Sende
         Button combine = (Button) v;
         Animation shrink = AnimationUtils.loadAnimation(this,R.anim.button_press);
         combine.startAnimation(shrink);
-
     }
 
     public void ReleaseButton(View v)

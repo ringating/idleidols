@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements SettingsDialogFra
         agency.SetName("AgencyName"); //TODO this is just a place holder!
         agencyName.setText(agency.GetName());
 
+        agency.SetSeeds(10);
+
         expBar = (ProgressBar)findViewById(R.id.expBar);
         agency.SetCurrentExp(0); //TODO initializer?
         agency.SetExpNeededToLevel(agency.GetLevel());

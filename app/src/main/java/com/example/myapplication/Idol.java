@@ -1,8 +1,7 @@
 package com.example.myapplication;
 
-import android.os.Parcel;
 import android.os.Parcelable;
-
+import android.os.Parcel;
 import java.util.Random;
 
 public class Idol implements Parcelable {
@@ -15,7 +14,17 @@ public class Idol implements Parcelable {
     private int image;
     private boolean isBeingUsed;
 
-    public Idol(String name, String affinity, int imgId, float dance, float sing, float charm, int rarity)
+    public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
+        public Idol createFromParcel(Parcel in) {
+            return new Idol(in);
+        }
+
+        public Idol[] newArray(int size) {
+            return new Idol[size];
+        }
+    };
+
+    public Idol(String name, String affinity, float dance, float sing, float charm, int rarity, int imgId)
     {
         setIdolName(name);
         setMainAffinity(affinity);
@@ -26,16 +35,21 @@ public class Idol implements Parcelable {
         setImage(imgId);
     }
 
+    public Idol(Parcel in)
+    {
+        setIdolName(in.readString());
+        setMainAffinity(in.readString());
+        setDanceStat(in.readFloat());
+        setSingStat(in.readFloat());
+        setCharmStat(in.readFloat());
+        setRarity(in.readInt());
+        setImage(in.readInt());
+    }
+
     public Idol()
     {
         generateStats(0);
         calculateRarity();
-    }
-
-    public Idol(Parcel in)
-    {
-        super();
-        readFromParcel(in);
     }
 
     public void generateStats(float weight)
@@ -157,44 +171,21 @@ public class Idol implements Parcelable {
         return this.image;
     }
 
-    //Parcelable methods
-    public static final Parcelable.Creator<Idol> IDOL_CREATOR = new Parcelable.Creator<Idol>()
-    {
-        public Idol createFromParcel(Parcel in)
-        {
-            return new Idol(in);
-        }
-
-        public Idol[] newArray(int size)
-        {
-            return new Idol[size];
-        }
-    };
-
-    public void readFromParcel(Parcel in)
-    {
-        this.idolName = in.readString();
-        this.mainAffinity = in.readString();
-        this.image = in.readInt();
-        this.danceStat = in.readFloat();
-        this.singStat = in.readFloat();
-        this.charmStat = in.readFloat();
-        this.rarity = in.readInt();
-    }
-
+    @Override
     public int describeContents()
     {
         return 0;
     }
 
+    @Override
     public void writeToParcel(Parcel dest, int flags)
     {
         dest.writeString(this.idolName);
         dest.writeString(this.mainAffinity);
-        dest.writeInt(this.image);
         dest.writeFloat(this.danceStat);
         dest.writeFloat(this.singStat);
         dest.writeFloat(this.charmStat);
         dest.writeInt(this.rarity);
+        dest.writeInt(this.image);
     }
 }
