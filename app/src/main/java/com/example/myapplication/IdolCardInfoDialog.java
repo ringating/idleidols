@@ -10,9 +10,10 @@ import android.widget.TextView;
 import java.util.Locale;
 
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
-public class IdolCardFragment extends Fragment {
+public class IdolCardInfoDialog extends DialogFragment {
 
     private TextView exit;
 
@@ -50,6 +51,13 @@ public class IdolCardFragment extends Fragment {
         charm.setText(String.format(Locale.US, "%.2f", temp.getCharmStat()));
         image.setBackgroundResource(temp.getImage());
         merge.setText(String.format(Locale.US, "%d", temp.getMerged()));
+
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getDialog().dismiss();
+            }
+        });
 
         return view;
     }

@@ -11,14 +11,12 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Management extends AppCompatActivity implements WarningDialog.Sender{
 
@@ -117,15 +115,11 @@ public class Management extends AppCompatActivity implements WarningDialog.Sende
                             case 0:
                                 bundle = new Bundle();
 
-                                ArrayList<Idol> temp = new ArrayList<>();
+                                bundle.putParcelable("idol", agency.getIdol(v.getId()));
 
-                                temp.add(agency.getIdol(v.getId()));
-
-                                bundle.putParcelableArrayList("idol", temp);
-
-                                IdolCardDialog card = new IdolCardDialog();
+                                IdolCardInfoDialog card = new IdolCardInfoDialog();
                                 card.setArguments(bundle);                                                         //Show the Idol Card with relevant information
-                                card.show(getSupportFragmentManager(), "IdolCardDialog");
+                                card.show(getSupportFragmentManager(), "IdolCardInfoDialog");
                                 break;
                             case 2:
                                 bundle = new Bundle();

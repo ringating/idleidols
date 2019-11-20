@@ -9,14 +9,11 @@
 
     <ImageView
         android:id="@+id/idolImage"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="17dp"
-        android:layout_marginStart="17dp"
-        android:layout_marginTop="17dp" />
+        android:layout_width="160dp"
+        android:layout_height="160dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"/>
 
     <TextView
         android:id="@+id/name"
@@ -82,9 +79,10 @@
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/textView3"
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="102dp"
+        android:layout_marginTop="4dp"
         android:layout_toEndOf="@+id/idolImage"
         android:layout_toRightOf="@+id/idolImage"
         android:text="Dance:" />
@@ -117,9 +115,10 @@
         android:id="@+id/dance"
         android:layout_width="98dp"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/textView3"
         android:layout_marginLeft="54dp"
         android:layout_marginStart="54dp"
-        android:layout_marginTop="102dp"
+        android:layout_marginTop="4dp"
         android:layout_toEndOf="@+id/idolImage"
         android:layout_toRightOf="@+id/idolImage"
         android:text="0" />

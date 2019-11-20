@@ -4,8 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -17,7 +15,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Scout extends AppCompatActivity {
+public class Scout extends AppCompatActivity implements IdolIconListDialog.CreateDialog{
     Dialog myDialog;
     Agency agency;
 
@@ -27,6 +25,13 @@ public class Scout extends AppCompatActivity {
     private static final String SPECIAL_GACHA = "special";
     private static final int NORMAL_SEEDS = 3;
     private static final int SPECIAL_SEEDS = 5;
+
+    public void showDialog(Bundle bundle)
+    {
+        IdolCardInfoDialog card = new IdolCardInfoDialog();
+        card.setArguments(bundle);                                                         //Show the Idol Card with relevant information
+        card.show(getSupportFragmentManager(), "IdolCardInfoDialog");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,15 +78,11 @@ public class Scout extends AppCompatActivity {
             Idol tempIdol = new Idol(NORMAL_GACHA);
             agency.addIdol(tempIdol);
 
-            ArrayList<Idol> temp = new ArrayList<>();
+            bundle.putParcelable("idol", tempIdol);
 
-            temp.add(tempIdol);
-
-            bundle.putParcelableArrayList("idol", temp);
-
-            IdolCardDialog card = new IdolCardDialog();
+            IdolCardInfoDialog card = new IdolCardInfoDialog();
             card.setArguments(bundle);                                                         //Show the Idol Card with relevant information
-            card.show(getSupportFragmentManager(), "IdolCardDialog");
+            card.show(getSupportFragmentManager(), "IdolCardInfoDialog");
         }
     }
 
@@ -91,7 +92,7 @@ public class Scout extends AppCompatActivity {
         scout.startAnimation(shrink);
         if (agency.GetCurrentSeeds() >= (NORMAL_SEEDS) * 10)
         {
-            agency.SetSeeds(agency.GetCurrentSeeds() - (NORMAL_SEEDS) - 10);
+            agency.SetSeeds(agency.GetCurrentSeeds() - (NORMAL_SEEDS) * 10);
             TextView seeds = findViewById(R.id.seed);
             seeds.setText(Integer.toString(agency.GetCurrentSeeds()));
             Bundle bundle = new Bundle();
@@ -107,9 +108,9 @@ public class Scout extends AppCompatActivity {
 
             bundle.putParcelableArrayList("idol", temp);
 
-            IdolCardDialog card = new IdolCardDialog();
+            IdolIconListDialog card = new IdolIconListDialog();
             card.setArguments(bundle);                                                         //Show the Idol Card with relevant information
-            card.show(getSupportFragmentManager(), "IdolCardDialog");
+            card.show(getSupportFragmentManager(), "IdolIconListDialog");
         }
     }
 
@@ -128,15 +129,11 @@ public class Scout extends AppCompatActivity {
             Idol tempIdol = new Idol(SPECIAL_GACHA);
             agency.addIdol(tempIdol);
 
-            ArrayList<Idol> temp = new ArrayList<>();
+            bundle.putParcelable("idol", tempIdol);
 
-            temp.add(tempIdol);
-
-            bundle.putParcelableArrayList("idol", temp);
-
-            IdolCardDialog card = new IdolCardDialog();
+            IdolCardInfoDialog card = new IdolCardInfoDialog();
             card.setArguments(bundle);                                                         //Show the Idol Card with relevant information
-            card.show(getSupportFragmentManager(), "IdolCardDialog");
+            card.show(getSupportFragmentManager(), "IdolCardInfoDialog");
         }
     }
 
