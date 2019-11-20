@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintWidth_percent="0.9"
-        android:background="@color/blue" />
+        android:background="@drawable/blue_rounded_background" />
 
     <ImageView
         android:id="@+id/idolIcon"
@@ -41,9 +41,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintWidth_percent="0.2"
-        android:background="@drawable/affinity_icon_background"
-        app:srcCompat="@drawable/affinity_dance" />
+        app:layout_constraintWidth_percent="0.2" />
 
     <ImageView
         android:id="@+id/rarity"
