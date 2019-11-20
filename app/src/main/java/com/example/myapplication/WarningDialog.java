@@ -13,7 +13,7 @@ import androidx.fragment.app.DialogFragment;
 public class WarningDialog extends DialogFragment {
 
     public interface Sender {
-        void Send(boolean accept, int extra);
+        void Send(boolean accept, int extra, int extra2, int extra3);
     }
 
     private Sender data;
@@ -55,7 +55,7 @@ public class WarningDialog extends DialogFragment {
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                data.Send(false, -1);
+                data.Send(false, -1, -1, -1);
                 getDialog().dismiss();
             }
         });
@@ -63,7 +63,15 @@ public class WarningDialog extends DialogFragment {
         accept.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                data.Send(true, getArguments().getInt("index"));
+                int option = getArguments().getInt("option");
+
+                if (option == 1) {
+                    data.Send(true, getArguments().getInt("index1"), -1, option);
+                }
+                else
+                {
+                    data.Send(true, getArguments().getInt("index1"), getArguments().getInt("index2"), option);
+                }
                 getDialog().dismiss();
             }
         });
