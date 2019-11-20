@@ -39,7 +39,7 @@ public class Train extends AppCompatActivity {
         seeds.setText(Integer.toString(agency.GetCurrentSeeds()));
 
         TextView level = findViewById(R.id.level);
-        level.setText(Integer.toString(agency.GetLevel()));
+        level.setText(agency.GetLevel());
 
         TextView name = findViewById(R.id.agencyName);
         name.setText(agency.GetName());

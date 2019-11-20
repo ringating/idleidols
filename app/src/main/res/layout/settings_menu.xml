@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/linearLayout"
     android:layout_width="350dp"
-    android:layout_height="350dp"
+    android:layout_height="400dp"
     android:layout_gravity="center"
     android:background="@drawable/settings_background">
 
@@ -30,7 +30,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/seekBar2" />
+        app:layout_constraintTop_toBottomOf="@+id/seekBar2"
+        app:layout_constraintVertical_bias="0.242" />
 
     <TextView
         android:id="@+id/textView1"
@@ -68,7 +69,7 @@
         android:thumb="@drawable/holo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.46"
+        app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/acceptButton"
         app:layout_constraintVertical_bias="0.246" />
@@ -83,6 +84,8 @@
         android:gravity="center"
         android:hint="Rename Agency"
         android:textSize="18sp"
+        android:maxLength="15"
+        android:textColor="@color/darkGray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -96,5 +99,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/renameBox" />
+
+    <Button
+        android:id="@+id/SaveButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="76dp"
+        android:layout_marginLeft="76dp"
+        android:layout_marginBottom="24dp"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.306"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

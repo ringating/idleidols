@@ -14,11 +14,10 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements SettingsDialogFragment.EditNameDialogListener {
+public class MainActivity extends AppCompatActivity implements SettingsDialogFragment.EditNameDialogListener, NewAgencyFragment.NameAgencyDialogListener {
 
     static final int GET_RENAME_AGENCY = 1;
 
-    Dialog myDialog;
     Agency agency;
 
     //these are the variables regarding the header.
@@ -34,9 +33,16 @@ public class MainActivity extends AppCompatActivity implements SettingsDialogFra
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        myDialog = new Dialog(this);
         //Creates the Agency object in the context of the application instead of just the page.
         agency = (Agency) getApplicationContext();
+
+        final FragmentManager fragmentManager = this.getSupportFragmentManager();
+
+        if(agency.getFirstTimeFlag())
+        {
+            NewAgencyFragment agencyFragment = new NewAgencyFragment();
+            agencyFragment.show(fragmentManager, "NewAgency");
+        }
 
         //Displays the information on the header.
         curMoney = (TextView)findViewById(R.id.currency);
@@ -47,11 +53,10 @@ public class MainActivity extends AppCompatActivity implements SettingsDialogFra
         curTokens.setText(Integer.toString(agency.GetCurrentSeeds()));
 
         curLevel = (TextView)findViewById(R.id.level);
-        agency.SetLevel(01); //TODO this is just a place holder. Will change later!
-        curLevel.setText(Integer.toString(agency.GetLevel()));
+        agency.SetLevel(1); //TODO this is just a place holder. Will change later!
+        curLevel.setText(agency.GetLevel());
 
         agencyName = (TextView)findViewById(R.id.agencyName);
-        agency.SetName("AgencyName"); //TODO this is just a place holder!
         agencyName.setText(agency.GetName());
 
         expBar = (ProgressBar)findViewById(R.id.expBar);
@@ -64,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements SettingsDialogFra
         Animation shrink = AnimationUtils.loadAnimation(this, R.anim.button_press);
         settings.startAnimation(shrink);
         final SettingsDialogFragment settingsMenu = new SettingsDialogFragment();
-        final FragmentManager fragmentManager = this.getSupportFragmentManager();
+
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,14 +79,24 @@ public class MainActivity extends AppCompatActivity implements SettingsDialogFra
 
     }
 
+    //Renames the agency
     @Override
     public void onFinishEditDialog(String newName)
     {
-        if(!newName.equals(agency.GetName()))
+        if(!newName.equals(agency.GetName()) && !newName.equals(""))
         {
             agency.SetName(newName);
             agencyName.setText(agency.GetName());
         }
+    }
+
+    //Names the agency at the start of the game
+    @Override
+    public void onFinishNameDialog(String name)
+    {
+        agency.SetName(name);
+        agencyName.setText(agency.GetName());
+        agency.setFirstTimeFlag(false);
     }
 
     public void openAchievements(View v) // When the achievements button is pressed, it does this
@@ -118,28 +133,6 @@ public class MainActivity extends AppCompatActivity implements SettingsDialogFra
 
         startActivity(new Intent(MainActivity.this, Scout.class));
     }
-/*
-    public void openSettings(View v) //Opens a popup window, will probably change in the future
-    {
-        ImageView button = (ImageView) v;
-        Animation shrink = AnimationUtils.loadAnimation(this, R.anim.button_press);
-        button.startAnimation(shrink);
-        ImageView buttonClose;
-        myDialog.setContentView(R.layout.settings_menu);
-        buttonClose = myDialog.findViewById(R.id.closeButton);
-        buttonClose.setOnClickListener(new View.OnClickListener()   //
-        {                                                           //
-            @Override                                               //
-            public void onClick(View v)                             // Makes sure you're not stuck on the setting screen forever until you die
-            {                                                       // by having the X button do what it should
-                myDialog.dismiss();                                 // Note that the rename input box is totally working as expected and is ready for production
-            }                                                       //
-        });                                                         //
-
-        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        myDialog.show();
-    }
-*/
     public void idolDoThing(View v) //When the idol is pressed, it does this
     {
         final int NORMAL_CLICK = 10;

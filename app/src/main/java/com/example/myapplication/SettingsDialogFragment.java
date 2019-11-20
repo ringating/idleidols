@@ -50,6 +50,14 @@ public class SettingsDialogFragment extends DialogFragment
         }
         );
 
+        Button saveButton = (Button)view.findViewById(R.id.SaveButton);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO: SAVE BUTTON
+            }
+        });
+
         ImageView exitButton = (ImageView)view.findViewById(R.id.closeButton);
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
