@@ -2,7 +2,9 @@ package com.example.myapplication;
 
 import android.content.Context;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class SaveLoad
@@ -12,19 +14,37 @@ public class SaveLoad
 
     private static String filename = "savefile";
 
-    static void save(Context context)
+    static void save(Context context, DataForSaveLoad data)
     {
-        //TODO FileOutputStream fos = context.openFileOutput(filename, Context.MODE_PRIVATE)
+        try
+        {
+            FileOutputStream fos = context.openFileOutput(filename, Context.MODE_PRIVATE);
+            ObjectOutputStream os = new ObjectOutputStream(fos);
+            os.writeObject(data);
+            os.close();
+            fos.close();
+        }
+        catch(java.io.FileNotFoundException e){}
+        catch(java.io.IOException e){}
     }
 
     static DataForSaveLoad load(Context context)
     {
-        if(!fileExists(context))
-            return null;
+        DataForSaveLoad ret = null;
 
-        //TODO FileInputStream fis = context.openFileInput(filename)
+        try
+        {
+            FileInputStream fis = context.openFileInput(filename);
+            ObjectInputStream is = new ObjectInputStream(fis);
+            ret = (DataForSaveLoad) is.readObject();
+            is.close();
+            fis.close();
+        }
+        catch(java.io.FileNotFoundException e){}
+        catch(java.io.IOException e){}
+        catch(java.lang.ClassNotFoundException e){}
 
-        return null;
+        return ret;
     }
 
     private static boolean fileExists(Context context)
