@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.app.Application;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,12 +142,19 @@ public class Agency extends Application {
         Idol originalIdol = getIdol(idolIndex1);
         Idol disappears = getIdol(idolIndex2);
 
-        originalIdol.setDanceStat(originalIdol.getDanceStat() + disappears.getDanceStat());
-        originalIdol.setSingStat(originalIdol.getSingStat() + disappears.getSingStat());
-        originalIdol.setCharmStat(originalIdol.getCharmStat() + disappears.getCharmStat());
-        originalIdol.setMerged(originalIdol.getMerged() + 1);
+        if(!originalIdol.getIdolName().equals(disappears.getIdolName()))
+        {
+            Toast toast = Toast.makeText(getApplicationContext(), "Please select the same idol", Toast.LENGTH_SHORT);
+        }
+        else
+        {
+            originalIdol.setDanceStat(originalIdol.getDanceStat() + disappears.getDanceStat());
+            originalIdol.setSingStat(originalIdol.getSingStat() + disappears.getSingStat());
+            originalIdol.setCharmStat(originalIdol.getCharmStat() + disappears.getCharmStat());
+            originalIdol.setMerged(originalIdol.getMerged() + 1);
 
-        removeIdolAtIndex(idolIndex2);
+            removeIdolAtIndex(idolIndex2);
+        }
 
         return originalIdol;
     }
