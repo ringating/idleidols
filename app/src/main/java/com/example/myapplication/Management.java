@@ -152,11 +152,12 @@ public class Management extends AppCompatActivity implements WarningDialog.Sende
                                     WarningDialog ask = new WarningDialog();
                                     ask.setArguments(bundle);
                                     ask.show(getSupportFragmentManager(), "WarningDialog"); //Show warning
+
+                                    mode = 0;
+                                    idolsIterate = 0;
+                                    ImageView border = findViewById(R.id.warningBorder);
+                                    border.setVisibility(View.INVISIBLE);
                                 }
-                                mode = 0;
-                                idolsIterate = 0;
-                                ImageView border = findViewById(R.id.warningBorder);
-                                border.setVisibility(View.INVISIBLE);
                                 break;
                             default:
                         }
