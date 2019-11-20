@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -55,6 +56,8 @@ public class SettingsDialogFragment extends DialogFragment
             @Override
             public void onClick(View v) {
                 SaveLoad.save(getActivity().getApplicationContext(), new DataForSaveLoad((Agency) getActivity().getApplicationContext()));
+                Toast toast = Toast.makeText(getContext(), "Game Data Saved", Toast.LENGTH_SHORT);
+                toast.show();
             }
         });
 
