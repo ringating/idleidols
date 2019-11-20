@@ -13,7 +13,7 @@ public enum Achievement     // Using the Java enum class
     CREATE_AGENCY(
             "You made one!",
             "Create an Agency",
-            R.drawable.rename_image,
+            R.drawable.tempacademy,
             150,
             0,
             5
@@ -32,8 +32,8 @@ public enum Achievement     // Using the Java enum class
 
     NUMBER_OF_IDOLS(
             "Starting the Garden",
-            "Collect a total of 5 seed tokens",
-            R.drawable.rename_image,
+            "Collect 5 seed tokens",
+            R.drawable.onion,
             50,
             500,
             0
@@ -55,7 +55,7 @@ public enum Achievement     // Using the Java enum class
     SAMPLE_3(
             "Sample 3",
             "This is a sample achievement",
-            R.drawable.rename_image,
+            R.drawable.class_act,
             250,
             145,
             501
@@ -73,7 +73,7 @@ public enum Achievement     // Using the Java enum class
     SAMPLE_4(
             "Sample 4",
             "This is a sample achievement",
-            R.drawable.rename_image,
+            R.drawable.class_dance,
             409,
             397,
             201
@@ -91,7 +91,7 @@ public enum Achievement     // Using the Java enum class
     SAMPLE_5(
             "Sample 5",
             "This is a sample achievement",
-            R.drawable.rename_image,
+            R.drawable.class_sing,
             520,
             5,
             32
