@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class DataForSaveLoad implements Serializable // serializable is the point of this class
 {
@@ -15,6 +16,10 @@ public class DataForSaveLoad implements Serializable // serializable is the poin
     public int curExp;
     public boolean firstTime;
 
+    // idol isn't serializable, and doesnt seem to be able to be made serializable
+    // so will have to make a struct or something for idol data and regenerate idols when loading them
+//    private ArrayList<Idol> idols = new ArrayList<>();
+
     DataForSaveLoad(Agency agency)
     {
         curCurrency = agency.GetCurrentCurrency();
@@ -27,6 +32,9 @@ public class DataForSaveLoad implements Serializable // serializable is the poin
         expNeededToLevelUp = agency.GetExpNeededToLevel();
         curExp = agency.GetCurrentExp();
         firstTime = agency.getFirstTimeFlag();
+
+//        for(int i = 0; i < agency.numberOfIdols(); ++i)
+//            idols.add(agency.getIdol(i));
     }
 
     public Agency getAgency()
@@ -43,6 +51,9 @@ public class DataForSaveLoad implements Serializable // serializable is the poin
         agency.SetCurrentExp(curExp);
         agency.setFirstTimeFlag(firstTime);
 
+//        for(int i = 0; i < idols.size(); ++i)
+//            agency.addIdol(idols.get(i));
+
         return agency;
     }
 
@@ -57,5 +68,11 @@ public class DataForSaveLoad implements Serializable // serializable is the poin
         destination.SetExpNeededToLevel(source.GetLevel());
         destination.SetCurrentExp(source.GetCurrentExp());
         destination.setFirstTimeFlag(source.getFirstTimeFlag());
+
+//        while(destination.numberOfIdols() > 0)
+//            destination.removeIdolAtIndex(0);
+//
+//        for(int i = 0; i < source.numberOfIdols(); ++i)
+//            destination.addIdol(source.getIdol(i));
     }
 }
