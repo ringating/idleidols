@@ -46,54 +46,12 @@ public class Idol implements Parcelable {
         setImage(in.readInt());
     }
 
-    public Idol()
+    public Idol(String type)
     {
-        generateStats(0);
-        calculateRarity();
+        calculateRarity(type);
+        generateStats(this.rarity);
     }
 
-    public void generateStats(float weight)
-    {
-        //TODO
-        Random rand = new Random();
-        switch (rand.nextInt(3) + 1) {
-            case 1:
-                setMainAffinity("Dance");
-                break;
-            case 2:
-                setMainAffinity("Sing");
-                break;
-            case 3:
-                setMainAffinity("Charm");
-                break;
-            default:
-                setMainAffinity("Unknown");
-        }
-
-        switch (rand.nextInt(2)){
-            case 0:
-                setImage(R.drawable.onion);
-                setIdolName("Onion");
-                break;
-            case 1:
-                setImage(R.drawable.tomato);
-                setIdolName("Tamto");
-                break;
-            default:
-                setImage(R.drawable.tempidol);
-                setIdolName("huh?");
-        }
-
-        this.danceStat = rand.nextFloat();
-        this.singStat = rand.nextFloat();
-        this.charmStat = rand.nextFloat();
-    }
-
-    public void calculateRarity()
-    {
-        //TODO
-        this.rarity = (int)(this.danceStat * 100 + this.charmStat * 100 + this.singStat * 100);
-    }
 
     public void setIdolName(String name)
     {
@@ -181,5 +139,189 @@ public class Idol implements Parcelable {
         dest.writeFloat(this.charmStat);
         dest.writeInt(this.rarity);
         dest.writeInt(this.image);
+    }
+
+    //Gacha Rates OOGA BOOGA
+    private void calculateRarity(String type)
+    {
+        Random rand = new Random();
+        int randomInt = rand.nextInt(100 ) + 1;
+        //setting rarity
+        if(type.equals("normal"))
+        {
+            if(randomInt >= 1 && randomInt <= 50)
+            {
+                this.setRarity(3);
+            }
+            else if (randomInt > 50 && randomInt <= 90)
+            {
+                this.setRarity(4);
+            }
+            else if(randomInt > 90 && randomInt <= 100)
+            {
+                this.setRarity(5);
+            }
+        }
+        else if(type.equals("special"))
+        {
+            if(randomInt >= 1 && randomInt <= 30)
+            {
+                this.setRarity(3);
+            }
+            else if (randomInt > 30 && randomInt <= 80)
+            {
+                this.setRarity(4);
+            }
+            else if(randomInt > 90 && randomInt <= 100)
+            {
+                this.setRarity(5);
+            }
+        }
+    }
+
+    private void generateStats(int rarity)
+    {
+        Random rand = new Random();
+        switch (rand.nextInt(3) + 1) {
+            case 1:
+                setMainAffinity("Dance");
+                break;
+            case 2:
+                setMainAffinity("Sing");
+                break;
+            case 3:
+                setMainAffinity("Charm");
+                break;
+            default:
+                setMainAffinity("Unknown");
+        }
+
+        switch (rand.nextInt(2)){
+            case 0:
+                setImage(R.drawable.onion);
+                setIdolName("Onion");
+                break;
+            case 1:
+                setImage(R.drawable.tomato);
+                setIdolName("Tamto");
+                break;
+            default:
+                setImage(R.drawable.tempidol);
+                setIdolName("huh?");
+        }
+
+        float highest = rand.nextFloat();
+        float random1 = rand.nextFloat();
+        float random2 = rand.nextFloat();
+        switch(rarity){
+            case 3:
+                if(Float.compare(highest, 0.5f) > 0)
+                {
+                    highest -= 0.5f;
+                }
+                if(Float.compare(highest, random1) < 0)
+                {
+                    random1 -= highest;
+                }
+                if(Float.compare(highest, random2) < 0)
+                {
+                    random2 -= highest;
+                }
+
+                switch (getMainAffinity())
+                {
+                    case "Dance":
+                        setDanceStat(highest);
+                        setCharmStat(random1);
+                        setSingStat(random2);
+                        break;
+                    case "Sing":
+                        setSingStat(highest);
+                        setDanceStat(random1);
+                        setCharmStat(random2);
+                        break;
+                    case "Charm":
+                        setCharmStat(highest);
+                        setSingStat(random1);
+                        setDanceStat(random2);
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case 4:
+                if(Float.compare(highest, 0.8f) > 0)
+                {
+                    highest -= 0.8f;
+                }
+                if(Float.compare(highest, random1) < 0)
+                {
+                    random1 -= highest;
+                }
+                if(Float.compare(highest, random2) < 0)
+                {
+                    random2 -= highest;
+                }
+
+                switch (getMainAffinity())
+                {
+                    case "Dance":
+                        setDanceStat(highest);
+                        setCharmStat(random1);
+                        setSingStat(random2);
+                        break;
+                    case "Sing":
+                        setSingStat(highest);
+                        setDanceStat(random1);
+                        setCharmStat(random2);
+                        break;
+                    case "Charm":
+                        setCharmStat(highest);
+                        setSingStat(random1);
+                        setDanceStat(random2);
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case 5:
+                if(Float.compare(highest, 0.2f) < 0)
+                {
+                    highest += 0.8f;
+                }
+                if(Float.compare(highest, random1) < 0)
+                {
+                    random1 -= highest;
+                }
+                if(Float.compare(highest, random2) < 0)
+                {
+                    random2 -= highest;
+                }
+
+                switch (getMainAffinity())
+                {
+                    case "Dance":
+                        setDanceStat(highest);
+                        setCharmStat(random1);
+                        setSingStat(random2);
+                        break;
+                    case "Sing":
+                        setSingStat(highest);
+                        setDanceStat(random1);
+                        setCharmStat(random2);
+                        break;
+                    case "Charm":
+                        setCharmStat(highest);
+                        setSingStat(random1);
+                        setDanceStat(random2);
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            default:
+                break;
+        }
+
     }
 }
