@@ -40,6 +40,7 @@ public class IdolCardDialog extends DialogFragment {
 
         TableLayout idolListContainer = view.findViewById(R.id.iconIconContainer);
         idolListContainer.removeAllViews();
+
         TableRow.LayoutParams rowLayout = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);    // Row Layout
         rowLayout.gravity = Gravity.CENTER_HORIZONTAL;                                                      //
         final TableRow.LayoutParams iconLayout = new TableRow.LayoutParams(700,700);   //
