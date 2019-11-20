@@ -11,26 +11,36 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Management extends AppCompatActivity implements WarningDialog.Sender{
 
     Dialog myDialog;
     Agency agency;
     int mode = 0;
+    int idolsIterate = 0;
+    int[] idols = new int[2]; // array of idol indexes to be combined together in matrimony
     boolean accept = false;
 
     public static final DecimalFormat df =  new DecimalFormat("0.00");
 
-    public void Send(boolean accept, int extra) //This is called when the "ok" button is pressed in WarningDialog
+    public void Send(boolean accept, int extra, int extra2, int extra3) //This is called when the "ok" button is pressed in WarningDialog
     {
-        if (extra != -1)
+        if (extra3 == 1)
         {
             agency.removeIdolAtIndex(extra);
+            generateList();
+        }
+        else if (extra3 == 2)
+        {
+            agency.combineIdols(extra, extra2);
             generateList();
         }
     }
@@ -51,7 +61,7 @@ public class Management extends AppCompatActivity implements WarningDialog.Sende
         seeds.setText(Integer.toString(agency.GetCurrentSeeds()));
 
         TextView level = findViewById(R.id.level);
-        level.setText(Integer.toString(agency.GetLevel()));
+        level.setText(agency.GetLevel());
 
         TextView name = findViewById(R.id.agencyName);
         name.setText(agency.GetName());
@@ -107,14 +117,11 @@ public class Management extends AppCompatActivity implements WarningDialog.Sende
                             case 0:
                                 bundle = new Bundle();
 
-                                Idol temp = agency.getIdol(v.getId());
+                                ArrayList<Idol> temp = new ArrayList<>();
 
-                                bundle.putString("name", temp.getIdolName());
-                                bundle.putString("rarity", Integer.toString(temp.getRarity()));
-                                bundle.putString("dance", df.format(temp.getDanceStat()));
-                                bundle.putString("sing", df.format(temp.getSingStat()));
-                                bundle.putString("charm", df.format(temp.getCharmStat()));         //Send the data of a specific idol at index "id" to the Card Fragment to be displayed
-                                bundle.putInt("image", temp.getImage());
+                                temp.add(agency.getIdol(v.getId()));
+
+                                bundle.putParcelableArrayList("idol", temp);
 
                                 IdolCardDialog card = new IdolCardDialog();
                                 card.setArguments(bundle);                                                         //Show the Idol Card with relevant information
@@ -123,12 +130,34 @@ public class Management extends AppCompatActivity implements WarningDialog.Sende
                             case 2:
                                 bundle = new Bundle();
 
-                                bundle.putInt("index", v.getId());  //Sends the index of the idol being affected for the interface
+                                bundle.putInt("index1", v.getId());  //Sends the index of the idol being affected for the interface
+                                bundle.putInt("option", 1);
                                 bundle.putString("message", "Are you sure you want to remove " + agency.getIdol(v.getId()).getIdolName() + " from existence?"); //Custom message for WarningDialog
 
                                 WarningDialog warning = new WarningDialog();
                                 warning.setArguments(bundle);
                                 warning.show(getSupportFragmentManager(), "WarningDialog"); //Show warning
+                                break;
+                            case 3:
+                                idols[idolsIterate] = v.getId();
+                                idolsIterate++;
+                                if (idolsIterate == 2) {
+                                    bundle = new Bundle();
+
+                                    bundle.putInt("index1", idols[0]);  //Sends the index of the idol being affected for the interface
+                                    bundle.putInt("index2", idols[1]);
+                                    bundle.putInt("option", 2);
+                                    bundle.putString("message", "Are you sure you want to combine " + agency.getIdol(idols[0]).getIdolName() + " and " + agency.getIdol(idols[1]).getIdolName()); //Custom message for WarningDialog
+
+                                    WarningDialog ask = new WarningDialog();
+                                    ask.setArguments(bundle);
+                                    ask.show(getSupportFragmentManager(), "WarningDialog"); //Show warning
+
+                                    mode = 0;
+                                    idolsIterate = 0;
+                                    ImageView border = findViewById(R.id.warningBorder);
+                                    border.setVisibility(View.INVISIBLE);
+                                }
                                 break;
                             default:
                         }
@@ -147,7 +176,18 @@ public class Management extends AppCompatActivity implements WarningDialog.Sende
         Button combine = (Button) v;
         Animation shrink = AnimationUtils.loadAnimation(this,R.anim.button_press);
         combine.startAnimation(shrink);
-
+        ImageView border = findViewById(R.id.warningBorder);
+        if (mode == 3)
+        {
+            mode = 0;
+            idolsIterate = 0;
+            border.setVisibility(View.INVISIBLE);
+        }
+        else if (agency.numberOfIdols() > 0)
+        {
+            border.setVisibility(View.VISIBLE);
+            mode = 3;
+        }
     }
 
     public void ReleaseButton(View v)

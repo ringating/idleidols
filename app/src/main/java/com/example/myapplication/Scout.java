@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 
 public class Scout extends AppCompatActivity {
     Dialog myDialog;
@@ -37,7 +38,7 @@ public class Scout extends AppCompatActivity {
         seeds.setText(Integer.toString(agency.GetCurrentSeeds()));
 
         TextView level = findViewById(R.id.level);
-        level.setText(Integer.toString(agency.GetLevel()));
+        level.setText(agency.GetLevel());
 
         TextView name = findViewById(R.id.agencyName);
         name.setText(agency.GetName());
@@ -63,15 +64,14 @@ public class Scout extends AppCompatActivity {
             seeds.setText(Integer.toString(agency.GetCurrentSeeds()));
             Bundle bundle = new Bundle();
 
-            Idol temp = new Idol();
-            agency.addIdol(temp);
+            Idol tempIdol = new Idol();
+            agency.addIdol(tempIdol);
 
-            bundle.putString("name", temp.getIdolName());
-            bundle.putString("rarity", Integer.toString(temp.getRarity()));
-            bundle.putString("dance", df.format(temp.getDanceStat()));
-            bundle.putString("sing", df.format(temp.getSingStat()));
-            bundle.putString("charm", df.format(temp.getCharmStat()));         //Send the data of the Idol to the Card Fragment to be displayed
-            bundle.putInt("image", temp.getImage());
+            ArrayList<Idol> temp = new ArrayList<>();
+
+            temp.add(tempIdol);
+
+            bundle.putParcelableArrayList("idol", temp);
 
             IdolCardDialog card = new IdolCardDialog();
             card.setArguments(bundle);                                                         //Show the Idol Card with relevant information
@@ -88,24 +88,22 @@ public class Scout extends AppCompatActivity {
             agency.SetSeeds(agency.GetCurrentSeeds() - 10);
             TextView seeds = findViewById(R.id.seed);
             seeds.setText(Integer.toString(agency.GetCurrentSeeds()));
+            Bundle bundle = new Bundle();
+            ArrayList<Idol> temp = new ArrayList<>();
+            Idol tempIdol;
 
-            for (int i = 0; i < 10; i++) {
-                Bundle bundle = new Bundle();
-
-                Idol temp = new Idol();
-                agency.addIdol(temp);
-
-                bundle.putString("name", temp.getIdolName());
-                bundle.putString("rarity", Integer.toString(temp.getRarity()));
-                bundle.putString("dance", df.format(temp.getDanceStat()));
-                bundle.putString("sing", df.format(temp.getSingStat()));
-                bundle.putString("charm", df.format(temp.getCharmStat()));         //Send the data of the Idol to the Card Fragment to be displayed
-                bundle.putInt("image", temp.getImage());
-
-                IdolCardDialog card = new IdolCardDialog();
-                card.setArguments(bundle);                                                         //Show the Idol Card with relevant information
-                card.show(getSupportFragmentManager(), "IdolCardDialog");
+            for(int i = 0; i < 10; i++)
+            {
+                tempIdol = new Idol();
+                agency.addIdol(tempIdol);
+                temp.add(tempIdol);
             }
+
+            bundle.putParcelableArrayList("idol", temp);
+
+            IdolCardDialog card = new IdolCardDialog();
+            card.setArguments(bundle);                                                         //Show the Idol Card with relevant information
+            card.show(getSupportFragmentManager(), "IdolCardDialog");
         }
     }
 

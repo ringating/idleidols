@@ -50,7 +50,7 @@ public class Achievements extends AppCompatActivity
 
         level = (TextView)findViewById(R.id.level);
         agency.SetLevel(01); // TODO: This is just a place holder; will change later!
-        level.setText(Integer.toString(agency.GetLevel()));
+        level.setText(agency.GetLevel());
 
         TextView name = findViewById(R.id.agencyName);
         name.setText(agency.GetName());
@@ -102,8 +102,8 @@ public class Achievements extends AppCompatActivity
             //This is the code for checking EXP
             if(agency.GetCurrentExp() >= agency.GetExpNeededToLevel())
             {
-                agency.SetLevel(agency.GetLevel() + 1);
-                level.setText(Integer.toString(agency.GetLevel()));
+                agency.SetLevel(Integer.parseInt(agency.GetLevel()) + 1);
+                level.setText(agency.GetLevel());
                 expBar.setProgress(agency.GetCurrentExp() - agency.GetExpNeededToLevel());
                 agency.SetCurrentExp(agency.GetCurrentExp() - agency.GetExpNeededToLevel());
                 agency.SetExpNeededToLevel(agency.GetLevel());
@@ -153,8 +153,8 @@ public class Achievements extends AppCompatActivity
 
             if(agency.GetCurrentExp() >= agency.GetExpNeededToLevel())
             {
-                agency.SetLevel(agency.GetLevel() + 1);
-                level.setText(Integer.toString(agency.GetLevel()));
+                agency.SetLevel(Integer.parseInt(agency.GetLevel()) + 1);
+                level.setText(agency.GetLevel());
                 expBar.setProgress(agency.GetCurrentExp() - agency.GetExpNeededToLevel());
                 agency.SetCurrentExp(agency.GetCurrentExp() - agency.GetExpNeededToLevel());
                 agency.SetExpNeededToLevel(agency.GetLevel());

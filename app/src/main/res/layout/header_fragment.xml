@@ -20,7 +20,8 @@
         android:layout_marginTop="63dp"
         android:layout_marginLeft="145dp"
         android:text="0"
-        android:textSize="18sp"/>
+        android:textSize="18sp"
+        android:textColor="@color/darkGray"/>
 
     <TextView
         android:id="@+id/seed"
@@ -29,7 +30,8 @@
         android:layout_marginLeft="295dp"
         android:layout_marginTop="63dp"
         android:text="0"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:textColor="@color/darkGray"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -37,7 +39,8 @@
         android:layout_marginLeft="32dp"
         android:layout_marginTop="15dp"
         android:text="Level"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:textColor="@color/darkGray"/>
 
     <TextView
         android:id="@+id/level"
@@ -47,7 +50,8 @@
         android:layout_marginTop="25dp"
         android:gravity="center"
         android:text="01"
-        android:textSize="55sp" />
+        android:textSize="55sp"
+        android:textColor="@color/darkGray"/>
 
     <TextView
         android:id="@+id/agencyName"
@@ -56,6 +60,7 @@
         android:layout_marginLeft="118dp"
         android:layout_marginTop="5dp"
         android:text="AgencyName"
-        android:textSize="18sp"/>
+        android:textSize="18sp"
+        android:textColor="@color/darkGray"/>
 
 </RelativeLayout>

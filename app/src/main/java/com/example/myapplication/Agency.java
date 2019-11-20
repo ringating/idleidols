@@ -15,6 +15,7 @@ public class Agency extends Application {
     private String agencyName;
     private int expNeededToLevelUp;
     private int curExp;
+    private boolean firstTime = true;
 
     private final int EXP_LEVEL_MODIFIER = 100;
 
@@ -53,8 +54,14 @@ public class Agency extends Application {
         this.level = level;
     }
 
-    public int GetLevel()
+    public String GetLevel()
     {
+        String level = "";
+        if(this.level > 0 && this.level < 10)
+        {
+            level += "0";
+        }
+        level += Integer.toString(this.level);
         return level;
     }
 
@@ -105,9 +112,9 @@ public class Agency extends Application {
         return this.curExp;
     }
 
-    public void SetExpNeededToLevel(int level)
+    public void SetExpNeededToLevel(String level)
     {
-        this.expNeededToLevelUp += level * EXP_LEVEL_MODIFIER;
+        this.expNeededToLevelUp += Integer.parseInt(level) * EXP_LEVEL_MODIFIER;
     }
 
     public int GetExpNeededToLevel()
@@ -118,5 +125,27 @@ public class Agency extends Application {
     public int numberOfIdols()
     {
         return idols.size();
+    }
+    public boolean getFirstTimeFlag()
+    {
+        return this.firstTime;
+    }
+
+    public void setFirstTimeFlag(boolean flag)
+    {
+        this.firstTime = flag;
+    }
+
+    public Idol combineIdols(int idolIndex1, int idolIndex2)
+    {
+        //TODO: ADD MATHEMATICAL IDOL COMBINING MAGIC
+        removeIdolAtIndex(idolIndex1);
+        removeIdolAtIndex(idolIndex2);
+
+        Idol idol = new Idol();
+
+        addIdol(idol);
+
+        return idol;
     }
 }

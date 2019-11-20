@@ -1,62 +1,67 @@
 package com.example.myapplication;
 
-import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.view.Window;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
-import org.w3c.dom.Text;
+import java.util.ArrayList;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 
 public class IdolCardDialog extends DialogFragment {
-    private static final String TAG = "IdolCardDialog";
-
-    private TextView exit;
-
-    private TextView idolName;
-    private TextView rarity;
-    private TextView dance;
-    private TextView sing;
-    private TextView charm;
-
-    private ImageView image;
 
     @Nullable
     @Override
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState)
     {
-        View view = inflater.inflate(R.layout.idolcard, container, false);
+        View view = inflater.inflate(R.layout.idol_card_scroll_container, container, false);
 
-        idolName = view.findViewById(R.id.name);
-        rarity = view.findViewById(R.id.rarity);
-        dance = view.findViewById(R.id.dance);
-        sing = view.findViewById(R.id.sing);
-        charm = view.findViewById(R.id.charm);
-        image = view.findViewById(R.id.idolImage);
+        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        setStyle(DialogFragment.STYLE_NO_FRAME, android.R.style.Theme);
 
-        exit = view.findViewById(R.id.exitButton);
+        ArrayList<Idol> idols = getArguments().getParcelableArrayList("idol");
 
-        idolName.setText(getArguments().getString("name"));
-        rarity.setText(getArguments().getString("rarity"));
-        dance.setText(getArguments().getString("dance"));
-        sing.setText(getArguments().getString("sing"));
-        charm.setText(getArguments().getString("charm"));
-        image.setBackgroundResource(getArguments().getInt("image"));
+        LinearLayout idolListContainer = view.findViewById(R.id.cardLayout);
 
-        exit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Log.d(TAG, "onClick: closing dialog");
-                getDialog().dismiss();
-            }
-        });
+        LinearLayout.LayoutParams layout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        layout.bottomMargin = 40;
+
+        for (Idol idol: idols)
+        {
+            LinearLayout fragmentContainer = new LinearLayout(getActivity());
+
+            fragmentContainer.setLayoutParams(layout);
+
+            fragmentContainer.setOrientation(LinearLayout.VERTICAL);
+            fragmentContainer.setId(View.generateViewId());
+
+            FragmentManager fragmentManager = getChildFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("idol", idol);
+
+            IdolCardFragment fragment = new IdolCardFragment();
+            fragment.setArguments(bundle);
+
+            fragmentTransaction.add(fragmentContainer.getId(), fragment);
+            fragmentTransaction.commit();
+
+            idolListContainer.addView(fragmentContainer);
+        }
 
         return view;
     }
