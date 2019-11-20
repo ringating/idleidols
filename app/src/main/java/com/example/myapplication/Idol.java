@@ -12,6 +12,7 @@ public class Idol implements Parcelable {
     private float charmStat;
     private int rarity;
     private int image;
+    private int merged;
     private boolean isBeingUsed;
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
@@ -33,6 +34,7 @@ public class Idol implements Parcelable {
         setCharmStat(charm);
         setRarity(rarity);
         setImage(imgId);
+        setMerged(0);
     }
 
     public Idol(Parcel in)
@@ -44,11 +46,13 @@ public class Idol implements Parcelable {
         setCharmStat(in.readFloat());
         setRarity(in.readInt());
         setImage(in.readInt());
+        setMerged(in.readInt());
     }
 
     public Idol(String type)
     {
         calculateRarity(type);
+        setMerged(0);
         generateStats(this.rarity);
     }
 
@@ -121,6 +125,16 @@ public class Idol implements Parcelable {
     public int getImage()
     {
         return this.image;
+    }
+
+    public void setMerged(int merge)
+    {
+        this.merged = merge;
+    }
+
+    public int getMerged()
+    {
+        return this.merged;
     }
 
     @Override

@@ -147,4 +147,25 @@
         android:layout_toEndOf="@+id/idolImage"
         android:layout_toRightOf="@+id/idolImage"
         android:text="0" />
+
+    <TextView
+        android:id="@+id/mergeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="13dp"
+        android:layout_toEndOf="@+id/rarity"
+        android:text="Merge:" />
+    <TextView
+        android:id="@+id/merge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name"
+        android:layout_marginStart="3dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="13dp"
+        android:layout_toEndOf="@+id/mergeText"
+        android:text="0"/>
 </RelativeLayout>

@@ -21,6 +21,7 @@ public class IdolCardFragment extends Fragment {
     private TextView dance;
     private TextView sing;
     private TextView charm;
+    private TextView merge;
 
     private ImageView image;
 
@@ -36,6 +37,7 @@ public class IdolCardFragment extends Fragment {
         sing = view.findViewById(R.id.sing);
         charm = view.findViewById(R.id.charm);
         image = view.findViewById(R.id.idolImage);
+        merge = view.findViewById(R.id.merge);
 
         exit = view.findViewById(R.id.exitButton);
 
@@ -47,6 +49,7 @@ public class IdolCardFragment extends Fragment {
         sing.setText(String.format(Locale.US, "%.2f", temp.getSingStat()));
         charm.setText(String.format(Locale.US, "%.2f", temp.getCharmStat()));
         image.setBackgroundResource(temp.getImage());
+        merge.setText(String.format(Locale.US, "%d", temp.getMerged()));
 
         return view;
     }

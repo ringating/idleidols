@@ -138,14 +138,16 @@ public class Agency extends Application {
 
     public Idol combineIdols(int idolIndex1, int idolIndex2)
     {
-        //TODO: ADD MATHEMATICAL IDOL COMBINING MAGIC
-        removeIdolAtIndex(idolIndex1);
+        Idol originalIdol = getIdol(idolIndex1);
+        Idol disappears = getIdol(idolIndex2);
+
+        originalIdol.setDanceStat(originalIdol.getDanceStat() + disappears.getDanceStat());
+        originalIdol.setSingStat(originalIdol.getSingStat() + disappears.getSingStat());
+        originalIdol.setCharmStat(originalIdol.getCharmStat() + disappears.getCharmStat());
+        originalIdol.setMerged(originalIdol.getMerged() + 1);
+
         removeIdolAtIndex(idolIndex2);
 
-        Idol idol = new Idol("normal");
-
-        addIdol(idol);
-
-        return idol;
+        return originalIdol;
     }
 }
