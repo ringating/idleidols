@@ -10,9 +10,10 @@ import android.widget.TextView;
 import java.util.Locale;
 
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
-public class IdolCardFragment extends Fragment {
+public class IdolCardFragment extends DialogFragment {
 
     private TextView exit;
 

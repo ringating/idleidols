@@ -11,10 +11,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical">
 
-        <LinearLayout
-            android:id="@+id/cardLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
+        <TableLayout
+            android:id="@+id/iconIconContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </TableLayout>
     </ScrollView>
+
 </LinearLayout>

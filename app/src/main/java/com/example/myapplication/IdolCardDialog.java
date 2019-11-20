@@ -5,12 +5,15 @@ import android.graphics.drawable.ColorDrawable;
 
 import android.os.Bundle;
 import android.text.Layout;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 
 import java.util.ArrayList;
 
@@ -35,33 +38,45 @@ public class IdolCardDialog extends DialogFragment {
 
         ArrayList<Idol> idols = getArguments().getParcelableArrayList("idol");
 
-        LinearLayout idolListContainer = view.findViewById(R.id.cardLayout);
+        TableLayout idolListContainer = view.findViewById(R.id.iconIconContainer);
+        idolListContainer.removeAllViews();
+        TableRow.LayoutParams rowLayout = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);    // Row Layout
+        rowLayout.gravity = Gravity.CENTER_HORIZONTAL;                                                      //
+        final TableRow.LayoutParams iconLayout = new TableRow.LayoutParams(700,700);   //
+        iconLayout.bottomMargin = 30;                                                         //
 
-        LinearLayout.LayoutParams layout = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        layout.bottomMargin = 40;
+        int id = 0;
 
-        for (Idol idol: idols)
+        for (int i = 0; idols != null && i <= (idols.size() / 2); i++)
         {
-            LinearLayout fragmentContainer = new LinearLayout(getActivity());
+            TableRow row = new TableRow(getActivity());  //Generates a new row every four row elements
+            row.setLayoutParams(rowLayout);
 
-            fragmentContainer.setLayoutParams(layout);
+            for (int n = 0; n < 2 && id < idols.size(); n++) {
+                LinearLayout fragmentContainer = new LinearLayout(getActivity());
 
-            fragmentContainer.setOrientation(LinearLayout.VERTICAL);
-            fragmentContainer.setId(View.generateViewId());
+                fragmentContainer.setLayoutParams(iconLayout);
 
-            FragmentManager fragmentManager = getChildFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentContainer.setOrientation(LinearLayout.VERTICAL);
+                fragmentContainer.setId(View.generateViewId());
 
-            Bundle bundle = new Bundle();
-            bundle.putParcelable("idol", idol);
+                FragmentManager fragmentManager = getChildFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-            IdolCardFragment fragment = new IdolCardFragment();
-            fragment.setArguments(bundle);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("idol", idols.get(id));
 
-            fragmentTransaction.add(fragmentContainer.getId(), fragment);
-            fragmentTransaction.commit();
+                IdolIconFragment fragment = new IdolIconFragment();
+                fragment.setArguments(bundle);
 
-            idolListContainer.addView(fragmentContainer);
+                fragmentTransaction.add(fragmentContainer.getId(), fragment);
+                fragmentTransaction.commit();
+
+                row.addView(fragmentContainer);
+
+                id++;
+            }
+            idolListContainer.addView(row, i);
         }
 
         return view;

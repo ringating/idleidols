@@ -7,9 +7,8 @@
     android:background="@drawable/idolcard_border"
     android:layout_gravity="center">
 
-    <fragment
-        android:id="@+id/iconFragment"
-        android:name="com.example.myapplication.IdolIconFragment"
+    <ImageView
+        android:id="@+id/idolImage"
         android:layout_width="160dp"
         android:layout_height="160dp"
         android:layout_marginLeft="8dp"
@@ -24,8 +23,8 @@
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="22dp"
-        android:layout_toEndOf="@+id/iconFragment"
-        android:layout_toRightOf="@+id/iconFragment"
+        android:layout_toEndOf="@+id/idolImage"
+        android:layout_toRightOf="@+id/idolImage"
         android:text="Name" />
 
     <TextView
@@ -36,8 +35,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginTop="13dp"
-        android:layout_toEndOf="@+id/iconFragment"
-        android:layout_toRightOf="@+id/iconFragment"
+        android:layout_toEndOf="@+id/idolImage"
+        android:layout_toRightOf="@+id/idolImage"
         android:text="Rarity: " />
 
     <TextView
@@ -48,8 +47,8 @@
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="13dp"
-        android:layout_toEndOf="@+id/iconFragment"
-        android:layout_toRightOf="@+id/iconFragment"
+        android:layout_toEndOf="@+id/idolImage"
+        android:layout_toRightOf="@+id/idolImage"
         android:text="Stats:" />
 
     <TextView
@@ -84,8 +83,8 @@
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
-        android:layout_toEndOf="@+id/iconFragment"
-        android:layout_toRightOf="@+id/iconFragment"
+        android:layout_toEndOf="@+id/idolImage"
+        android:layout_toRightOf="@+id/idolImage"
         android:text="Dance:" />
 
     <TextView
@@ -96,8 +95,8 @@
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
-        android:layout_toEndOf="@+id/iconFragment"
-        android:layout_toRightOf="@+id/iconFragment"
+        android:layout_toEndOf="@+id/idolImage"
+        android:layout_toRightOf="@+id/idolImage"
         android:text="Sing:" />
 
     <TextView
@@ -108,8 +107,8 @@
         android:layout_marginLeft="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
-        android:layout_toEndOf="@+id/iconFragment"
-        android:layout_toRightOf="@+id/iconFragment"
+        android:layout_toEndOf="@+id/idolImage"
+        android:layout_toRightOf="@+id/idolImage"
         android:text="Charm:" />
 
     <TextView
@@ -120,8 +119,8 @@
         android:layout_marginLeft="54dp"
         android:layout_marginStart="54dp"
         android:layout_marginTop="4dp"
-        android:layout_toEndOf="@+id/iconFragment"
-        android:layout_toRightOf="@+id/iconFragment"
+        android:layout_toEndOf="@+id/idolImage"
+        android:layout_toRightOf="@+id/idolImage"
         android:text="0" />
 
     <TextView
@@ -132,8 +131,8 @@
         android:layout_marginLeft="54dp"
         android:layout_marginStart="54dp"
         android:layout_marginTop="4dp"
-        android:layout_toEndOf="@+id/iconFragment"
-        android:layout_toRightOf="@+id/iconFragment"
+        android:layout_toEndOf="@+id/idolImage"
+        android:layout_toRightOf="@+id/idolImage"
         android:text="0" />
 
     <TextView
@@ -144,8 +143,8 @@
         android:layout_marginLeft="54dp"
         android:layout_marginStart="54dp"
         android:layout_marginTop="4dp"
-        android:layout_toEndOf="@+id/iconFragment"
-        android:layout_toRightOf="@+id/iconFragment"
+        android:layout_toEndOf="@+id/idolImage"
+        android:layout_toRightOf="@+id/idolImage"
         android:text="0" />
 
 </RelativeLayout>
