@@ -45,4 +45,17 @@ public class DataForSaveLoad implements Serializable // serializable is the poin
 
         return agency;
     }
+
+    public static void copyAgencyValues(Agency destination, Agency source)
+    {
+        destination.SetCurrency(source.GetCurrentCurrency());
+        destination.SetTotalCurrency(source.GetTotalCurrency());
+        destination.SetSeeds(source.GetCurrentSeeds());
+        destination.SetTotalSeeds(source.GetTotalSeeds());
+        destination.SetLevel(Integer.parseInt(source.GetLevel()));
+        destination.SetName(source.GetName());
+        destination.SetExpNeededToLevel(source.GetLevel());
+        destination.SetCurrentExp(source.GetCurrentExp());
+        destination.setFirstTimeFlag(source.getFirstTimeFlag());
+    }
 }

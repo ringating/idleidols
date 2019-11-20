@@ -28,24 +28,26 @@ public class MainActivity extends AppCompatActivity implements SettingsDialogFra
     TextView agencyName;
     ProgressBar expBar;
 
+    private static boolean firstRun = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) // Some android stuff, probably important
     {
+        Log.d("idleidol", "hello from MainActivity's OnCreate method");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        agency = (Agency) getApplicationContext();
+
         DataForSaveLoad load = SaveLoad.load(getApplicationContext());
-        if(load != null)
+        if(firstRun && load != null)
         {
-            Log.d("idleIdol", "data loaded, now Applying");
-            agency = load.getAgency();
+            Log.d("idleIdol", "loading data from file (should only happen once per app run!)");
+            // overwrite values in app context Agency with the values from the loaded data
+            DataForSaveLoad.copyAgencyValues(agency, load.getAgency());
         }
-        else
-        {
-            //Creates the Agency object in the context of the application instead of just the page.
-            agency = (Agency) getApplicationContext();
-        }
+        firstRun = false;
 
         final FragmentManager fragmentManager = this.getSupportFragmentManager();
 
