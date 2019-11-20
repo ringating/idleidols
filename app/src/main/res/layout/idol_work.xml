@@ -8,6 +8,14 @@
     tools:context=".Work">
 
     <fragment
+        android:id="@+id/fragment4"
+        android:name="com.example.myapplication.NavigationFragment"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/container"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <fragment
         android:id="@+id/header"
         android:name="com.example.myapplication.HeaderFragment"
         android:layout_width="match_parent"
@@ -19,7 +27,9 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/container"/>
+        android:id="@+id/container">
+
+    </FrameLayout>
 
     <ImageView
         android:id="@+id/imageView8"
@@ -214,9 +224,9 @@
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="30dp"
-        android:layout_height="587dp"
-        android:layout_marginBottom="28dp"
+        android:layout_width="33dp"
+        android:layout_height="568dp"
+        android:layout_marginBottom="54dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/scrollbar" />
@@ -263,59 +273,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/affinity_dance" />
-
-    <Button
-        android:id="@+id/home_button4"
-        android:layout_width="68dp"
-        android:layout_height="47dp"
-        android:text="Home"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/academies_button4"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/academies_button4"
-        android:layout_width="68dp"
-        android:layout_height="47dp"
-        android:text="Academies"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/workplace_button4"
-        app:layout_constraintStart_toEndOf="@+id/home_button4" />
-
-    <Button
-        android:id="@+id/workplace_button4"
-        android:layout_width="68dp"
-        android:layout_height="47dp"
-        android:text="Workplace"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/scout_button4"
-        app:layout_constraintStart_toEndOf="@+id/academies_button4" />
-
-    <Button
-        android:id="@+id/scout_button4"
-        android:layout_width="68dp"
-        android:layout_height="47dp"
-        android:text="Scout"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/management_button4"
-        app:layout_constraintStart_toEndOf="@+id/workplace_button4" />
-
-    <Button
-        android:id="@+id/management_button4"
-        android:layout_width="68dp"
-        android:layout_height="47dp"
-        android:text="Management"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/achievements_button4"
-        app:layout_constraintStart_toEndOf="@+id/scout_button4" />
-
-    <Button
-        android:id="@+id/achievements_button4"
-        android:layout_width="68dp"
-        android:layout_height="47dp"
-        android:text="Achievements"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/management_button4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
