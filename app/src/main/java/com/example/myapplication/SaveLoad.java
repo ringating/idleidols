@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -24,8 +25,8 @@ public class SaveLoad
             os.close();
             fos.close();
         }
-        catch(java.io.FileNotFoundException e){}
-        catch(java.io.IOException e){}
+        catch(java.io.FileNotFoundException e){Log.e("idleidol",e.toString());}
+        catch(java.io.IOException e){Log.e("idleidol",e.toString());}
     }
 
     static DataForSaveLoad load(Context context)
@@ -40,9 +41,9 @@ public class SaveLoad
             is.close();
             fis.close();
         }
-        catch(java.io.FileNotFoundException e){}
-        catch(java.io.IOException e){}
-        catch(java.lang.ClassNotFoundException e){}
+        catch(java.io.FileNotFoundException e){Log.e("idleidol",e.toString());}
+        catch(java.io.IOException e){Log.e("idleidol",e.toString());}
+        catch(java.lang.ClassNotFoundException e){Log.e("idleidol",e.toString());}
 
         return ret;
     }
