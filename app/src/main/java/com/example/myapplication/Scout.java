@@ -15,12 +15,18 @@ import android.widget.TextView;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Scout extends AppCompatActivity {
     Dialog myDialog;
     Agency agency;
 
     public static final DecimalFormat df =  new DecimalFormat("0.00");
+
+    private static final String NORMAL_GACHA = "normal";
+    private static final String SPECIAL_GACHA = "special";
+    private static final int NORMAL_SEEDS = 3;
+    private static final int SPECIAL_SEEDS = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,14 +63,14 @@ public class Scout extends AppCompatActivity {
         Button scout = (Button) v;
         Animation shrink = AnimationUtils.loadAnimation(this,R.anim.button_press);
         scout.startAnimation(shrink);
-        if (agency.GetCurrentSeeds() > 0)
+        if (agency.GetCurrentSeeds() > NORMAL_SEEDS)
         {
-            agency.SetSeeds(agency.GetCurrentSeeds() - 1);
+            agency.SetSeeds(agency.GetCurrentSeeds() - NORMAL_SEEDS);
             TextView seeds = findViewById(R.id.seed);
             seeds.setText(Integer.toString(agency.GetCurrentSeeds()));
             Bundle bundle = new Bundle();
 
-            Idol tempIdol = new Idol();
+            Idol tempIdol = new Idol(NORMAL_GACHA);
             agency.addIdol(tempIdol);
 
             ArrayList<Idol> temp = new ArrayList<>();
@@ -83,9 +89,9 @@ public class Scout extends AppCompatActivity {
         Button scout = (Button) v;
         Animation shrink = AnimationUtils.loadAnimation(this, R.anim.button_press);
         scout.startAnimation(shrink);
-        if (agency.GetCurrentSeeds() >= 10)
+        if (agency.GetCurrentSeeds() >= (NORMAL_SEEDS) * 10)
         {
-            agency.SetSeeds(agency.GetCurrentSeeds() - 10);
+            agency.SetSeeds(agency.GetCurrentSeeds() - (NORMAL_SEEDS) - 10);
             TextView seeds = findViewById(R.id.seed);
             seeds.setText(Integer.toString(agency.GetCurrentSeeds()));
             Bundle bundle = new Bundle();
@@ -94,7 +100,7 @@ public class Scout extends AppCompatActivity {
 
             for(int i = 0; i < 10; i++)
             {
-                tempIdol = new Idol();
+                tempIdol = new Idol(NORMAL_GACHA);
                 agency.addIdol(tempIdol);
                 temp.add(tempIdol);
             }
@@ -112,6 +118,26 @@ public class Scout extends AppCompatActivity {
         Button scout = (Button) v;
         Animation shrink = AnimationUtils.loadAnimation(this,R.anim.button_press);
         scout.startAnimation(shrink);
+        if (agency.GetCurrentSeeds() > SPECIAL_SEEDS)
+        {
+            agency.SetSeeds(agency.GetCurrentSeeds() - SPECIAL_SEEDS);
+            TextView seeds = findViewById(R.id.seed);
+            seeds.setText(Integer.toString(agency.GetCurrentSeeds()));
+            Bundle bundle = new Bundle();
+
+            Idol tempIdol = new Idol(SPECIAL_GACHA);
+            agency.addIdol(tempIdol);
+
+            ArrayList<Idol> temp = new ArrayList<>();
+
+            temp.add(tempIdol);
+
+            bundle.putParcelableArrayList("idol", temp);
+
+            IdolCardDialog card = new IdolCardDialog();
+            card.setArguments(bundle);                                                         //Show the Idol Card with relevant information
+            card.show(getSupportFragmentManager(), "IdolCardDialog");
+        }
     }
 
     //The Following methods are for the bottom screen

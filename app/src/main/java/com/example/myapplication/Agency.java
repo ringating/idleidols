@@ -142,7 +142,7 @@ public class Agency extends Application {
         removeIdolAtIndex(idolIndex1);
         removeIdolAtIndex(idolIndex2);
 
-        Idol idol = new Idol();
+        Idol idol = new Idol("normal");
 
         addIdol(idol);
 
