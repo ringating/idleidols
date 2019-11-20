@@ -106,6 +106,7 @@
         android:layout_marginTop="56dp"
         android:onClick="Scout1"
         android:text="Scout 1x"
+        android:background="@drawable/blue_rounded_background"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
@@ -118,6 +119,7 @@
         android:layout_marginRight="56dp"
         android:onClick="Scout10"
         android:text="Scout 10x"
+        android:background="@drawable/blue_rounded_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 
@@ -127,6 +129,7 @@
         android:layout_height="70dp"
         android:layout_marginTop="156dp"
         android:text="Super Scout 1x"
+        android:background="@drawable/blue_rounded_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView3" />
