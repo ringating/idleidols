@@ -145,6 +145,7 @@ public class Agency extends Application {
         if(!originalIdol.getIdolName().equals(disappears.getIdolName()))
         {
             Toast toast = Toast.makeText(getApplicationContext(), "Please select the same idol", Toast.LENGTH_SHORT);
+            toast.show();
         }
         else
         {
