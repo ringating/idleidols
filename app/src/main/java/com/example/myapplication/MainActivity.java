@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -33,8 +34,18 @@ public class MainActivity extends AppCompatActivity implements SettingsDialogFra
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Creates the Agency object in the context of the application instead of just the page.
-        agency = (Agency) getApplicationContext();
+
+        DataForSaveLoad load = SaveLoad.load(getApplicationContext());
+        if(load != null)
+        {
+            Log.d("idleIdol", "data loaded, now Applying");
+            agency = load.getAgency();
+        }
+        else
+        {
+            //Creates the Agency object in the context of the application instead of just the page.
+            agency = (Agency) getApplicationContext();
+        }
 
         final FragmentManager fragmentManager = this.getSupportFragmentManager();
 
@@ -49,18 +60,15 @@ public class MainActivity extends AppCompatActivity implements SettingsDialogFra
         curMoney.setText(Integer.toString(agency.GetCurrentCurrency()));
 
         curTokens = (TextView)findViewById(R.id.seed);
-        agency.SetSeeds(50); //TODO Testing purposes!
         curTokens.setText(Integer.toString(agency.GetCurrentSeeds()));
 
         curLevel = (TextView)findViewById(R.id.level);
-        agency.SetLevel(1); //TODO this is just a place holder. Will change later!
         curLevel.setText(agency.GetLevel());
 
         agencyName = (TextView)findViewById(R.id.agencyName);
         agencyName.setText(agency.GetName());
 
         expBar = (ProgressBar)findViewById(R.id.expBar);
-        agency.SetCurrentExp(0); //TODO initializer?
         agency.SetExpNeededToLevel(agency.GetLevel());
         expBar.setMax(agency.GetExpNeededToLevel());
         expBar.setProgress(agency.GetCurrentExp());
@@ -96,6 +104,23 @@ public class MainActivity extends AppCompatActivity implements SettingsDialogFra
     {
         agency.SetName(name);
         agencyName.setText(agency.GetName());
+
+        agency.SetLevel(1);
+        curLevel.setText(agency.GetLevel());
+
+        agency.SetTotalCurrency(0);
+        agency.SetCurrency(0);
+        curMoney.setText(Integer.toString(agency.GetCurrentCurrency()));
+
+        agency.SetSeeds(50); //TODO Testing purposes!
+        agency.SetTotalSeeds(50);//TODO ALSO CLEARLY TESTING PURPOSES
+        curTokens.setText(Integer.toString(agency.GetCurrentSeeds()));
+
+        agency.SetCurrentExp(0);
+        agency.SetExpNeededToLevel(agency.GetLevel());
+        expBar.setMax(agency.GetExpNeededToLevel());
+        expBar.setProgress(agency.GetCurrentExp());
+
         agency.setFirstTimeFlag(false);
     }
 
