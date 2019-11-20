@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 
@@ -7,10 +9,14 @@ import android.os.Bundle;
 import android.text.Layout;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -18,12 +24,29 @@ import android.widget.TableRow;
 import java.util.ArrayList;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+public class IdolIconListDialog extends DialogFragment {
 
-public class IdolCardDialog extends DialogFragment {
+    public interface CreateDialog {
+        void showDialog(Bundle bundle);
+    }
+
+    private CreateDialog data;
+
+    @Override
+    public void onAttach(Context context) { //Ensures that CreateDialog is implemented in the parent activity
+        super.onAttach(context);
+        try {
+            this.data = (CreateDialog) context;
+        }
+        catch (final ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement CreateDialog");
+        }
+    }
 
     @Nullable
     @Override
@@ -36,7 +59,7 @@ public class IdolCardDialog extends DialogFragment {
         getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setStyle(DialogFragment.STYLE_NO_FRAME, android.R.style.Theme);
 
-        ArrayList<Idol> idols = getArguments().getParcelableArrayList("idol");
+        final ArrayList<Idol> idols = getArguments().getParcelableArrayList("idol");
 
         TableLayout idolListContainer = view.findViewById(R.id.iconIconContainer);
         idolListContainer.removeAllViews();
@@ -59,7 +82,7 @@ public class IdolCardDialog extends DialogFragment {
                 fragmentContainer.setLayoutParams(iconLayout);
 
                 fragmentContainer.setOrientation(LinearLayout.VERTICAL);
-                fragmentContainer.setId(View.generateViewId());
+                fragmentContainer.setId(id + 1);
 
                 FragmentManager fragmentManager = getChildFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -74,6 +97,21 @@ public class IdolCardDialog extends DialogFragment {
                 fragmentTransaction.commit();
 
                 row.addView(fragmentContainer);
+
+                fragmentContainer.setOnClickListener(new View.OnClickListener()
+                {
+                    @Override
+                    public void onClick(View v) {
+                        LinearLayout button = (LinearLayout) v;
+                        Animation shrink = AnimationUtils.loadAnimation(getActivity(), R.anim.button_press);           // Adds some animation to the tapping, makes it look like I know what I'm doing (I don't)
+                        button.startAnimation(shrink);
+
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable("idol", idols.get((v.getId()) - 1));
+
+                        data.showDialog(bundle);
+                    }
+                });
 
                 id++;
             }

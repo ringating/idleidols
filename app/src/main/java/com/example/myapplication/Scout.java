@@ -4,8 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -16,11 +14,18 @@ import android.widget.TextView;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
-public class Scout extends AppCompatActivity {
+public class Scout extends AppCompatActivity implements IdolIconListDialog.CreateDialog{
     Dialog myDialog;
     Agency agency;
 
     public static final DecimalFormat df =  new DecimalFormat("0.00");
+
+    public void showDialog(Bundle bundle)
+    {
+        IdolCardInfoDialog card = new IdolCardInfoDialog();
+        card.setArguments(bundle);                                                         //Show the Idol Card with relevant information
+        card.show(getSupportFragmentManager(), "IdolCardInfoDialog");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,15 +72,11 @@ public class Scout extends AppCompatActivity {
             Idol tempIdol = new Idol();
             agency.addIdol(tempIdol);
 
-            ArrayList<Idol> temp = new ArrayList<>();
+            bundle.putParcelable("idol", tempIdol);
 
-            temp.add(tempIdol);
-
-            bundle.putParcelableArrayList("idol", temp);
-
-            IdolCardDialog card = new IdolCardDialog();
+            IdolCardInfoDialog card = new IdolCardInfoDialog();
             card.setArguments(bundle);                                                         //Show the Idol Card with relevant information
-            card.show(getSupportFragmentManager(), "IdolCardDialog");
+            card.show(getSupportFragmentManager(), "IdolCardInfoDialog");
         }
     }
 
@@ -101,9 +102,9 @@ public class Scout extends AppCompatActivity {
 
             bundle.putParcelableArrayList("idol", temp);
 
-            IdolCardDialog card = new IdolCardDialog();
+            IdolIconListDialog card = new IdolIconListDialog();
             card.setArguments(bundle);                                                         //Show the Idol Card with relevant information
-            card.show(getSupportFragmentManager(), "IdolCardDialog");
+            card.show(getSupportFragmentManager(), "IdolIconListDialog");
         }
     }
 

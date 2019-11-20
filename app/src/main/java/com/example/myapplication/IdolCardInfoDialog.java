@@ -13,7 +13,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
-public class IdolCardFragment extends DialogFragment {
+public class IdolCardInfoDialog extends DialogFragment {
 
     private TextView exit;
 
@@ -48,6 +48,13 @@ public class IdolCardFragment extends DialogFragment {
         sing.setText(String.format(Locale.US, "%.2f", temp.getSingStat()));
         charm.setText(String.format(Locale.US, "%.2f", temp.getCharmStat()));
         image.setBackgroundResource(temp.getImage());
+
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getDialog().dismiss();
+            }
+        });
 
         return view;
     }
