@@ -54,7 +54,7 @@ public class SettingsDialogFragment extends DialogFragment
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: SAVE BUTTON
+                SaveLoad.save(getActivity().getApplicationContext(), new DataForSaveLoad((Agency) getActivity().getApplicationContext()));
             }
         });
 
