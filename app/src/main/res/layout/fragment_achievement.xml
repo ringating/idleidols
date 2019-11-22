@@ -1,55 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="130dp"
+    android:padding="10dp"
+    android:background="@drawable/achievement_fragment_background"
     tools:context=".AchievementFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:id="@+id/achievement_icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/achieve_locked" />
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/achievement_name"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/achievement_icon"
+        android:textColor="@color/darkGray"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:text="Name" />
 
-        <TextView
-            android:id="@+id/achievement_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+    <TextView
+        android:id="@+id/achievement_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/achievement_name"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/achievement_icon"
+        android:textSize="15dp"
+        android:textColor="@color/darkGray"
+        android:text="Description"
+        />
 
-            <ImageView
-                android:id="@+id/achievement_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:src="@drawable/achieve_locked" />
+    <TextView
+        android:id="@+id/achievement_reward"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/achievement_description"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="25dp"
+        android:layout_toEndOf="@+id/achievement_icon"
+        android:textSize="15dp"
+        android:textColor="@color/darkGray"
+        android:text="Rewards:" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="vertical">
+    <TextView
+        android:id="@+id/achievement_reward_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/achievement_description"
+        android:layout_marginTop="25dp"
+        android:layout_toEndOf="@+id/achievement_reward"
+        android:textSize="15dp"
+        android:textColor="@color/darkGray"
+        android:text="0" />
 
-                <TextView
-                    android:id="@+id/achievement_description"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
 
-                <TextView
-                    android:id="@+id/achievement_reward"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="TextView" />
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-
-</FrameLayout>
+</RelativeLayout>

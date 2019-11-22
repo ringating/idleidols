@@ -60,7 +60,7 @@ public class AchievementFragment extends Fragment
 
         final TextView rewardView = view.findViewById(R.id.achievement_reward);
         String rewardOutput = "Money: $" + achievement.money
-                + "; Seeds: " + achievement.seeds;
+                + "; Seeds: " + achievement.seeds + "; EXP: " + achievement.exp;
         rewardView.setText(rewardOutput);
     }
 }

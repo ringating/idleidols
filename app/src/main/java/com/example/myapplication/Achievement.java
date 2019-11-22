@@ -13,7 +13,7 @@ public enum Achievement     // Using the Java enum class
     CREATE_AGENCY(
             "You made one!",
             "Create an Agency",
-            R.drawable.rename_image,
+            R.drawable.achieve_locked,
             150,
             0,
             5
@@ -33,7 +33,7 @@ public enum Achievement     // Using the Java enum class
     NUMBER_OF_IDOLS(
             "Starting the Garden",
             "Collect a total of 5 seed tokens",
-            R.drawable.rename_image,
+            R.drawable.achieve_locked,
             50,
             500,
             0
