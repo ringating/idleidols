@@ -12,7 +12,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +31,7 @@ public class AchievementFragment extends Fragment
     private static final String TAG = "AchievementFragment";
 
     private Agency agency;
+    ImageView iconView;
 
     public AchievementFragment()
     {
@@ -72,7 +76,7 @@ public class AchievementFragment extends Fragment
                     break;
             }
         }
-        ImageView iconView = view.findViewById(R.id.achievement_icon);
+        iconView = view.findViewById(R.id.achievement_icon);
         if(achievement.GetCanClaim() && !achievement.GetIsClaimed())
         {
             iconView.setImageResource(achievement.iconUnlocked);
@@ -108,5 +112,31 @@ public class AchievementFragment extends Fragment
         }
         rewardView.setText(rewardOutput);
 
+        final RelativeLayout achievementCard = view.findViewById(R.id.achievementFragment);
+        achievementCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Animation shrink = AnimationUtils.loadAnimation(getActivity(), R.anim.button_press);
+                achievementCard.startAnimation(shrink);
+                if(achievement.GetCanClaim() && !achievement.GetIsClaimed())
+                {
+                    achievement.ClaimAchievement(agency);
+                    Toast toast = Toast.makeText(getActivity(), "Claimed Achievement!", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                else if(!achievement.GetCanClaim())
+                {
+                    Toast toast = Toast.makeText(getActivity(), "Must complete Achievement", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+                else if (achievement.GetIsClaimed())
+                {
+                    Toast toast = Toast.makeText(getActivity(), "Already Claimed", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+        });
+
     }
+
 }

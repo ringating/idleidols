@@ -6,6 +6,7 @@
     android:layout_height="130dp"
     android:padding="10dp"
     android:background="@drawable/achievement_fragment_background"
+    android:id="@+id/achievementFragment"
     tools:context=".AchievementFragment">
 
     <ImageView
