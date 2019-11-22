@@ -3,10 +3,11 @@ package com.example.myapplication;
 import android.app.Application;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Agency extends Application {
+public class Agency extends Application implements Serializable {
 
     private int curCurrency;
     private int totalCurrency;

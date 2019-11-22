@@ -1,12 +1,6 @@
 
 package com.example.myapplication;  // Package and imports copy-pasted from Achievements
 
-import android.app.Dialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.view.View;
-import android.widget.TextView;
-
 public enum Achievement     // Using the Java enum class
 {
     // 5 sample achievements
@@ -14,6 +8,8 @@ public enum Achievement     // Using the Java enum class
             "You made one!",
             "Create an Agency",
             R.drawable.achieve_locked,
+            R.drawable.achieve_unlocked,
+            R.drawable.achieve_claimed,
             150,
             0,
             5
@@ -34,6 +30,8 @@ public enum Achievement     // Using the Java enum class
             "Starting the Garden",
             "Collect a total of 5 seed tokens",
             R.drawable.achieve_locked,
+            R.drawable.achieve_unlocked,
+            R.drawable.achieve_claimed,
             50,
             500,
             0
@@ -43,7 +41,7 @@ public enum Achievement     // Using the Java enum class
         public boolean canBeClaimed(Object... args)
         {
             Agency agency = (Agency)args[0];
-            if(agency.GetTotalSeeds() == 5)
+            if(agency.GetTotalSeeds() >= 5)
             {
                 this.SetCanClaim(true);
             }
@@ -52,21 +50,27 @@ public enum Achievement     // Using the Java enum class
         }
     },
 
-    SAMPLE_3(
-            "Sample 3",
-            "This is a sample achievement",
-            R.drawable.rename_image,
-            250,
-            145,
-            501
+    EARN_MONEY(
+            "The Basics",
+            "Earn a total of $1000",
+            R.drawable.achieve_locked,
+            R.drawable.achieve_unlocked,
+            R.drawable.achieve_claimed,
+            500,
+            900,
+            5
     ) {
 
         @Override
         public boolean canBeClaimed(Object... args)
         {
             // Let's pretend this achievement requires a certain amount of coins
-            int coins = ((Integer) args[0]).intValue(); // notice the unsafe cast
-            return coins > 500;
+            Agency agency = (Agency)args[0];
+            if(agency.GetTotalCurrency() >= 1000)
+            {
+                this.SetCanClaim(true);
+            }
+            return this.GetCanClaim();
         }
     },
 
@@ -74,6 +78,8 @@ public enum Achievement     // Using the Java enum class
             "Sample 4",
             "This is a sample achievement",
             R.drawable.rename_image,
+            R.drawable.achieve_unlocked,
+            R.drawable.achieve_claimed,
             409,
             397,
             201
@@ -92,6 +98,8 @@ public enum Achievement     // Using the Java enum class
             "Sample 5",
             "This is a sample achievement",
             R.drawable.rename_image,
+            R.drawable.achieve_unlocked,
+            R.drawable.achieve_claimed,
             520,
             5,
             32
@@ -112,7 +120,9 @@ public enum Achievement     // Using the Java enum class
     /**
      * Res ID for icon
      */
-    public final int imageDrawable;
+    public final int iconLocked;
+    public final int iconUnlocked;
+    public final int iconClaimed;
 
     /**
      * The amount of exp earned for unlocking this achievement
@@ -136,11 +146,13 @@ public enum Achievement     // Using the Java enum class
      */
     private boolean canClaim;
 
-    Achievement(String title, String description, int imageDrawable, int exp, int money, int seeds)
+    Achievement(String title, String description, int iconLocked, int iconUnlocked, int iconClaimed, int exp, int money, int seeds)
     {
         this.title = title;
         this.description = description;
-        this.imageDrawable = imageDrawable;
+        this.iconLocked = iconLocked;
+        this.iconUnlocked = iconUnlocked;
+        this.iconClaimed = iconClaimed;
         this.exp = exp;
         this.money = money;
         this.seeds = seeds;

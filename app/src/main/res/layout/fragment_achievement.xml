@@ -48,6 +48,7 @@
         android:layout_marginTop="25dp"
         android:layout_toEndOf="@+id/achievement_icon"
         android:textSize="15dp"
+        android:textStyle="bold"
         android:textColor="@color/darkGray"
         android:text="Rewards:" />
 

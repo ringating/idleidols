@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -30,6 +31,9 @@ public class Achievements extends AppCompatActivity
     Achievement createAgencyAchievement = Achievement.CREATE_AGENCY;
     Achievement get2Idols = Achievement.NUMBER_OF_IDOLS;
 
+    FragmentManager manager;
+    Bundle sendAchievement;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -37,7 +41,7 @@ public class Achievements extends AppCompatActivity
         setContentView(R.layout.idol_achievements);
         myDialog = new Dialog(this);
 
-        loadAchievements();
+        manager = getSupportFragmentManager();
 
         //This is where the agency passes along data to the page.
         agency = (Agency) getApplicationContext();
@@ -49,7 +53,6 @@ public class Achievements extends AppCompatActivity
         seeds.setText(Integer.toString(agency.GetCurrentSeeds()));
 
         level = (TextView)findViewById(R.id.level);
-        agency.SetLevel(01); // TODO: This is just a place holder; will change later!
         level.setText(agency.GetLevel());
 
         TextView name = findViewById(R.id.agencyName);
@@ -58,6 +61,9 @@ public class Achievements extends AppCompatActivity
         expBar = (ProgressBar)findViewById(R.id.expBar);
         expBar.setMax(agency.GetExpNeededToLevel());
         expBar.setProgress(agency.GetCurrentExp());
+
+        //loads the Achievements
+        loadAchievements();
 
         GoHome(); // goes to home screen on button click
         GoAcademies();
@@ -78,10 +84,11 @@ public class Achievements extends AppCompatActivity
 
         for (Achievement value : Achievement.values())
         {
-            FragmentManager manager = getSupportFragmentManager();
             FragmentTransaction transaction = manager.beginTransaction();
+            sendAchievement = new Bundle();
+            sendAchievement.putSerializable("Agency", agency);
 
-            AchievementFragment fragment = AchievementFragment.createAchievementFragment(value);
+            AchievementFragment fragment = AchievementFragment.createAchievementFragment(value, sendAchievement);
             transaction.add(R.id.achievements_list, fragment);
             transaction.commit();
             
