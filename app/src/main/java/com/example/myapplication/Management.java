@@ -64,14 +64,6 @@ public class Management extends AppCompatActivity implements WarningDialog.Sende
         TextView name = findViewById(R.id.agencyName);
         name.setText(agency.GetName());
 
-        //The button menu button functions
-//        GoHome();
-//        GoAcademies();
-//        GoWorkplace();
-//        GoScout();
-//        GoManagement();
-//        GoAchievements();
-
         generateList();         // dynamically creates a table layout based on number of idols
 
     }
@@ -205,72 +197,4 @@ public class Management extends AppCompatActivity implements WarningDialog.Sende
             mode = 2;
         }
     }
-
-    //The Following methods are for the bottom screen
-//    private void GoHome()
-//    {
-//        Button homeButton = (Button) findViewById(R.id.home_button);
-//        homeButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(Management.this, MainActivity.class)); //CHANGE THIS. You need to renmae
-//                // "Home" to whatever the class name of the Home screen is
-//            }
-//        });
-//    }
-//
-//    private void GoAcademies()
-//    {
-//        Button academies = (Button) findViewById(R.id.academies_button);
-//        academies.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(Management.this, Train.class));
-//            }
-//        });
-//    }
-//
-//    private void GoWorkplace()
-//    {
-//        Button workplace = (Button) findViewById(R.id.workplace_button);
-//        workplace.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(Management.this, Work.class));
-//            }
-//        });
-//    }
-//
-//    private void GoScout()
-//    {
-//        Button scout = (Button) findViewById(R.id.scout_button);
-//        scout.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(Management.this, Scout.class));
-//            }
-//        });
-//    }
-//
-//    private void GoManagement()
-//    {
-//        Button management = (Button) findViewById(R.id.management_button);
-//        management.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(Management.this, Management.class));
-//            }
-//        });
-//    }
-//
-//    private void GoAchievements()
-//    {
-//        final Button achievements = (Button) findViewById(R.id.achievements_button);
-//        achievements.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(Management.this, Achievements.class)); //CHANGE THIS
-//            }
-//        });
-//    }
 }
