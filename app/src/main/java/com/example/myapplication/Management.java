@@ -73,7 +73,7 @@ public class Management extends AppCompatActivity implements WarningDialog.Sende
         TableLayout table = findViewById(R.id.table);
         table.removeAllViews();
         TableRow.LayoutParams rowLayout = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);    // Row Layout
-        rowLayout.gravity = Gravity.CENTER_HORIZONTAL;                                                      //
+        rowLayout.gravity = Gravity.CENTER;                                                      //
         final TableRow.LayoutParams buttonLayout = new TableRow.LayoutParams(300,300);   //
         buttonLayout.leftMargin = 15;                                                           //
         buttonLayout.rightMargin = 15;                                                          // Button Layout
