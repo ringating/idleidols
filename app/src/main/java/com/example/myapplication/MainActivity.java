@@ -140,6 +140,7 @@ public class MainActivity extends AppCompatActivity implements SettingsDialogFra
 
         Intent i = new Intent(MainActivity.this, Achievements.class);
         startActivity(i);
+        overridePendingTransition(0, 0);
 
     }
 
@@ -150,6 +151,7 @@ public class MainActivity extends AppCompatActivity implements SettingsDialogFra
         button.startAnimation(shrink);                                                      //
 
         startActivity(new Intent(MainActivity.this, Management.class));
+        overridePendingTransition(0, 0);
     }
 
     public void openRecruitment(View v) //When the recruitment button is pressed, it does this
@@ -159,6 +161,7 @@ public class MainActivity extends AppCompatActivity implements SettingsDialogFra
         button.startAnimation(shrink);
 
         startActivity(new Intent(MainActivity.this, Scout.class));
+        overridePendingTransition(0, 0);
     }
     public void idolDoThing(View v) //When the idol is pressed, it does this
     {
@@ -186,6 +189,7 @@ public class MainActivity extends AppCompatActivity implements SettingsDialogFra
         button.startAnimation(move);
 
         startActivity(new Intent(MainActivity.this, Work.class));
+        overridePendingTransition(0, 0);
     }
 
     public void openAcademy(View v) //When the academy button is pressed, it does this
@@ -195,5 +199,6 @@ public class MainActivity extends AppCompatActivity implements SettingsDialogFra
         button.startAnimation(move);
 
         startActivity(new Intent(MainActivity.this, Train.class));
+        overridePendingTransition(0, 0);
     }
 }
