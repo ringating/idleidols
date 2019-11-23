@@ -92,7 +92,14 @@ public class NavigationFragment extends Fragment {
 
     private void expandButton()
     {
-        if (getActivity().getClass() == Train.class)
+        if (getActivity().getClass() == MainActivity.class)
+        {
+            ViewGroup.LayoutParams params = home.getLayoutParams();
+            params.height = ViewGroup.LayoutParams.MATCH_PARENT;
+            home.setBackgroundResource(R.drawable.nav_icon_background_expanded);
+            home.setLayoutParams(params);
+        }
+        else if (getActivity().getClass() == Train.class)
         {
             ViewGroup.LayoutParams params = academies.getLayoutParams();
             params.height = ViewGroup.LayoutParams.MATCH_PARENT;
