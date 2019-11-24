@@ -59,15 +59,7 @@ public class Achievements extends AppCompatActivity
         expBar.setMax(agency.GetExpNeededToLevel());
         expBar.setProgress(agency.GetCurrentExp());
 
-        //loads the Achievements
         loadAchievements();
-
-        GoHome();// goes to home screen on button click
-        GoAcademies();
-        GoWorkplace();
-        GoScout();
-        GoManagement();
-        GoAchievements();
     }
 
     public void setHeaderText(Agency agency)
@@ -97,74 +89,5 @@ public class Achievements extends AppCompatActivity
             transaction.add(R.id.achievements_list, fragment);
             transaction.commit();
         }
-    }
-
-    //
-    // The following methods are the bottom-screen buttons:
-    //
-    private void GoHome()
-    {
-        Button homeButton = (Button) findViewById(R.id.home_button4);
-        homeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Achievements.this, MainActivity.class));
-            }
-        });
-    }
-
-    private void GoAcademies()
-    {
-        Button academies = (Button) findViewById(R.id.academies_button4);
-        academies.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Achievements.this, Train.class));
-            }
-        });
-    }
-
-    private void GoWorkplace()
-    {
-        Button workplace = (Button) findViewById(R.id.workplace_button4);
-        workplace.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Achievements.this, Work.class));
-            }
-        });
-    }
-
-    private void GoScout()
-    {
-        Button scout = (Button) findViewById(R.id.scout_button4);
-        scout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Achievements.this, Scout.class));
-            }
-        });
-    }
-
-    private void GoManagement()
-    {
-        Button management = (Button) findViewById(R.id.management_button4);
-        management.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Achievements.this, Management.class));
-            }
-        });
-    }
-
-    private void GoAchievements()
-    {
-        final Button achievements = (Button) findViewById(R.id.achievements_button4);
-        achievements.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Achievements.this, Achievements.class)); //CHANGE THIS
-            }
-        });
     }
 }
