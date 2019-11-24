@@ -28,9 +28,6 @@ public class Achievements extends AppCompatActivity
     TextView level;
     ProgressBar expBar;
 
-    Achievement createAgencyAchievement = Achievement.CREATE_AGENCY;
-    Achievement get2Idols = Achievement.NUMBER_OF_IDOLS;
-
     FragmentManager manager;
     Bundle sendAchievement;
 
@@ -65,13 +62,22 @@ public class Achievements extends AppCompatActivity
         //loads the Achievements
         loadAchievements();
 
-        GoHome(); // goes to home screen on button click
+        GoHome();// goes to home screen on button click
         GoAcademies();
         GoWorkplace();
         GoScout();
         GoManagement();
         GoAchievements();
+    }
 
+    public void setHeaderText(Agency agency)
+    {
+        agency.levelUp();
+        currency.setText(Integer.toString(agency.GetCurrentCurrency()));
+        seeds.setText(Integer.toString(agency.GetCurrentSeeds()));
+        level.setText(agency.GetLevel());
+        expBar.setMax(agency.GetExpNeededToLevel());
+        expBar.setProgress(agency.GetCurrentExp());
     }
 
     private void loadAchievements()
@@ -81,7 +87,6 @@ public class Achievements extends AppCompatActivity
          *      Create an instance of the achievement fragment using factory method;
          *      Add the achievement to the linear layout using begin transaction stuff.
          */
-
         for (Achievement value : Achievement.values())
         {
             FragmentTransaction transaction = manager.beginTransaction();
@@ -91,9 +96,7 @@ public class Achievements extends AppCompatActivity
             AchievementFragment fragment = AchievementFragment.createAchievementFragment(value, sendAchievement);
             transaction.add(R.id.achievements_list, fragment);
             transaction.commit();
-            
         }
-
     }
 
     //

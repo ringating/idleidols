@@ -160,4 +160,14 @@ public class Agency extends Application implements Serializable {
 
         return originalIdol;
     }
+
+    public void levelUp()
+    {
+        if(this.curExp > this.expNeededToLevelUp)
+        {
+            this.level += 1;
+            this.curExp = this.curExp - this.expNeededToLevelUp;
+            this.expNeededToLevelUp += this.expNeededToLevelUp * 100;
+        }
+    }
 }

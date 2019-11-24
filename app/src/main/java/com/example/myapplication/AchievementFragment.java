@@ -31,7 +31,6 @@ public class AchievementFragment extends Fragment
     private static final String TAG = "AchievementFragment";
 
     private Agency agency;
-    ImageView iconView;
 
     public AchievementFragment()
     {
@@ -76,7 +75,7 @@ public class AchievementFragment extends Fragment
                     break;
             }
         }
-        iconView = view.findViewById(R.id.achievement_icon);
+        final ImageView iconView = view.findViewById(R.id.achievement_icon);
         if(achievement.GetCanClaim() && !achievement.GetIsClaimed())
         {
             iconView.setImageResource(achievement.iconUnlocked);
@@ -121,6 +120,8 @@ public class AchievementFragment extends Fragment
                 if(achievement.GetCanClaim() && !achievement.GetIsClaimed())
                 {
                     achievement.ClaimAchievement(agency);
+                    iconView.setImageResource(achievement.iconClaimed);
+                    ((Achievements) getActivity()).setHeaderText(agency);
                     Toast toast = Toast.makeText(getActivity(), "Claimed Achievement!", Toast.LENGTH_SHORT);
                     toast.show();
                 }
