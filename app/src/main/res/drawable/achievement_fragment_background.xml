@@ -18,7 +18,7 @@
                 android:elevation="5dp"/>
 
             <corners
-                android:radius="5dp"/>
+                android:radius="8dp"/>
 
         </shape>
     </item>

@@ -167,7 +167,7 @@ public class Agency extends Application implements Serializable {
         {
             this.level += 1;
             this.curExp = this.curExp - this.expNeededToLevelUp;
-            this.expNeededToLevelUp += this.expNeededToLevelUp * 100;
+            this.expNeededToLevelUp += this.level * 100;
         }
     }
 }
