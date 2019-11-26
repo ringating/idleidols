@@ -126,40 +126,6 @@ public class MainActivity extends AppCompatActivity implements SettingsDialogFra
         agency.setFirstTimeFlag(false);
     }
 
-    public void openAchievements(View v) // When the achievements button is pressed, it does this
-                                         // All methods are currently called from the activity_main.xml by android:onClick
-    {
-        ImageView button = (ImageView) v;                                                   //
-        Animation shrink = AnimationUtils.loadAnimation(this, R.anim.button_press); // Adds some animation to the tapping, makes it look like I know what I'm doing (I don't)
-
-        button.startAnimation(shrink);                                                      //
-        startActivity(new Intent(MainActivity.this, Achievements.class));
-
-        button.startAnimation(shrink);//
-        curMoney = (TextView) findViewById(R.id.currency);
-
-        Intent i = new Intent(MainActivity.this, Achievements.class);
-        startActivity(i);
-
-    }
-
-    public void openManagement(View v) //When the management button is pressed, it does this
-    {
-        ImageView button = (ImageView) v;                                                   //
-        Animation shrink = AnimationUtils.loadAnimation(this, R.anim.button_press); // These three lines are everywhere
-        button.startAnimation(shrink);                                                      //
-
-        startActivity(new Intent(MainActivity.this, Management.class));
-    }
-
-    public void openRecruitment(View v) //When the recruitment button is pressed, it does this
-    {
-        ImageView button = (ImageView) v;
-        Animation shrink = AnimationUtils.loadAnimation(this, R.anim.button_press);
-        button.startAnimation(shrink);
-
-        startActivity(new Intent(MainActivity.this, Scout.class));
-    }
     public void idolDoThing(View v) //When the idol is pressed, it does this
     {
         final int NORMAL_CLICK = 10;
@@ -177,23 +143,5 @@ public class MainActivity extends AppCompatActivity implements SettingsDialogFra
         agency.SetTotalCurrency(agency.GetTotalCurrency() + NORMAL_CLICK); //store the total collected currency.
         curMoney.setText(Integer.toString(agency.GetCurrentCurrency()));
 
-    }
-
-    public void openWork(View v) //When the work button is pressed, it does this
-    {
-        ImageView button = (ImageView) v;
-        Animation move = AnimationUtils.loadAnimation(this, R.anim.another_another_button_press);
-        button.startAnimation(move);
-
-        startActivity(new Intent(MainActivity.this, Work.class));
-    }
-
-    public void openAcademy(View v) //When the academy button is pressed, it does this
-    {
-        ImageView button = (ImageView) v;
-        Animation move = AnimationUtils.loadAnimation(this, R.anim.another_button_press);
-        button.startAnimation(move);
-
-        startActivity(new Intent(MainActivity.this, Train.class));
     }
 }

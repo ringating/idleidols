@@ -64,14 +64,6 @@ public class Management extends AppCompatActivity implements WarningDialog.Sende
         TextView name = findViewById(R.id.agencyName);
         name.setText(agency.GetName());
 
-        //The button menu button functions
-        GoHome();
-        GoAcademies();
-        GoWorkplace();
-        GoScout();
-        GoManagement();
-        GoAchievements();
-
         generateList();         // dynamically creates a table layout based on number of idols
 
     }
@@ -81,12 +73,13 @@ public class Management extends AppCompatActivity implements WarningDialog.Sende
         TableLayout table = findViewById(R.id.table);
         table.removeAllViews();
         TableRow.LayoutParams rowLayout = new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT);    // Row Layout
-        rowLayout.gravity = Gravity.CENTER_HORIZONTAL;                                                      //
+        rowLayout.gravity = Gravity.CENTER;                                                      //
         final TableRow.LayoutParams buttonLayout = new TableRow.LayoutParams(300,300);   //
         buttonLayout.leftMargin = 15;                                                           //
         buttonLayout.rightMargin = 15;                                                          // Button Layout
-        buttonLayout.bottomMargin = 30;                                                         //
-        buttonLayout.gravity = Gravity.CENTER;                                                  //
+        buttonLayout.bottomMargin = 15;                                                         //
+        buttonLayout.topMargin = 15;
+        buttonLayout.gravity = Gravity.CENTER;
 
         int id = 0;  // ID for each button
 
@@ -99,8 +92,10 @@ public class Management extends AppCompatActivity implements WarningDialog.Sende
                 ImageView button = new ImageView(this);         //Four buttons are generated each row
                 button.setId(id);                                       //Each button is set a unique id
                 button.setLayoutParams(buttonLayout);                   //The layout is set for the button
-                button.setBackgroundResource(agency.getIdol(id).getImage()); //The image of the button is taken from the index of the Idol array
+                button.setBackgroundResource(R.drawable.blue_rounded_background);
+                button.setImageResource(agency.getIdol(id).getImage()); //The image of the button is taken from the index of the Idol array
                 row.addView(button);                                         //The button is finally added to the row
+                button.setPadding(20, 20, 20, 20);
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -201,73 +196,5 @@ public class Management extends AppCompatActivity implements WarningDialog.Sende
             border.setVisibility(View.VISIBLE);
             mode = 2;
         }
-    }
-
-    //The Following methods are for the bottom screen
-    private void GoHome()
-    {
-        Button homeButton = (Button) findViewById(R.id.home_button);
-        homeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Management.this, MainActivity.class)); //CHANGE THIS. You need to renmae
-                // "Home" to whatever the class name of the Home screen is
-            }
-        });
-    }
-
-    private void GoAcademies()
-    {
-        Button academies = (Button) findViewById(R.id.academies_button);
-        academies.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Management.this, Train.class));
-            }
-        });
-    }
-
-    private void GoWorkplace()
-    {
-        Button workplace = (Button) findViewById(R.id.workplace_button);
-        workplace.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Management.this, Work.class));
-            }
-        });
-    }
-
-    private void GoScout()
-    {
-        Button scout = (Button) findViewById(R.id.scout_button);
-        scout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Management.this, Scout.class));
-            }
-        });
-    }
-
-    private void GoManagement()
-    {
-        Button management = (Button) findViewById(R.id.management_button);
-        management.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Management.this, Management.class));
-            }
-        });
-    }
-
-    private void GoAchievements()
-    {
-        final Button achievements = (Button) findViewById(R.id.achievements_button);
-        achievements.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(Management.this, Achievements.class)); //CHANGE THIS
-            }
-        });
     }
 }

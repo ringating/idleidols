@@ -8,6 +8,14 @@
     tools:context=".Work">
 
     <fragment
+        android:id="@+id/fragment4"
+        android:name="com.example.myapplication.NavigationFragment"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="@+id/container"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <fragment
         android:id="@+id/header"
         android:name="com.example.myapplication.HeaderFragment"
         android:layout_width="match_parent"
@@ -19,6 +27,8 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/container"/>
+        android:id="@+id/container">
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
