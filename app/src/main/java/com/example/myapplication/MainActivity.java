@@ -3,6 +3,8 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
+import processing.android.PFragment;
+import processing.core.PApplet;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -11,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -27,6 +30,8 @@ public class MainActivity extends AppCompatActivity implements SettingsDialogFra
     TextView curLevel;
     TextView agencyName;
     ProgressBar expBar;
+
+    private PApplet sketch;
 
     private static boolean firstRun = true;
 
@@ -87,6 +92,15 @@ public class MainActivity extends AppCompatActivity implements SettingsDialogFra
             }
         });
 
+        // Processing Code
+
+        FrameLayout frame = findViewById(R.id.container);
+
+        sketch = new Sketch();
+        PFragment fragment = new PFragment(sketch);
+        fragment.setView(frame, this);
+
+        // End Processing Code
     }
 
     //Renames the agency
