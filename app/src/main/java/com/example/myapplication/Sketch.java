@@ -29,7 +29,7 @@ public class Sketch extends PApplet {
     public void draw() {
         image(background, -(x%displayWidth), 0);
         image(background, -((x%displayWidth) - displayWidth), 0);
-        x+=50;
+        x+=5;
     }
 
 }

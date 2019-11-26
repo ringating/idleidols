@@ -158,4 +158,41 @@ public class MainActivity extends AppCompatActivity implements SettingsDialogFra
         curMoney.setText(Integer.toString(agency.GetCurrentCurrency()));
 
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults)
+    {
+        if (sketch != null)
+        {
+            sketch.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    @Override
+    public void onNewIntent(Intent intent)
+    {
+        super.onNewIntent(intent);
+        if (sketch != null)
+        {
+            sketch.onNewIntent(intent);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (sketch != null) {
+            sketch.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        if (sketch != null) {
+            sketch.onBackPressed();
+        }
+    }
 }
+
