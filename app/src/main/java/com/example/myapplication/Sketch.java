@@ -1,19 +1,35 @@
 package com.example.myapplication;
 
+import android.app.Activity;
+import android.content.Context;
+
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class Sketch extends PApplet {
+
+    private PImage background;
+
+    private int x;
+    private int y;
+
     public void settings() {
-        size(600,600);
+        fullScreen();
     }
 
     public void setup() {
-        background(0, 0);
+        background = loadImage("background.png");
+        background.resize(displayWidth, displayHeight);
+
+        x = 0;
+        y = 0;
+
     }
 
     public void draw() {
-        if (mousePressed) {
-            ellipse(mouseX, mouseY, 50, 50);
-        }
+        image(background, -(x%displayWidth), 0);
+        image(background, -((x%displayWidth) - displayWidth), 0);
+        x+=50;
     }
+
 }
