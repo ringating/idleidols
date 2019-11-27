@@ -10,7 +10,9 @@
     <color name="lightBlue">#A9D6F7</color>
     <color name="blue">#74C1F9</color>
     <color name="teal">#9BEFDF</color>
+    <color name="brightTeal">#7DFFED</color>
     <color name="spookyRed">#FF0000</color>
     <color name="spookierBlack">#000000</color>
     <color name="darkGray">#252225</color>
+    <color name="white">#FFFFFF</color>
 </resources>

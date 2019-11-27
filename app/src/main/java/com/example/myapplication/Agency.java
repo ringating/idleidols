@@ -3,10 +3,11 @@ package com.example.myapplication;
 import android.app.Application;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Agency extends Application {
+public class Agency extends Application implements Serializable {
 
     private int curCurrency;
     private int totalCurrency;
@@ -158,5 +159,15 @@ public class Agency extends Application {
         }
 
         return originalIdol;
+    }
+
+    public void levelUp()
+    {
+        if(this.curExp > this.expNeededToLevelUp)
+        {
+            this.level += 1;
+            this.curExp = this.curExp - this.expNeededToLevelUp;
+            this.expNeededToLevelUp += this.expNeededToLevelUp * 100;
+        }
     }
 }

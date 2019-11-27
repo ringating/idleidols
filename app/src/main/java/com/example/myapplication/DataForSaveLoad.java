@@ -16,9 +16,42 @@ public class DataForSaveLoad implements Serializable // serializable is the poin
     public int curExp;
     public boolean firstTime;
 
-    // idol isn't serializable, and doesnt seem to be able to be made serializable
-    // so will have to make a struct or something for idol data and regenerate idols when loading them
-//    private ArrayList<Idol> idols = new ArrayList<>();
+    // idol isn't serializable, so using a new structure to hold idol data
+    private ArrayList<IdolStruct> idols = new ArrayList<>();
+
+    class IdolStruct implements Serializable
+    {
+        String idolName;
+        String mainAffinity;
+        float danceStat;
+        float singStat;
+        float charmStat;
+        int rarity;
+        int image;
+        int merged;
+        boolean isBeingUsed;
+
+        IdolStruct(Idol idol)
+        {
+            this.idolName = idol.getIdolName();
+            this.mainAffinity = idol.getMainAffinity();
+            this.danceStat = idol.getDanceStat();
+            this.singStat = idol.getSingStat();
+            this.charmStat = idol.getCharmStat();
+            this.rarity = idol.getRarity();
+            this.image = idol.getImage();
+            this.merged = idol.getMerged();
+            this.isBeingUsed = false; //TODO, once relevant method exists
+        }
+
+        Idol toIdol()
+        {
+            Idol idol = new Idol(idolName,mainAffinity,danceStat,singStat,charmStat,rarity,image);
+            idol.setMerged(merged); // for now, this cant be done in a constructor
+            // TODO: also set isBeingUsed once relevant method/constructor exists
+            return idol;
+        }
+    }
 
     DataForSaveLoad(Agency agency)
     {
@@ -33,8 +66,8 @@ public class DataForSaveLoad implements Serializable // serializable is the poin
         curExp = agency.GetCurrentExp();
         firstTime = agency.getFirstTimeFlag();
 
-//        for(int i = 0; i < agency.numberOfIdols(); ++i)
-//            idols.add(agency.getIdol(i));
+        for(int i = 0; i < agency.numberOfIdols(); ++i)
+            idols.add(new IdolStruct(agency.getIdol(i)));
     }
 
     public Agency getAgency()
@@ -51,8 +84,8 @@ public class DataForSaveLoad implements Serializable // serializable is the poin
         agency.SetCurrentExp(curExp);
         agency.setFirstTimeFlag(firstTime);
 
-//        for(int i = 0; i < idols.size(); ++i)
-//            agency.addIdol(idols.get(i));
+        for(int i = 0; i < idols.size(); ++i)
+            agency.addIdol(idols.get(i).toIdol());
 
         return agency;
     }
@@ -69,10 +102,10 @@ public class DataForSaveLoad implements Serializable // serializable is the poin
         destination.SetCurrentExp(source.GetCurrentExp());
         destination.setFirstTimeFlag(source.getFirstTimeFlag());
 
-//        while(destination.numberOfIdols() > 0)
-//            destination.removeIdolAtIndex(0);
-//
-//        for(int i = 0; i < source.numberOfIdols(); ++i)
-//            destination.addIdol(source.getIdol(i));
+        while(destination.numberOfIdols() > 0)
+            destination.removeIdolAtIndex(0);
+
+        for(int i = 0; i < source.numberOfIdols(); ++i)
+            destination.addIdol(source.getIdol(i));
     }
 }
