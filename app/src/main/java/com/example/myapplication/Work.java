@@ -26,7 +26,6 @@ public class Work extends AppCompatActivity {
     //temp stuff
     int numIdols = 0;
     boolean[] slotted = new boolean[4];
-    Workplace testTask;
     boolean haveNotEarned = true;
 
     TextView curMoney;
@@ -51,10 +50,6 @@ public class Work extends AppCompatActivity {
 
         TextView name = findViewById(R.id.agencyName);
         name.setText(agency.GetName());
-
-        testTask = new Workplace("Task Name", "Task Description",
-                4, 1, false,
-                0, 100, 1, 1, 1);
 
     }
 
