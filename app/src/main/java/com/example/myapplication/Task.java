@@ -6,14 +6,37 @@ public enum Task
 {
     BAR_LIVE("Bar Live",
             0,
+            R.drawable.work_hollywoodbowl,
             1,
             1,
-            false,
             500,
+            50,
             200,
             0,
             1,
-            0);
+            0), //TODO ADD OVERRIDE METHODS HERE
+    FLASH_MOB("Flash Mob",
+            0,
+            R.drawable.work_realitytv,
+            3,
+            1,
+            500,
+            50,
+            200,
+            1,
+            1,
+            0),
+    STAND_UP("Stand Up Comedy",
+            0,
+            R.drawable.work_standup,
+            1,
+            1,
+            500,
+            50,
+            200,
+            0,
+            0,
+            1); //TODO Add the Override methods here!
 
 
     public interface Workplace
@@ -36,32 +59,36 @@ public enum Task
     }
 
 
-    private String name;
-    private int type; //This determines whether it's a Workplace or an Academy
-    private int numSlots; //number of slots available
-    private int reqLevel;
-    private boolean unlocked;
-    private long processTime; //in milliseconds
-    private int rewardCurrency;
-    private float dance; //if Academy, this will be the growth rate, if Workplace, this will be the affinity determination.
-    private float sing;
-    private float charm;
+    public final String name;
+    public final int type; //This determines whether it's a Workplace or an Academy
+    public final int image;
+    public final int numSlots; //number of slots available
+    public final int reqLevel;
+    public boolean unlocked;
+    public final long processTime; //in milliseconds
+    public final int cost;
+    public final int rewardCurrency;
+    public final float dance; //if Academy, this will be the growth rate, if Workplace, this will be the affinity determination.
+    public final float sing;
+    public final float charm;
 
     private int[] idolSlots;
 
-    Task(String name, int type, int numSlots, int reqLevel, boolean unlocked, long processTime, int rewardCurrency, float dance, float sing, float charm)
+    Task(String name, int type, int image, int numSlots, int reqLevel, long processTime, int cost, int rewardCurrency, float dance, float sing, float charm)
     {
         this.name = name;
         this.type = type;
+        this.image = image;
         this.numSlots = numSlots;
         this.reqLevel = reqLevel;
-        this.unlocked = unlocked;
         this.processTime = processTime;
+        this.cost = cost;
         this.rewardCurrency = rewardCurrency;
         this.dance = dance;
         this.sing = sing;
         this.charm = charm;
 
+        this.unlocked = false;
         this.idolSlots = new int[this.numSlots];
     }
 

@@ -29,11 +29,13 @@ public class Work extends AppCompatActivity {
     boolean haveNotEarned = true;
 
     TextView curMoney;
+    FragmentManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.idol_work);
+        manager = getSupportFragmentManager();
         myDialog = new Dialog(this);
 
         //This is where the agency passes along data to the page.
@@ -51,6 +53,20 @@ public class Work extends AppCompatActivity {
         TextView name = findViewById(R.id.agencyName);
         name.setText(agency.GetName());
 
+        loadWorkFragments();
+
+    }
+
+    private void loadWorkFragments()
+    {
+        for (Task value : Task.values())
+        {
+            FragmentTransaction transaction = manager.beginTransaction();
+
+            WorkplaceFragment fragment = WorkplaceFragment.createWorkplaceFragment(value);
+            transaction.add(R.id.workplace_list, fragment);
+            transaction.commit();
+        }
     }
 
     public void ShowCard(View v)

@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,9 +17,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import org.w3c.dom.Text;
+
 public class WorkplaceFragment extends Fragment
 {
-    private Workplace workplace;
+    private Task workplace;
     private static final String TAG = "Workplace Fragment";
 
     public WorkplaceFragment()
@@ -27,7 +30,7 @@ public class WorkplaceFragment extends Fragment
     }
 
     //Creates the workplace
-    public static WorkplaceFragment createWorkplaceFragment(Workplace workplace)
+    public static WorkplaceFragment createWorkplaceFragment(Task workplace)
     {
         WorkplaceFragment fragment = new WorkplaceFragment();
         fragment.workplace = workplace;
@@ -39,7 +42,7 @@ public class WorkplaceFragment extends Fragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_achievement, container, false);
+        return inflater.inflate(R.layout.workplace_fragment, container, false);
     }
 
     @Override
@@ -48,6 +51,39 @@ public class WorkplaceFragment extends Fragment
         super.onViewCreated(view, savedInstanceState);
 
         //TODO: Put the actual dynamic icon showing here along with the onClick function.
+        ImageView icon = view.findViewById(R.id.workplace_icon);
+        icon.setImageResource(workplace.image);
 
+        ImageView danceIcon = view.findViewById(R.id.workplace_dance);
+        if(workplace.dance != 1)
+        {
+            danceIcon.setVisibility(View.INVISIBLE);
+        }
+
+        ImageView singIcon = view.findViewById(R.id.workplace_sing);
+        if(workplace.sing != 1)
+        {
+            singIcon.setVisibility(View.INVISIBLE);
+        }
+
+        ImageView charmIcon = view.findViewById(R.id.workplace_charm);
+        if(workplace.charm != 1)
+        {
+            charmIcon.setVisibility(View.INVISIBLE);
+        }
+
+        TextView name = view.findViewById(R.id.workplace_name);
+        name.setText(workplace.name);
+
+        TextView cost = view.findViewById(R.id.workplace_cost_content);
+        cost.setText(Integer.toString(workplace.cost));
+
+        TextView profit = view.findViewById(R.id.workplace_profit_content);
+        profit.setText(Integer.toString(workplace.rewardCurrency));
+
+        TextView duration = view.findViewById(R.id.workplace_duration_content);
+        int processTime = (int) workplace.processTime/100;
+        String durationText = processTime + " seconds"; //TODO Probably want to change this so it tells you how many hours and stuff too.
+        duration.setText(durationText);
     }
 }

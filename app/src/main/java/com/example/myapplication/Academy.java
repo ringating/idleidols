@@ -1,7 +1,7 @@
 package com.example.myapplication;
 
 import java.util.Calendar;
-
+/*
 public class Academy extends Task
 {
     public float danceGrowthPerHour;
@@ -77,3 +77,4 @@ public class Academy extends Task
         return this.charmGrowthPerHour * (getIdolTrainTime(slotIndex) / 3600000f); // an hour in ms
     }
 }
+ */

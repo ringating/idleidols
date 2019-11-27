@@ -7,7 +7,7 @@
     android:padding="10dp"
     android:background="@drawable/achievement_fragment_background"
     android:id="@+id/achievementFragment"
-    tools:context=".Workplace">
+    tools:context=".Work">
 
     <ImageView
         android:id="@+id/workplace_icon"
@@ -42,6 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:layout_toEndOf="@+id/workplace_icon"
+        android:layout_toStartOf="@+id/workplace_charm"
         android:textColor="@color/darkGray"
         android:textSize="20dp"
         android:textStyle="bold"
@@ -94,7 +95,7 @@
         android:layout_below="@+id/workplace_cost"
         android:layout_marginStart="5dp"
         android:layout_marginTop="3dp"
-        android:layout_toEndOf="@+id/workplace_cost"
+        android:layout_toEndOf="@+id/workplace_profit"
         android:textSize="15dp"
         android:textColor="@color/darkGray"
         android:text="0"
