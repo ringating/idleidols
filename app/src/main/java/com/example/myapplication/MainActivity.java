@@ -144,4 +144,13 @@ public class MainActivity extends AppCompatActivity implements SettingsDialogFra
         curMoney.setText(Integer.toString(agency.GetCurrentCurrency()));
 
     }
+
+    @Override
+    protected void onDestroy()
+    {
+        // autosave upon leaving this activity
+        super.onDestroy();
+        SaveLoad.save(this.getApplicationContext(), new DataForSaveLoad((Agency)this.getApplicationContext()));
+        // if you're in a fragment or something, can likely use "GetActivity()" in place of "this"
+    }
 }
