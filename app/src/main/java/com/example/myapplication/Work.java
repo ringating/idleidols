@@ -26,15 +26,16 @@ public class Work extends AppCompatActivity {
     //temp stuff
     int numIdols = 0;
     boolean[] slotted = new boolean[4];
-    Workplace testTask;
     boolean haveNotEarned = true;
 
     TextView curMoney;
+    FragmentManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.idol_work);
+        manager = getSupportFragmentManager();
         myDialog = new Dialog(this);
 
         //This is where the agency passes along data to the page.
@@ -52,10 +53,20 @@ public class Work extends AppCompatActivity {
         TextView name = findViewById(R.id.agencyName);
         name.setText(agency.GetName());
 
-        testTask = new Workplace("Task Name", "Task Description",
-                4, 1, false,
-                0, 100, 1, 1, 1);
+        loadWorkFragments();
 
+    }
+
+    private void loadWorkFragments()
+    {
+        for (Task value : Task.values())
+        {
+            FragmentTransaction transaction = manager.beginTransaction();
+
+            WorkplaceFragment fragment = WorkplaceFragment.createWorkplaceFragment(value);
+            transaction.add(R.id.workplace_list, fragment);
+            transaction.commit();
+        }
     }
 
     public void ShowCard(View v)

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="130dp"
+    android:padding="10dp"
+    android:background="@drawable/achievement_fragment_background"
+    android:id="@+id/achievementFragment"
+    tools:context=".Work">
+
+    <ImageView
+        android:id="@+id/workplace_icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/work_hollywoodbowl" />
+
+    <ImageView
+        android:id="@+id/workplace_dance"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/affinity_dance" />
+
+    <ImageView
+        android:id="@+id/workplace_sing"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_toStartOf="@+id/workplace_dance"
+        android:src="@drawable/affinity_sing" />
+
+    <ImageView
+        android:id="@+id/workplace_charm"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_toStartOf="@+id/workplace_sing"
+        android:src="@drawable/affinity_act" />
+
+    <TextView
+        android:id="@+id/workplace_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_toEndOf="@+id/workplace_icon"
+        android:layout_toStartOf="@+id/workplace_charm"
+        android:textColor="@color/darkGray"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:text="Name" />
+
+
+    <TextView
+        android:id="@+id/workplace_cost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/workplace_name"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/workplace_icon"
+        android:textSize="15dp"
+        android:textColor="@color/darkGray"
+        android:text="Cost:"
+        />
+
+    <TextView
+        android:id="@+id/workplace_cost_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/workplace_name"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/workplace_cost"
+        android:textSize="15dp"
+        android:textColor="@color/darkGray"
+        android:text="0"
+        />
+
+    <TextView
+        android:id="@+id/workplace_profit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/workplace_cost"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="3dp"
+        android:layout_toEndOf="@+id/workplace_icon"
+        android:textSize="15dp"
+        android:textColor="@color/darkGray"
+        android:text="Profit:"
+        />
+
+    <TextView
+        android:id="@+id/workplace_profit_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/workplace_cost"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="3dp"
+        android:layout_toEndOf="@+id/workplace_profit"
+        android:textSize="15dp"
+        android:textColor="@color/darkGray"
+        android:text="0"
+        />
+
+    <TextView
+        android:id="@+id/workplace_duration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/workplace_profit"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="3dp"
+        android:layout_toEndOf="@+id/workplace_icon"
+        android:textSize="15dp"
+        android:textColor="@color/darkGray"
+        android:text="Duration:" />
+
+    <TextView
+        android:id="@+id/workplace_duration_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/workplace_profit"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="3dp"
+        android:layout_toEndOf="@+id/workplace_duration"
+        android:textSize="15dp"
+        android:textColor="@color/darkGray"
+        android:text="0" />
+
+
+</RelativeLayout>

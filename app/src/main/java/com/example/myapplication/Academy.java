@@ -1,7 +1,7 @@
 package com.example.myapplication;
 
 import java.util.Calendar;
-
+/*
 public class Academy extends Task
 {
     public float danceGrowthPerHour;
@@ -10,9 +10,9 @@ public class Academy extends Task
 
     public long[] idolStartTimes;
 
-    Academy(String name, String description, int numSlots, int reqLevel, boolean unlocked, float danceGrowthPerHour, float singGrowthPerHour, float charmGrowthPerHour)
+    Academy(String name, int numSlots, int reqLevel, boolean unlocked, float danceGrowthPerHour, float singGrowthPerHour, float charmGrowthPerHour)
     {
-        super(name, description, numSlots, reqLevel, unlocked);
+        super(name, numSlots, reqLevel, unlocked);
 
         this.danceGrowthPerHour = danceGrowthPerHour;
         this.singGrowthPerHour = singGrowthPerHour;
@@ -77,3 +77,4 @@ public class Academy extends Task
         return this.charmGrowthPerHour * (getIdolTrainTime(slotIndex) / 3600000f); // an hour in ms
     }
 }
+ */

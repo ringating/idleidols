@@ -114,8 +114,8 @@ public class MainActivity extends AppCompatActivity implements SettingsDialogFra
         agency.SetCurrency(0);
         curMoney.setText(Integer.toString(agency.GetCurrentCurrency()));
 
-        agency.SetSeeds(50); //TODO Testing purposes!
-        agency.SetTotalSeeds(50);//TODO ALSO CLEARLY TESTING PURPOSES
+        agency.SetSeeds(0);
+        agency.SetTotalSeeds(0);
         curTokens.setText(Integer.toString(agency.GetCurrentSeeds()));
 
         agency.SetCurrentExp(0);

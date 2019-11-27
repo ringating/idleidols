@@ -43,7 +43,7 @@ public class Train extends AppCompatActivity {
 
         TextView name = findViewById(R.id.agencyName);
         name.setText(agency.GetName());
-
+/*
         Academy testTask = new Academy("Task Name", "Task Description",
                 4, 1, false,
                 0.1f, 0.2f, 0.3f);
@@ -56,6 +56,8 @@ public class Train extends AppCompatActivity {
 
         TextView slotCount1 = findViewById(R.id.textView5);
         slotCount1.setText("Occupied Slots: " + testTask.getNumSlottedIdols() + "/" + testTask.numSlots);
+
+ */
     }
 
     public void ShowCard(View v)
