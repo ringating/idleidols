@@ -43,6 +43,16 @@ public class MainActivity extends AppCompatActivity implements SettingsDialogFra
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Processing Code
+
+        FrameLayout frame = findViewById(R.id.container);
+
+        sketch = new Sketch();
+        PFragment fragment = new PFragment(sketch);
+        fragment.setView(frame, this);
+
+        // End Processing Code
+
         agency = (Agency) getApplicationContext();
 
         DataForSaveLoad load = SaveLoad.load(getApplicationContext());
@@ -91,16 +101,6 @@ public class MainActivity extends AppCompatActivity implements SettingsDialogFra
                 settingsMenu.show(fragmentManager, "SettingsMenu");
             }
         });
-
-        // Processing Code
-
-        FrameLayout frame = findViewById(R.id.container);
-
-        sketch = new Sketch();
-        PFragment fragment = new PFragment(sketch);
-        fragment.setView(frame, this);
-
-        // End Processing Code
     }
 
     //Renames the agency
