@@ -4,12 +4,16 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PImage;
+import processing.core.PVector;
 
 public class Sketch extends PApplet {
 
+    // For making a Scrolling Background that Scrolls in the Background
     class ScrollingBackground {
         private int x;
         private int y;
@@ -52,6 +56,7 @@ public class Sketch extends PApplet {
         }
     }
 
+    // Displays an Idol with a body and head and soul
     class DisplayIdol {
 
         private int x;
@@ -75,22 +80,22 @@ public class Sketch extends PApplet {
 
         DisplayIdol(int x, int y, int xHeadOffset, int yHeadOffset, int yBodyOffset, int xBoundOffset, int yBoundOffset, double sizeMultiplier, String bodyImage, String headImage)
         {
-            this.x = x;
-            this.y = y;
+            this.x = x; //Position of the Idol
+            this.y = y; //
 
-            this.body = loadImage(bodyImage);
-            this.head = loadImage(headImage);
+            this.body = loadImage(bodyImage);   // Appearance of the Idol body
+            this.head = loadImage(headImage);   //                    and head
 
-            body.resize((int)(body.width * sizeMultiplier), (int)(body.height * sizeMultiplier));
-            head.resize((int)(900 * sizeMultiplier),(int)(900 * sizeMultiplier));
+            body.resize((int)(body.width * sizeMultiplier), (int)(body.height * sizeMultiplier));   // Resizes the body according to the sizeMultiplier
+            head.resize((int)(900 * sizeMultiplier),(int)(900 * sizeMultiplier));                   // Same for the head; the head is already resized down because he head too big for he gotdamn screen
 
-            this.xHeadOffset = (int)(xHeadOffset * sizeMultiplier);
-            this.yHeadOffset = (int)(yHeadOffset * sizeMultiplier);
+            this.xHeadOffset = (int)(xHeadOffset * sizeMultiplier); // Offsets the position of the head so he isn't decapitated
+            this.yHeadOffset = (int)(yHeadOffset * sizeMultiplier); //
 
-            this.yBodyOffset = (int)(yBodyOffset * sizeMultiplier);
+            this.yBodyOffset = (int)(yBodyOffset * sizeMultiplier); // Offsets the body for the same reason as abouve
 
-            this.xBoundOffset = (int)(xBoundOffset * sizeMultiplier);
-            this.yBoundOffset = (int)(yBoundOffset * sizeMultiplier);
+            this.xBoundOffset = (int)(xBoundOffset * sizeMultiplier); // Changes the size of the mouse (or touch) detection box
+            this.yBoundOffset = (int)(yBoundOffset * sizeMultiplier); //
 
             generateBounds();
         }
@@ -131,6 +136,76 @@ public class Sketch extends PApplet {
             return isInIdol;
         }
     }
+
+    // System of particles for particling
+    class ParticleSystem {
+        ArrayList<Particle> particles;
+        PVector origin;
+
+        ParticleSystem(PVector position) {
+            origin = position.copy();
+            particles = new ArrayList<Particle>();
+        }
+
+        void addParticle() {
+            particles.add(new Particle(origin));
+        }
+
+        void run() {
+            for (int i = particles.size()-1; i >= 0; i--) {
+                Particle p = particles.get(i);
+                p.run();
+                if (p.isDead()) {
+                    particles.remove(i);
+                }
+            }
+        }
+    }
+
+    // Particle class for young particles to learn
+    class Particle {
+        PVector position;
+        PVector velocity;
+        PVector acceleration;
+        float lifespan;
+
+        Particle(PVector l) {
+            acceleration = new PVector((float)0, (float)0.05);
+            velocity = new PVector(random(-1, 1), random(-2, 0));
+            position = l.copy();
+            lifespan = (float)255.0;
+        }
+
+        void run() {
+            update();
+            display();
+        }
+
+        // Method to update position
+        void update() {
+            velocity.add(acceleration);
+            position.add(velocity);
+            lifespan -= 1.0;
+        }
+
+        // Method to display
+        void display() {
+            stroke(255, lifespan);
+            fill(255, lifespan);
+            ellipse(position.x, position.y, 8, 8);
+        }
+
+        // Is the particle still useful?
+        boolean isDead() {
+            if (lifespan < 0.0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    // End Classes
 
     public void settings() {
         size(displayWidth, displayHeight, OPENGL);
