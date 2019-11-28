@@ -34,14 +34,14 @@ public class Sketch extends PApplet {
     }
 
     public void settings() {
-        size(displayWidth, displayHeight);
+        size(displayWidth, displayHeight, OPENGL);
     }
 
     private ScrollingBackground homeBackground;
 
     public void setup() {
         frameRate(60);
-        homeBackground = new ScrollingBackground(0, 0, 3, 3, "background.png");
+        homeBackground = new ScrollingBackground(0, 0, 5, 5, "background.png");
     }
 
     public void draw() {
