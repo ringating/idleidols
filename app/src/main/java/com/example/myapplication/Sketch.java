@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.os.AsyncTask;
 
 import processing.core.PApplet;
+import processing.core.PGraphics;
 import processing.core.PImage;
 
 public class Sketch extends PApplet {
@@ -61,6 +62,5 @@ public class Sketch extends PApplet {
 
     public void draw() {
         homeBackground.scroll();
-        homeBackground.changeScrollSpeed(1, 1);
     }
 }
