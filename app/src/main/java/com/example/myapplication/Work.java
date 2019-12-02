@@ -104,10 +104,10 @@ public class Work extends AppCompatActivity {
     }
 
     @Override
-    protected void onDestroy()
+    protected void onStop()
     {
         // autosave upon leaving this activity
-        super.onDestroy();
+        super.onStop();
         SaveLoad.save(this.getApplicationContext(), new DataForSaveLoad((Agency) this.getApplicationContext()));
     }
 }

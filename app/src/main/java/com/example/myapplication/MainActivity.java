@@ -196,10 +196,10 @@ public class MainActivity extends AppCompatActivity implements SettingsDialogFra
     }
 
     @Override
-    protected void onDestroy()
+    protected void onStop()
     {
         // autosave upon leaving this activity
-        super.onDestroy();
+        super.onStop();
         SaveLoad.save(this.getApplicationContext(), new DataForSaveLoad((Agency) this.getApplicationContext()));
         // if you're in a fragment or something, can likely use "GetActivity()" in place of "this"
     }
