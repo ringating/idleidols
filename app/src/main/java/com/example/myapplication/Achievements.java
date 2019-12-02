@@ -90,4 +90,12 @@ public class Achievements extends AppCompatActivity
             transaction.commit();
         }
     }
+
+    @Override
+    protected void onDestroy()
+    {
+        // autosave upon leaving this activity
+        super.onDestroy();
+        SaveLoad.save(this.getApplicationContext(), new DataForSaveLoad((Agency) this.getApplicationContext()));
+    }
 }

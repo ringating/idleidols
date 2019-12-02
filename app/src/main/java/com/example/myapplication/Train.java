@@ -87,4 +87,12 @@ public class Train extends AppCompatActivity {
         Animation shrink = AnimationUtils.loadAnimation(this,R.anim.button_press);
         release.startAnimation(shrink);
     }
+
+    @Override
+    protected void onDestroy()
+    {
+        // autosave upon leaving this activity
+        super.onDestroy();
+        SaveLoad.save(this.getApplicationContext(), new DataForSaveLoad((Agency) this.getApplicationContext()));
+    }
 }

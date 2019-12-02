@@ -197,4 +197,12 @@ public class Management extends AppCompatActivity implements WarningDialog.Sende
             mode = 2;
         }
     }
+
+    @Override
+    protected void onDestroy()
+    {
+        // autosave upon leaving this activity
+        super.onDestroy();
+        SaveLoad.save(this.getApplicationContext(), new DataForSaveLoad((Agency) this.getApplicationContext()));
+    }
 }
