@@ -3,20 +3,16 @@ package com.example.myapplication;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 public class Train extends AppCompatActivity {
 
@@ -43,6 +39,11 @@ public class Train extends AppCompatActivity {
 
         TextView name = findViewById(R.id.agencyName);
         name.setText(agency.GetName());
+
+        ProgressBar expBar = findViewById(R.id.expBar);
+        expBar.setMax(agency.GetExpNeededToLevel());
+        expBar.setProgress(agency.GetCurrentExp());
+
 /*
         Academy testTask = new Academy("Task Name", "Task Description",
                 4, 1, false,
@@ -68,7 +69,7 @@ public class Train extends AppCompatActivity {
         button.startAnimation(shrink);
         //this is in the window now
         TextView exitButton;
-        myDialog.setContentView(R.layout.workcard);
+        myDialog.setContentView(R.layout.work_card);
         exitButton = myDialog.findViewById(R.id.exitButton);
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override

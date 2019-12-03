@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import org.w3c.dom.Text;
 
@@ -24,15 +25,18 @@ public class WorkplaceFragment extends Fragment
     private Task workplace;
     private static final String TAG = "Workplace Fragment";
 
+    private Agency agency;
+
     public WorkplaceFragment()
     {
         //empty constructor
     }
 
     //Creates the workplace
-    public static WorkplaceFragment createWorkplaceFragment(Task workplace)
+    public static WorkplaceFragment createWorkplaceFragment(Task workplace, Bundle agency)
     {
         WorkplaceFragment fragment = new WorkplaceFragment();
+        fragment.agency = (Agency)agency.getSerializable("Agency");
         fragment.workplace = workplace;
 
         return fragment;
@@ -51,6 +55,16 @@ public class WorkplaceFragment extends Fragment
         super.onViewCreated(view, savedInstanceState);
 
         //TODO: Put the actual dynamic icon showing here along with the onClick function.
+        final RelativeLayout fragmentLayout = view.findViewById(R.id.workplaceFragment);
+        fragmentLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               Animation shrink = AnimationUtils.loadAnimation(getActivity(), R.anim.button_press);
+               fragmentLayout.startAnimation(shrink);
+               ShowCard();
+            }
+        });
+
         ImageView icon = view.findViewById(R.id.workplace_icon);
         icon.setImageResource(workplace.image);
 
@@ -85,5 +99,21 @@ public class WorkplaceFragment extends Fragment
         int processTime = (int) workplace.processTime/100;
         String durationText = processTime + " seconds"; //TODO Probably want to change this so it tells you how many hours and stuff too.
         duration.setText(durationText);
+    }
+
+    private void ShowCard()
+    {
+        FragmentManager taskCard = getFragmentManager();
+        //Sends information to IdolListMenuDialog
+        TaskIdolCard taskIdolCard = new TaskIdolCard();
+        Bundle sendToIdolList = new Bundle();
+        sendToIdolList.putParcelableArrayList("IdolArrayList", agency.GetIdols());
+        taskIdolCard.setArguments(sendToIdolList);
+
+        //Opens the TaskIdolCard
+        if(taskCard != null)
+        {
+            taskIdolCard.show(taskCard, "TaskCard");
+        }
     }
 }

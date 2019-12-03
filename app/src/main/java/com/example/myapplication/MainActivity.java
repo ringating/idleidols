@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements SettingsDialogFra
         agencyName.setText(agency.GetName());
 
         expBar = (ProgressBar)findViewById(R.id.expBar);
-        agency.SetExpNeededToLevel(agency.GetLevel());
         expBar.setMax(agency.GetExpNeededToLevel());
         expBar.setProgress(agency.GetCurrentExp());
 

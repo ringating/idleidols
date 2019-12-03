@@ -6,7 +6,7 @@
     android:layout_height="130dp"
     android:padding="10dp"
     android:background="@drawable/achievement_fragment_background"
-    android:id="@+id/achievementFragment"
+    android:id="@+id/workplaceFragment"
     tools:context=".Work">
 
     <ImageView
@@ -59,7 +59,7 @@
         android:layout_toEndOf="@+id/workplace_icon"
         android:textSize="15dp"
         android:textColor="@color/darkGray"
-        android:text="Cost:"
+        android:text="Cost: $"
         />
 
     <TextView
@@ -67,7 +67,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/workplace_name"
-        android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
         android:layout_toEndOf="@+id/workplace_cost"
         android:textSize="15dp"
@@ -85,7 +84,7 @@
         android:layout_toEndOf="@+id/workplace_icon"
         android:textSize="15dp"
         android:textColor="@color/darkGray"
-        android:text="Profit:"
+        android:text="Profit: $"
         />
 
     <TextView
@@ -93,7 +92,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/workplace_cost"
-        android:layout_marginStart="5dp"
         android:layout_marginTop="3dp"
         android:layout_toEndOf="@+id/workplace_profit"
         android:textSize="15dp"

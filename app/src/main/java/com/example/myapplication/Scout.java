@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
@@ -53,6 +54,11 @@ public class Scout extends AppCompatActivity implements IdolIconListDialog.Creat
 
         TextView name = findViewById(R.id.agencyName);
         name.setText(agency.GetName());
+
+        ProgressBar expBar = findViewById(R.id.expBar);
+        expBar.setMax(agency.GetExpNeededToLevel());
+        expBar.setProgress(agency.GetCurrentExp());
+
     }
 
     //Scouting Buttons

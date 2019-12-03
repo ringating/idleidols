@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -18,14 +19,13 @@ import java.util.ArrayList;
 
 public class TaskIdolCard extends DialogFragment {
 
-    private boolean[] slotted = new boolean[4];
+    private boolean[] slotted;
     private static final String TAG = "TaskCard";
     static final int GET_IDOL = 1;
 
-    private ImageView idolSlot1;
-    private ImageView idolSlot2;
-    private ImageView idolSlot3;
-    private ImageView idolSlot4;
+    private int numOfSlots = 4; //TODO FOR NOW. (sigh.... we'll have to get this information later)
+
+    private ImageView selected;
 
     private final IdolListMenuDialog idolListMenu = new IdolListMenuDialog();
 
@@ -39,7 +39,10 @@ public class TaskIdolCard extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState)
     {
-        View view = inflater.inflate(R.layout.work_card_fragment, container, false);
+        View view = inflater.inflate(R.layout.work_card, container, false);
+
+        slotted = new boolean[numOfSlots];
+
         TextView exitButton = (TextView)view.findViewById(R.id.exitButton);
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,39 +68,29 @@ public class TaskIdolCard extends DialogFragment {
             sendToIdolList.putParcelableArrayList("IdolList", idolArrayList);
             idolListMenu.setArguments(sendToIdolList);
         }
-
-        idolSlot1 = (ImageView)view.findViewById(R.id.idolSlot1);
-        idolSlot1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!slotted[0])
-                {
-                    slotted[0] = true;
-                }
-                if(idolListDialog != null)
-                {
-                    Log.d(TAG, "Opening Idol List Dialog");
-                    idolListMenu.show(idolListDialog, "IdolListMenu");
-                }
+        //TODO THIS IS WHERE THE IMAGES ARE LOADED
+        LinearLayout equippedIdols = view.findViewById(R.id.idolImageContainer);
+        LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(225, 200); //TODO Change?
+        for(int i = 0; i < numOfSlots; i++)
+        {
+            final ImageView idolImage = new ImageView(getContext());
+            if(!slotted[i])
+            {
+                Log.d(TAG, "No Idol Added");
+                idolImage.setImageResource(R.drawable.no_idol);
+                equippedIdols.addView(idolImage, imageParams);
             }
-        });
-
-        idolSlot2 = (ImageView)view.findViewById(R.id.idolSlot2);
-        idolSlot2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(!slotted[0])
-                {
-                    slotted[0] = true;
+            idolImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if(idolListDialog != null)
+                    {
+                        selected = idolImage;
+                        idolListMenu.show(idolListDialog, "IdolListMenu");
+                    }
                 }
-                if(idolListDialog != null)
-                {
-                    Log.d(TAG, "Opening Idol List Dialog");
-                    idolListMenu.show(idolListDialog, "IdolListMenu");
-                }
-            }
-        });
-
+            });
+        }
         return view;
     }
 
@@ -108,10 +101,10 @@ public class TaskIdolCard extends DialogFragment {
         {
             if(resultCode == Activity.RESULT_OK)
             {
-                //TODO THIS ONLY CHANGES THE FIRST SLOT!!!!!!
                 Log.d(TAG,"IT WORKS!!!");
                 Idol getIdol = intent.getParcelableExtra("IdolIcon");
-                idolSlot1.setImageResource(getIdol.getImage());
+                selected.setImageResource(getIdol.getImage());
+                selected = null; //resets selected image.
             }
         }
     }

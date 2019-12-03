@@ -10,6 +10,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -53,6 +54,11 @@ public class Work extends AppCompatActivity {
         TextView name = findViewById(R.id.agencyName);
         name.setText(agency.GetName());
 
+        ProgressBar expBar = findViewById(R.id.expBar);
+        expBar.setMax(agency.GetExpNeededToLevel());
+        expBar.setProgress(agency.GetCurrentExp());
+
+
         loadWorkFragments();
 
     }
@@ -62,8 +68,10 @@ public class Work extends AppCompatActivity {
         for (Task value : Task.values())
         {
             FragmentTransaction transaction = manager.beginTransaction();
+            Bundle sendToWorkFrag = new Bundle();
+            sendToWorkFrag.putSerializable("Agency", agency);
 
-            WorkplaceFragment fragment = WorkplaceFragment.createWorkplaceFragment(value);
+            WorkplaceFragment fragment = WorkplaceFragment.createWorkplaceFragment(value, sendToWorkFrag);
             transaction.add(R.id.workplace_list, fragment);
             transaction.commit();
         }
