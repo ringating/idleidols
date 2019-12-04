@@ -5,10 +5,12 @@ import android.os.AsyncTask;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PImage;
+import processing.core.PShape;
 import processing.core.PVector;
 
 public class Sketch extends PApplet {
@@ -137,6 +139,89 @@ public class Sketch extends PApplet {
         }
     }
 
+    class CoordShape
+    {
+        private PVector position;
+        private PShape shape;
+
+        CoordShape(float x, float y, float a, float b)
+        {
+            ellipseMode(CENTER);
+            shape = createShape(ELLIPSE, x, y, a, b);
+            position = new PVector(x, y);
+        }
+
+        void translate(int x, int y)
+        {
+            shape.translate(x, y);
+            position.x += x;
+            position.y += y;
+        }
+
+        int getX()
+        {
+            return (int)position.x;
+        }
+
+        int getY()
+        {
+            return (int)position.y;
+        }
+
+        PShape getShape()
+        {
+            return shape;
+        }
+    }
+
+    class BeatBar
+    {
+        private int xPosition;
+        private int yPosition;
+        private int timing = 0;
+        List<CoordShape> shapes;
+        private CoordShape tempShape;
+
+        BeatBar(int xPosition, int yPosition)
+        {
+            this.xPosition = xPosition;
+            this.yPosition = yPosition;
+            shapes = new ArrayList<>();
+        }
+
+        void draw()
+        {
+            rectMode(CENTER);
+            fill(color(0, 0, 255));
+            rect(xPosition, yPosition, 1000, 100, 20);
+            fill(color(255, 0, 0));
+            beatCircle();
+        }
+
+        void beatCircle()
+        {
+            timing++;
+            text("Timing: " + timing, 0, displayHeight/2 + 100);
+            if (timing >= 60)
+            {
+                tempShape = new CoordShape(xPosition + 500, yPosition, 100, 100);
+                shapes.add(tempShape);
+                timing = 0;
+            }
+            for (CoordShape currShape : shapes)
+            {
+                currShape.translate(-1, 0);
+                shape(currShape.getShape());
+                if (currShape.getX() < yPosition - 500)
+                {
+                    shapes.remove(currShape);
+                }
+            }
+        }
+    }
+
+    // PARTICLE SYSTEM CURRENTLY PLACEHOLDER
+
     // System of particles for particling
     class ParticleSystem {
         ArrayList<Particle> particles;
@@ -205,6 +290,8 @@ public class Sketch extends PApplet {
         }
     }
 
+    // PARTICLE SYSTEM CURRENTLY PLACEHOLDER
+
     // End Classes
 
     public void settings() {
@@ -213,6 +300,7 @@ public class Sketch extends PApplet {
 
     private ScrollingBackground homeBackground;
     private DisplayIdol idol;
+    private BeatBar beat;
     private int idolX;
     private int idolY;
     private boolean incrementMonies;
@@ -221,6 +309,8 @@ public class Sketch extends PApplet {
     Agency agency;
     TextView currency;
     Activity act;
+
+    PShape testingShape;
 
     public void setup() {
 
@@ -233,13 +323,18 @@ public class Sketch extends PApplet {
         idolX = displayWidth/2;
         idolY = (displayHeight/2) - 150;
         idol = new DisplayIdol(idolX, idolY, -40, -300, 400, -200, -150, 0.8,"body.png", "onionHead.png");
+        beat = new BeatBar(displayWidth/2, displayHeight - 600);
+
+        testingShape = createShape(ELLIPSE, displayWidth/2, displayHeight/2, 200, 200);
+        testingShape.setFill(color(0, 255, 255));
     }
 
     public void draw() {
         homeBackground.scroll();
         idol.draw();
+        beat.draw();
         textSize(40);
-        fill(0,0,0);
+        shape(testingShape);
         if (idol.isMouseInIdol())
         {
             text("PRESSED", 0, displayHeight/2);
