@@ -19,11 +19,14 @@ import java.util.ArrayList;
 
 public class TaskIdolCard extends DialogFragment {
 
-    private boolean[] slotted;
+
     private static final String TAG = "TaskCard";
     static final int GET_IDOL = 1;
 
-    private int numOfSlots = 4; //TODO FOR NOW. (sigh.... we'll have to get this information later)
+    private Idol[] idolForTask;
+    private int numOfSlots;
+    private int curIndex;
+    private int selectedIndex;
 
     private ImageView selected;
 
@@ -41,12 +44,14 @@ public class TaskIdolCard extends DialogFragment {
     {
         View view = inflater.inflate(R.layout.work_card, container, false);
 
-        slotted = new boolean[numOfSlots];
+        numOfSlots = getArguments().getInt("numberOfSlots");
+        idolForTask = (Idol[]) getArguments().getParcelableArray("IdolSlot");
 
         TextView exitButton = (TextView)view.findViewById(R.id.exitButton);
         exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                saveToFragment(idolForTask);
                 dismiss();
             }
         });
@@ -68,24 +73,62 @@ public class TaskIdolCard extends DialogFragment {
             sendToIdolList.putParcelableArrayList("IdolList", idolArrayList);
             idolListMenu.setArguments(sendToIdolList);
         }
+
+        TextView cost = view.findViewById(R.id.workCardCostContent);
+        cost.setText(Integer.toString(getArguments().getInt("cost")));
+
+        TextView profit = view.findViewById(R.id.workCardProfitContent);
+        profit.setText(Integer.toString(getArguments().getInt("profit")));
+
+        TextView duration = view.findViewById(R.id.workCardDurationContent);
+        String durationContent = "";
+        durationContent += getArguments().getLong("duration")/100 + " seconds"; //TODO later change such that it says days, hours, minutes, seconds, etc.
+        duration.setText(durationContent);
+
+        ImageView danceIcon = view.findViewById(R.id.workCardDance);
+        if(getArguments().getFloat("dance") != 1)
+        {
+            danceIcon.setVisibility(View.INVISIBLE);
+        }
+
+        ImageView singIcon = view.findViewById(R.id.workCardSing);
+        if(getArguments().getFloat("sing") != 1)
+        {
+            singIcon.setVisibility(View.INVISIBLE);
+        }
+
+        ImageView charmIcon = view.findViewById(R.id.workCardCharm);
+        if(getArguments().getFloat("charm") != 1)
+        {
+            charmIcon.setVisibility(View.INVISIBLE);
+        }
+
         //TODO THIS IS WHERE THE IMAGES ARE LOADED
         LinearLayout equippedIdols = view.findViewById(R.id.idolImageContainer);
-        LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(225, 200); //TODO Change?
+        LinearLayout.LayoutParams imageParams = new LinearLayout.LayoutParams(225, 200);
         for(int i = 0; i < numOfSlots; i++)
         {
             final ImageView idolImage = new ImageView(getContext());
-            if(!slotted[i])
+            curIndex = i;
+            if(idolForTask[curIndex] != null)
+            {
+                Log.d(TAG, idolForTask[curIndex].getIdolName());
+                idolImage.setImageResource(idolForTask[curIndex].getImage());
+
+            }
+            else
             {
                 Log.d(TAG, "No Idol Added");
                 idolImage.setImageResource(R.drawable.no_idol);
-                equippedIdols.addView(idolImage, imageParams);
             }
+            equippedIdols.addView(idolImage, imageParams);
             idolImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if(idolListDialog != null)
                     {
                         selected = idolImage;
+                        selectedIndex = curIndex;
                         idolListMenu.show(idolListDialog, "IdolListMenu");
                     }
                 }
@@ -101,11 +144,18 @@ public class TaskIdolCard extends DialogFragment {
         {
             if(resultCode == Activity.RESULT_OK)
             {
-                Log.d(TAG,"IT WORKS!!!");
                 Idol getIdol = intent.getParcelableExtra("IdolIcon");
                 selected.setImageResource(getIdol.getImage());
                 selected = null; //resets selected image.
+                idolForTask[selectedIndex] = getIdol;
             }
         }
+    }
+
+    private void saveToFragment(Idol[] idolsInTask)
+    {
+        Intent toWorkplaceFrag = new Intent();
+        toWorkplaceFrag.putExtra("slottedIdols", idolsInTask);
+        getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, toWorkplaceFrag);
     }
 }

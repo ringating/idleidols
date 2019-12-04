@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="350dp"
-    android:layout_height="200dp"
+    android:layout_height="270dp"
     android:padding="10dp"
     android:background="@drawable/idolcard_border"
     android:layout_gravity="center">
@@ -11,7 +11,7 @@
         android:id="@+id/workCardScrollView"
         android:layout_width="match_parent"
         android:layout_height="90dp"
-        android:layout_below="@+id/workCardName"
+        android:layout_below="@+id/workCardDance"
         android:layout_marginTop="10dp">
 
         <LinearLayout
@@ -34,6 +34,93 @@
         android:text="Facility Name" />
 
     <TextView
+        android:id="@+id/workCardCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/workCardName"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/darkGray"
+        android:text="Cost: $" />
+
+    <TextView
+        android:id="@+id/workCardCostContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/workCardName"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/workCardCost"
+        android:text="0"
+        android:textColor="@color/darkGray" />
+
+    <TextView
+        android:id="@+id/workCardProfit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/workCardName"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="175dp"
+        android:layout_marginTop="5dp"
+        android:text="Profit: $"
+        android:textColor="@color/darkGray" />
+
+    <TextView
+        android:id="@+id/workCardProfitContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/workCardName"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/workCardProfit"
+        android:text="0"
+        android:textColor="@color/darkGray" />
+
+    <TextView
+        android:id="@+id/workCardDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/workCardCost"
+        android:layout_marginTop="5dp"
+        android:text="Duration: "
+        android:textColor="@color/darkGray" />
+
+    <TextView
+        android:id="@+id/workCardDurationContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/workCardCost"
+
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/workCardDuration"
+        android:text="0"
+        android:textColor="@color/darkGray" />
+
+    <ImageView
+        android:id="@+id/workCardDance"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/affinity_dance" />
+
+    <ImageView
+        android:id="@+id/workCardSing"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_toStartOf="@+id/workCardDance"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/affinity_sing" />
+
+    <ImageView
+        android:id="@+id/workCardCharm"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_toStartOf="@+id/workCardSing"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/affinity_act"/>
+
+    <TextView
         android:id="@+id/exitButton"
         android:layout_width="30dp"
         android:layout_height="30dp"
@@ -46,16 +133,43 @@
         android:background="@drawable/circlebackground"
         />
 
-    <ProgressBar
-        android:id="@+id/imageView7"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="20dp"
+    <TextView
+        android:id="@+id/workCardTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/workCardProgress"
         android:layout_below="@+id/workCardScrollView"
         android:layout_alignParentStart="true"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="1dp"
+        android:text="Time Remaining: "
+        android:textColor="@color/darkGray"
+        android:textSize="10dp" />
+
+    <TextView
+        android:id="@+id/workCardTimeContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/workCardProgress"
+        android:layout_below="@+id/workCardScrollView"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="1dp"
+        android:layout_toEndOf="@+id/workCardTime"
+        android:text="0"
+        android:textColor="@color/darkGray"
+        android:textSize="10dp" />
+
+    <ProgressBar
+        android:id="@+id/workCardProgress"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
         android:progressDrawable="@drawable/experience_bar" />
 
 </RelativeLayout>

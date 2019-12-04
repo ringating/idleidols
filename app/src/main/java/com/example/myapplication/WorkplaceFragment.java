@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,7 +25,7 @@ import org.w3c.dom.Text;
 public class WorkplaceFragment extends Fragment
 {
     private Task workplace;
-    private static final String TAG = "Workplace Fragment";
+    private static int SLOTTED_IDOLS = 1;
 
     private Agency agency;
 
@@ -106,14 +108,37 @@ public class WorkplaceFragment extends Fragment
         FragmentManager taskCard = getFragmentManager();
         //Sends information to IdolListMenuDialog
         TaskIdolCard taskIdolCard = new TaskIdolCard();
+        taskIdolCard.setTargetFragment(this, SLOTTED_IDOLS);
+
         Bundle sendToIdolList = new Bundle();
         sendToIdolList.putParcelableArrayList("IdolArrayList", agency.GetIdols());
+        sendToIdolList.putInt("numberOfSlots", workplace.numSlots);
+        sendToIdolList.putParcelableArray("IdolSlot", workplace.idolSlots);
+        sendToIdolList.putInt("cost", workplace.cost);
+        sendToIdolList.putInt("profit", workplace.rewardCurrency);
+        sendToIdolList.putLong("duration", workplace.processTime);
+        sendToIdolList.putFloat("dance", workplace.dance);
+        sendToIdolList.putFloat("sing", workplace.sing);
+        sendToIdolList.putFloat("charm", workplace.charm);
         taskIdolCard.setArguments(sendToIdolList);
 
         //Opens the TaskIdolCard
         if(taskCard != null)
         {
             taskIdolCard.show(taskCard, "TaskCard");
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent intent)
+    {
+        if(requestCode == SLOTTED_IDOLS)
+        {
+            if(resultCode == Activity.RESULT_OK)
+            {
+                Idol[] getSlottedIdols = (Idol[]) intent.getParcelableArrayExtra("slottedIdols");
+                workplace.idolSlots = getSlottedIdols;
+            }
         }
     }
 }

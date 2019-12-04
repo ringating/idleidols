@@ -72,7 +72,7 @@ public enum Task
     public final float sing;
     public final float charm;
 
-    private int[] idolSlots;
+    public Idol[] idolSlots;
 
     Task(String name, int type, int image, int numSlots, int reqLevel, long processTime, int cost, int rewardCurrency, float dance, float sing, float charm)
     {
@@ -89,7 +89,7 @@ public enum Task
         this.charm = charm;
 
         this.unlocked = false;
-        this.idolSlots = new int[this.numSlots];
+        this.idolSlots = new Idol[this.numSlots];
     }
 
     // check level against this task's required level
@@ -98,16 +98,18 @@ public enum Task
         return agencyLevel >= this.reqLevel;
     }
 
-    public boolean setIdol(int idolID, int slotIndex)
+    public boolean setIdol(Idol idol, int slotIndex)
     {
         if(slotIndex >= this.idolSlots.length || slotIndex < 0)
         {
             return false;
         }
 
-        this.idolSlots[slotIndex] = idolID;
+        this.idolSlots[slotIndex] = idol;
         return true;
     }
+
+
 
     public boolean unsetIdol(int slotIndex)
     {
@@ -116,7 +118,7 @@ public enum Task
             return false;
         }
 
-        idolSlots[slotIndex] = -1;
+        idolSlots[slotIndex] = null;
         return true;
     }
 
@@ -124,16 +126,16 @@ public enum Task
     {
         for (int i = 0; i < this.idolSlots.length; ++i)
         {
-            this.idolSlots[i] = -1;
+            this.idolSlots[i] = null;
         }
     }
 
-    public int[] getIdolSlots()
+    public Idol[] getIdolSlots()
     {
         return this.idolSlots.clone();
     }
 
-    public int getIdolID(int slotIndex)
+    public Idol getIdol(int slotIndex)
     {
         return this.idolSlots[slotIndex];
     }
@@ -143,7 +145,7 @@ public enum Task
         int count = 0;
         for (int i = 0; i < this.idolSlots.length; ++i)
         {
-            if(this.idolSlots[i] >= 0)
+            if(this.idolSlots[i] != null)
             {
                 count++;
             }
