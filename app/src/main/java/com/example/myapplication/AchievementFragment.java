@@ -66,6 +66,8 @@ public class AchievementFragment extends Fragment
         }
         else
         {
+            achievement.SetIsClaimed(agency.claimedAchievements[achievement.ordinal()]); // load whether it's claimed already from the agency
+
             switch(achievement)
             {
                 case CREATE_AGENCY:

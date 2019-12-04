@@ -205,6 +205,8 @@ public enum Achievement     // Using the Java enum class
         agency.SetTotalSeeds(agency.GetTotalSeeds() + this.seeds);
         agency.SetCurrentExp(agency.GetCurrentExp() + this.exp);
 
+        agency.claimedAchievements[this.ordinal()] = true;
+
         //return this.isClaimed;
     }
 }
