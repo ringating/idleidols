@@ -110,4 +110,12 @@ public class Work extends AppCompatActivity {
         Animation shrink = AnimationUtils.loadAnimation(this,R.anim.button_press);
         release.startAnimation(shrink);
     }
+
+    @Override
+    protected void onStop()
+    {
+        // autosave upon leaving this activity
+        super.onStop();
+        SaveLoad.save(this.getApplicationContext(), new DataForSaveLoad((Agency) this.getApplicationContext()));
+    }
 }

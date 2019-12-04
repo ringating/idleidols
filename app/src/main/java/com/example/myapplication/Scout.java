@@ -135,4 +135,12 @@ public class Scout extends AppCompatActivity implements IdolIconListDialog.Creat
             card.show(getSupportFragmentManager(), "IdolCardInfoDialog");
         }
     }
+
+    @Override
+    protected void onStop()
+    {
+        // autosave upon leaving this activity
+        super.onStop();
+        SaveLoad.save(this.getApplicationContext(), new DataForSaveLoad((Agency) this.getApplicationContext()));
+    }
 }

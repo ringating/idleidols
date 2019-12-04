@@ -3,6 +3,8 @@ package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
+import processing.android.PFragment;
+import processing.core.PApplet;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -11,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -28,6 +31,8 @@ public class MainActivity extends AppCompatActivity implements SettingsDialogFra
     TextView agencyName;
     ProgressBar expBar;
 
+    private PApplet sketch;
+
     private static boolean firstRun = true;
 
     @Override
@@ -37,6 +42,16 @@ public class MainActivity extends AppCompatActivity implements SettingsDialogFra
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Processing Code
+
+        FrameLayout frame = findViewById(R.id.container);
+
+        sketch = new Sketch();
+        PFragment fragment = new PFragment(sketch);
+        fragment.setView(frame, this);
+
+        // End Processing Code
 
         agency = (Agency) getApplicationContext();
 
@@ -85,7 +100,6 @@ public class MainActivity extends AppCompatActivity implements SettingsDialogFra
                 settingsMenu.show(fragmentManager, "SettingsMenu");
             }
         });
-
     }
 
     //Renames the agency
@@ -143,4 +157,50 @@ public class MainActivity extends AppCompatActivity implements SettingsDialogFra
         curMoney.setText(Integer.toString(agency.GetCurrentCurrency()));
 
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults)
+    {
+        if (sketch != null)
+        {
+            sketch.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
+    @Override
+    public void onNewIntent(Intent intent)
+    {
+        super.onNewIntent(intent);
+        if (sketch != null)
+        {
+            sketch.onNewIntent(intent);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (sketch != null) {
+            sketch.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        if (sketch != null) {
+            sketch.onBackPressed();
+        }
+    }
+
+    @Override
+    protected void onStop()
+    {
+        // autosave upon leaving this activity
+        super.onStop();
+        SaveLoad.save(this.getApplicationContext(), new DataForSaveLoad((Agency) this.getApplicationContext()));
+        // if you're in a fragment or something, can likely use "GetActivity()" in place of "this"
+    }
 }
+
