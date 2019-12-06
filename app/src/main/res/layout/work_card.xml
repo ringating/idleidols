@@ -172,4 +172,17 @@
         android:layout_marginBottom="10dp"
         android:progressDrawable="@drawable/experience_bar" />
 
+    <Button
+        android:id="@+id/workCardStartButton"
+        android:layout_width="120dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/workCardScrollView"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/rounded_rectangle"
+        android:textColor="@color/darkGray"
+        android:textSize="20dp"
+        android:text="START" />
+
 </RelativeLayout>

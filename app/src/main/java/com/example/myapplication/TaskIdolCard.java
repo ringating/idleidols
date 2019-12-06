@@ -7,13 +7,19 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -22,11 +28,13 @@ public class TaskIdolCard extends DialogFragment {
 
     private static final String TAG = "TaskCard";
     static final int GET_IDOL = 1;
+    static final int STARTED = 2;
 
     private Idol[] idolForTask;
     private int numOfSlots;
     private int curIndex;
     private int selectedIndex;
+    private boolean started;
 
     private ImageView selected;
 
@@ -134,6 +142,44 @@ public class TaskIdolCard extends DialogFragment {
                 }
             });
         }
+
+        //TODO THIS IS WHERE THE START BUTTON TO PROGRESS IS SHOWN
+        final Button startButton = view.findViewById(R.id.workCardStartButton);
+        final ProgressBar timeDuration = view.findViewById(R.id.workCardProgress);
+        final TextView timeText = view.findViewById(R.id.workCardTime);
+        final TextView timeTextContent = view.findViewById(R.id.workCardTimeContent);
+        started = getArguments().getBoolean("started");
+        if(started)
+        {
+            timeDuration.setVisibility(View.VISIBLE);
+            timeText.setVisibility(View.VISIBLE);
+            timeTextContent.setVisibility(View.VISIBLE);
+            startButton.setVisibility(View.INVISIBLE);
+            startButton.setEnabled(false);
+            //TODO NEED TO INCLUDE PROGRESS BAR STATUS
+        }
+        else
+        {
+            timeDuration.setVisibility(View.INVISIBLE);
+            timeText.setVisibility(View.INVISIBLE);
+            timeTextContent.setVisibility(View.INVISIBLE);
+            startButton.setVisibility(View.VISIBLE);
+            startButton.setEnabled(true);
+            startButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    sendStartedState(true);
+                    timeDuration.setVisibility(View.VISIBLE);
+                    timeText.setVisibility(View.VISIBLE);
+                    timeTextContent.setVisibility(View.VISIBLE);
+                    startButton.setVisibility(View.INVISIBLE);
+                    startButton.setEnabled(false);
+                    Animation shrink = AnimationUtils.loadAnimation(getActivity(), R.anim.button_press);
+                    startButton.startAnimation(shrink);
+                    //TODO START PROGRESS HERE :D
+                }
+            });
+        }
         return view;
     }
 
@@ -157,5 +203,12 @@ public class TaskIdolCard extends DialogFragment {
         Intent toWorkplaceFrag = new Intent();
         toWorkplaceFrag.putExtra("slottedIdols", idolsInTask);
         getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, toWorkplaceFrag);
+    }
+
+    private void sendStartedState(boolean started)
+    {
+        Intent toWorkplaceFrag = new Intent();
+        toWorkplaceFrag.putExtra("startedTask", started);
+        getTargetFragment().onActivityResult(getTargetRequestCode(), STARTED, toWorkplaceFrag);
     }
 }

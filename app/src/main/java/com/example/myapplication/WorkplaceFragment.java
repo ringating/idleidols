@@ -57,13 +57,25 @@ public class WorkplaceFragment extends Fragment
         super.onViewCreated(view, savedInstanceState);
 
         //TODO: Put the actual dynamic icon showing here along with the onClick function.
+        if(Integer.parseInt(agency.GetLevel()) >= workplace.reqLevel)
+        {
+            workplace.unlocked = true;
+        }
         final RelativeLayout fragmentLayout = view.findViewById(R.id.workplaceFragment);
         fragmentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               Animation shrink = AnimationUtils.loadAnimation(getActivity(), R.anim.button_press);
-               fragmentLayout.startAnimation(shrink);
-               ShowCard();
+                if(workplace.unlocked)
+                {
+                    Animation shrink = AnimationUtils.loadAnimation(getActivity(), R.anim.button_press);
+                    fragmentLayout.startAnimation(shrink);
+                    ShowCard();
+                }
+                else
+                {
+                    Toast toast = Toast.makeText(getContext(), "Facility not yet Unlocked", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
             }
         });
 
@@ -120,6 +132,7 @@ public class WorkplaceFragment extends Fragment
         sendToIdolList.putFloat("dance", workplace.dance);
         sendToIdolList.putFloat("sing", workplace.sing);
         sendToIdolList.putFloat("charm", workplace.charm);
+        sendToIdolList.putBoolean("started", workplace.started);
         taskIdolCard.setArguments(sendToIdolList);
 
         //Opens the TaskIdolCard
@@ -138,6 +151,10 @@ public class WorkplaceFragment extends Fragment
             {
                 Idol[] getSlottedIdols = (Idol[]) intent.getParcelableArrayExtra("slottedIdols");
                 workplace.idolSlots = getSlottedIdols;
+            }
+            else if(resultCode == 2)
+            {
+                workplace.started = intent.getBooleanExtra("startedTask", false);
             }
         }
     }

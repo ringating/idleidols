@@ -71,6 +71,7 @@ public enum Task
     public final float dance; //if Academy, this will be the growth rate, if Workplace, this will be the affinity determination.
     public final float sing;
     public final float charm;
+    public boolean started;
 
     public Idol[] idolSlots;
 
@@ -88,6 +89,7 @@ public enum Task
         this.sing = sing;
         this.charm = charm;
 
+        this.started = false;
         this.unlocked = false;
         this.idolSlots = new Idol[this.numSlots];
     }
