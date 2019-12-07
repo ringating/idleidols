@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="130dp"
+    android:padding="10dp"
+    android:background="@drawable/achievement_fragment_background"
+    android:id="@+id/academyFragment"
+    tools:context=".Work">
+
+    <ImageView
+        android:id="@+id/academy_icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/work_hollywoodbowl" />
+
+    <ImageView
+        android:id="@+id/academy_dance"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentEnd="true"
+        android:src="@drawable/affinity_dance" />
+
+    <ImageView
+        android:id="@+id/academy_sing"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_toStartOf="@+id/academy_dance"
+        android:src="@drawable/affinity_sing" />
+
+    <ImageView
+        android:id="@+id/academy_charm"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_toStartOf="@+id/academy_sing"
+        android:src="@drawable/affinity_act" />
+
+    <TextView
+        android:id="@+id/academy_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_toStartOf="@+id/academy_charm"
+        android:layout_toEndOf="@+id/academy_icon"
+        android:text="Name"
+        android:textColor="@color/darkGray"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+
+    <TextView
+        android:id="@+id/academy_level"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/academy_name"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/academy_icon"
+        android:text="Level: "
+        android:textColor="@color/darkGray"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/academyLevelContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/academy_name"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/academy_level"
+        android:textSize="15dp"
+        android:textColor="@color/darkGray"
+        android:text="0"
+        />
+
+    <TextView
+        android:id="@+id/academy_occupied_slots"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/academy_level"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="3dp"
+        android:layout_toEndOf="@+id/academy_icon"
+        android:text="# of Training Idols: "
+        android:textColor="@color/darkGray"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/academy_occupied_slots_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/academy_level"
+        android:layout_marginTop="3dp"
+        android:layout_toEndOf="@+id/academy_occupied_slots"
+        android:textSize="15dp"
+        android:textColor="@color/darkGray"
+        android:text="0"
+        />
+
+    <TextView
+        android:id="@+id/academy_total_slots"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/academy_occupied_slots"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="3dp"
+        android:layout_toEndOf="@+id/academy_icon"
+        android:text="Total # of Slots: "
+        android:textColor="@color/darkGray"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/academy_total_slots_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/academy_occupied_slots"
+        android:layout_marginStart="3dp"
+        android:layout_marginTop="3dp"
+        android:layout_toEndOf="@+id/academy_total_slots"
+        android:textSize="15dp"
+        android:textColor="@color/darkGray"
+        android:text="0" />
+
+
+</RelativeLayout>

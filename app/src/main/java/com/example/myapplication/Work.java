@@ -71,9 +71,12 @@ public class Work extends AppCompatActivity {
             Bundle sendToWorkFrag = new Bundle();
             sendToWorkFrag.putSerializable("Agency", agency);
 
-            WorkplaceFragment fragment = WorkplaceFragment.createWorkplaceFragment(value, sendToWorkFrag);
-            transaction.add(R.id.workplace_list, fragment);
-            transaction.commit();
+            if(value.type == 0)
+            {
+                WorkplaceFragment fragment = WorkplaceFragment.createWorkplaceFragment(value, sendToWorkFrag);
+                transaction.add(R.id.workplace_list, fragment);
+                transaction.commit();
+            }
         }
     }
 

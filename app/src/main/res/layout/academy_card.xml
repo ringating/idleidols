@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="350dp"
+    android:layout_height="270dp"
+    android:padding="10dp"
+    android:background="@drawable/idolcard_border"
+    android:layout_gravity="center">
+
+    <HorizontalScrollView
+        android:id="@+id/academyCardScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:layout_below="@+id/workCardDance"
+        android:layout_marginTop="10dp">
+
+        <LinearLayout
+            android:id="@+id/idolImageContainer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" />
+    </HorizontalScrollView>
+
+    <TextView
+        android:id="@+id/academyCardName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        android:textColor="@color/darkGray"
+        android:text="Facility Name" />
+
+    <TextView
+        android:id="@+id/academyCardCost"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/academyCardName"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/darkGray"
+        android:text="Cost: $" />
+
+    <TextView
+        android:id="@+id/academyCardContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/workCardName"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/workCardCost"
+        android:text="0"
+        android:textColor="@color/darkGray" />
+
+    <TextView
+        android:id="@+id/workCardProfit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/workCardName"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="175dp"
+        android:layout_marginTop="5dp"
+        android:text="Profit: $"
+        android:textColor="@color/darkGray" />
+
+    <TextView
+        android:id="@+id/workCardProfitContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/workCardName"
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/workCardProfit"
+        android:text="0"
+        android:textColor="@color/darkGray" />
+
+    <TextView
+        android:id="@+id/workCardDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/workCardCost"
+        android:layout_marginTop="5dp"
+        android:text="Duration: "
+        android:textColor="@color/darkGray" />
+
+    <TextView
+        android:id="@+id/workCardDurationContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/workCardCost"
+
+        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/workCardDuration"
+        android:text="0"
+        android:textColor="@color/darkGray" />
+
+    <ImageView
+        android:id="@+id/workCardDance"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/affinity_dance" />
+
+    <ImageView
+        android:id="@+id/workCardSing"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_toStartOf="@+id/workCardDance"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/affinity_sing" />
+
+    <ImageView
+        android:id="@+id/workCardCharm"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_toStartOf="@+id/workCardSing"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="70dp"
+        android:background="@drawable/affinity_act"/>
+
+    <TextView
+        android:id="@+id/exitButton"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:text="X"
+        android:textStyle="bold"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:padding="5dp"
+        android:background="@drawable/circlebackground"
+        />
+
+</RelativeLayout>
