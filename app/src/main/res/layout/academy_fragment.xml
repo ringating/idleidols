@@ -7,7 +7,7 @@
     android:padding="10dp"
     android:background="@drawable/achievement_fragment_background"
     android:id="@+id/academyFragment"
-    tools:context=".Work">
+    tools:context=".ActivityWork">
 
     <ImageView
         android:id="@+id/academy_icon"

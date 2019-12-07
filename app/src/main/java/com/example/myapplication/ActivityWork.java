@@ -1,8 +1,7 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -14,15 +13,30 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-public class Train extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+public class ActivityWork extends AppCompatActivity {
+
+    private static final String TAG = "Workplace";
 
     Dialog myDialog;
     Agency agency;
 
+    //temp stuff
+    int numIdols = 0;
+    boolean[] slotted = new boolean[4];
+    boolean haveNotEarned = true;
+
+    TextView curMoney;
+    FragmentManager manager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.idol_train);
+        setContentView(R.layout.idol_work);
+        manager = getSupportFragmentManager();
         myDialog = new Dialog(this);
 
         //This is where the agency passes along data to the page.
@@ -44,42 +58,31 @@ public class Train extends AppCompatActivity {
         expBar.setMax(agency.GetExpNeededToLevel());
         expBar.setProgress(agency.GetCurrentExp());
 
-/*
-        Academy testTask = new Academy("Task Name", "Task Description",
-                4, 1, false,
-                0.1f, 0.2f, 0.3f);
 
-        TextView title1 = findViewById(R.id.textView2);
-        title1.setText(testTask.name);
+        loadWorkFragments();
 
-        TextView description1 = findViewById(R.id.textView4);
-        description1.setText(testTask.description);
-
-        TextView slotCount1 = findViewById(R.id.textView5);
-        slotCount1.setText("Occupied Slots: " + testTask.getNumSlottedIdols() + "/" + testTask.numSlots);
-
- */
     }
 
-    public void ShowCard(View v)
+    private void loadWorkFragments()
     {
-        //this is the animation for clicking on the idol image
-        ImageView button = (ImageView) v;
-        Animation shrink = AnimationUtils.loadAnimation(this,R.anim.button_press);
-        button.startAnimation(shrink);
-        //this is in the window now
-        TextView exitButton;
-        myDialog.setContentView(R.layout.work_card);
-        exitButton = myDialog.findViewById(R.id.exitButton);
-        exitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                myDialog.dismiss();
-            }
-        });
+        for (Task value : Task.values())
+        {
+            FragmentTransaction transaction = manager.beginTransaction();
+            Bundle sendToWorkFrag = new Bundle();
+            sendToWorkFrag.putSerializable("Agency", agency);
 
-        myDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        myDialog.show();
+            if(value.type == 0)
+            {
+                WorkplaceFragment fragment = WorkplaceFragment.createWorkplaceFragment(value, sendToWorkFrag);
+                transaction.add(R.id.workplace_list, fragment);
+                transaction.commit();
+            }
+        }
+    }
+
+    public boolean TempAllSlotted()
+    {
+        return slotted[0] && slotted[1] && slotted[2] && slotted[3];
     }
 
     public void ReleaseButton(View v)

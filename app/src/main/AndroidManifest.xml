@@ -22,9 +22,9 @@
 
         <activity android:name=".Scout"></activity>
 
-        <activity android:name=".Train"></activity>
+        <activity android:name=".ActivityAcademy"></activity>
 
-        <activity android:name=".Work"></activity>
+        <activity android:name=".ActivityWork"></activity>
 
         <activity android:name=".Achievements"></activity>
 
