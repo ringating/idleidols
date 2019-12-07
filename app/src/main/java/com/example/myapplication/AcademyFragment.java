@@ -44,20 +44,19 @@ public class AcademyFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.workplace_fragment, container, false);
+        return inflater.inflate(R.layout.academy_fragment, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
         super.onViewCreated(view, savedInstanceState);
-
-        //TODO: Put the actual dynamic icon showing here along with the onClick function.
+        
         if(Integer.parseInt(agency.GetLevel()) >= academy.reqLevel)
         {
             academy.unlocked = true;
         }
-        final RelativeLayout fragmentLayout = view.findViewById(R.id.workplaceFragment);
+        final RelativeLayout fragmentLayout = view.findViewById(R.id.academy_fragment);
         fragmentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,23 +74,23 @@ public class AcademyFragment extends Fragment {
             }
         });
 
-        ImageView icon = view.findViewById(R.id.workplace_icon);
+        ImageView icon = view.findViewById(R.id.academy_icon);
         icon.setImageResource(academy.image);
 
-        ImageView danceIcon = view.findViewById(R.id.workplace_dance);
-        if(academy.dance != 1)
+        ImageView danceIcon = view.findViewById(R.id.academy_dance);
+        if(academy.dance == 0)
         {
             danceIcon.setVisibility(View.INVISIBLE);
         }
 
-        ImageView singIcon = view.findViewById(R.id.workplace_sing);
-        if(academy.sing != 1)
+        ImageView singIcon = view.findViewById(R.id.academy_sing);
+        if(academy.sing == 0)
         {
             singIcon.setVisibility(View.INVISIBLE);
         }
 
-        ImageView charmIcon = view.findViewById(R.id.workplace_charm);
-        if(academy.charm != 1)
+        ImageView charmIcon = view.findViewById(R.id.academy_charm);
+        if(academy.charm == 0)
         {
             charmIcon.setVisibility(View.INVISIBLE);
         }
@@ -113,7 +112,7 @@ public class AcademyFragment extends Fragment {
     {
         FragmentManager taskCard = getFragmentManager();
         //Sends information to IdolListMenuDialog
-        TaskIdolCard taskIdolCard = new TaskIdolCard();
+        TaskIdolCard taskIdolCard = new TaskIdolCard(); //TODO CHANGE THE CARD LOAD OUT HERE
         taskIdolCard.setTargetFragment(this, SLOTTED_IDOLS);
 
         Bundle sendToIdolList = new Bundle();

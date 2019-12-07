@@ -63,7 +63,7 @@ public class ActivityAcademy extends AppCompatActivity {
             if(value.type == 1)
             {
                 AcademyFragment fragment = AcademyFragment.createAcademyFragment(value, sendToWorkFrag);
-                transaction.add(R.id.workplace_list, fragment);
+                transaction.add(R.id.academy_list, fragment);
                 transaction.commit();
             }
         }
