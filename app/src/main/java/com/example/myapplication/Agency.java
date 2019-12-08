@@ -18,6 +18,8 @@ public class Agency extends Application implements Serializable {
     private int curExp;
     private boolean firstTime = true;
 
+    public boolean[] claimedAchievements = new boolean[Achievement.values().length];
+
     private final int EXP_LEVEL_MODIFIER = 100;
 
     private ArrayList<Idol> idols = new ArrayList<>();

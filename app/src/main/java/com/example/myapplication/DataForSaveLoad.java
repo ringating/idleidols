@@ -15,6 +15,7 @@ public class DataForSaveLoad implements Serializable // serializable is the poin
     public int expNeededToLevelUp;
     public int curExp;
     public boolean firstTime;
+    public boolean[] claimedAchievements = new boolean[Achievement.values().length];
 
     // idol isn't serializable, so using a new structure to hold idol data
     private ArrayList<IdolStruct> idols = new ArrayList<>();
@@ -68,6 +69,9 @@ public class DataForSaveLoad implements Serializable // serializable is the poin
 
         for(int i = 0; i < agency.numberOfIdols(); ++i)
             idols.add(new IdolStruct(agency.getIdol(i)));
+
+        for(int i = 0; i < agency.claimedAchievements.length; ++i)
+            this.claimedAchievements[i] = agency.claimedAchievements[i];
     }
 
     public Agency getAgency()
@@ -86,6 +90,9 @@ public class DataForSaveLoad implements Serializable // serializable is the poin
 
         for(int i = 0; i < idols.size(); ++i)
             agency.addIdol(idols.get(i).toIdol());
+
+        for(int i = 0; i < this.claimedAchievements.length; ++i)
+            agency.claimedAchievements[i] = this.claimedAchievements[i];
 
         return agency;
     }
@@ -107,5 +114,8 @@ public class DataForSaveLoad implements Serializable // serializable is the poin
 
         for(int i = 0; i < source.numberOfIdols(); ++i)
             destination.addIdol(source.getIdol(i));
+
+        for(int i = 0; i < source.claimedAchievements.length; ++i)
+            destination.claimedAchievements[i] = source.claimedAchievements[i];
     }
 }
