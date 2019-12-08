@@ -64,6 +64,8 @@ public enum Task
     public final int image;
     public final int numSlots; //number of slots available
     public final int reqLevel;
+    public int level;
+    public int numOfIdols;
     public boolean unlocked;
     public final long processTime; //in milliseconds
     public final int cost;
@@ -71,6 +73,7 @@ public enum Task
     public final float dance; //if Academy, this will be the growth rate, if Workplace, this will be the affinity determination.
     public final float sing;
     public final float charm;
+    public boolean started;
 
     public Idol[] idolSlots;
 
@@ -88,6 +91,11 @@ public enum Task
         this.sing = sing;
         this.charm = charm;
 
+        //This is for Academy
+        this.level = 1;
+        this.numOfIdols = 0;
+
+        this.started = false;
         this.unlocked = false;
         this.idolSlots = new Idol[this.numSlots];
     }

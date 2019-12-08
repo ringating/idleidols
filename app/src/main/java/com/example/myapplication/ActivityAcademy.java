@@ -1,7 +1,10 @@
 package com.example.myapplication;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.app.Dialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -13,29 +16,17 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
-public class Work extends AppCompatActivity {
-
-    private static final String TAG = "Workplace";
+public class ActivityAcademy extends AppCompatActivity {
 
     Dialog myDialog;
     Agency agency;
 
-    //temp stuff
-    int numIdols = 0;
-    boolean[] slotted = new boolean[4];
-    boolean haveNotEarned = true;
-
-    TextView curMoney;
     FragmentManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.idol_work);
+        setContentView(R.layout.idol_train);
         manager = getSupportFragmentManager();
         myDialog = new Dialog(this);
 
@@ -58,12 +49,10 @@ public class Work extends AppCompatActivity {
         expBar.setMax(agency.GetExpNeededToLevel());
         expBar.setProgress(agency.GetCurrentExp());
 
-
-        loadWorkFragments();
-
+        loadAcademyFragments();
     }
 
-    private void loadWorkFragments()
+    private void loadAcademyFragments()
     {
         for (Task value : Task.values())
         {
@@ -71,45 +60,15 @@ public class Work extends AppCompatActivity {
             Bundle sendToWorkFrag = new Bundle();
             sendToWorkFrag.putSerializable("Agency", agency);
 
-            WorkplaceFragment fragment = WorkplaceFragment.createWorkplaceFragment(value, sendToWorkFrag);
-            transaction.add(R.id.workplace_list, fragment);
-            transaction.commit();
+            if(value.type == 1)
+            {
+                AcademyFragment fragment = AcademyFragment.createAcademyFragment(value, sendToWorkFrag);
+                transaction.add(R.id.workplace_list, fragment);
+                transaction.commit();
+            }
         }
     }
 
-    public void ShowCard(View v)
-    {
-        //temp stuff
-        haveNotEarned = true;
-        slotted = new boolean[4];
-
-        //this is the animation for clicking on the idol image
-        ImageView button = (ImageView) v;
-        Animation shrink = AnimationUtils.loadAnimation(this,R.anim.button_press);
-        button.startAnimation(shrink);
-
-        FragmentManager taskCard = getSupportFragmentManager();
-        //Sends information to IdolListMenuDialog
-        TaskIdolCard taskIdolCard = new TaskIdolCard();
-        Bundle sendToIdolList = new Bundle();
-        sendToIdolList.putParcelableArrayList("IdolArrayList", agency.GetIdols());
-        taskIdolCard.setArguments(sendToIdolList);
-
-        //Opens the TaskIdolCard
-        taskIdolCard.show(taskCard, "TaskCard");
-    }
-
-    public boolean TempAllSlotted()
-    {
-        return slotted[0] && slotted[1] && slotted[2] && slotted[3];
-    }
-
-    public void ReleaseButton(View v)
-    {
-        Button release = (Button) v;
-        Animation shrink = AnimationUtils.loadAnimation(this,R.anim.button_press);
-        release.startAnimation(shrink);
-    }
 
     @Override
     protected void onStop()

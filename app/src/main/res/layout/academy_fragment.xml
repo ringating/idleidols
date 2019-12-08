@@ -6,119 +6,117 @@
     android:layout_height="130dp"
     android:padding="10dp"
     android:background="@drawable/achievement_fragment_background"
-    android:id="@+id/workplaceFragment"
+    android:id="@+id/academyFragment"
     tools:context=".ActivityWork">
 
     <ImageView
-        android:id="@+id/workplace_icon"
+        android:id="@+id/academy_icon"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/work_hollywoodbowl" />
 
     <ImageView
-        android:id="@+id/workplace_dance"
+        android:id="@+id/academy_dance"
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_alignParentEnd="true"
         android:src="@drawable/affinity_dance" />
 
     <ImageView
-        android:id="@+id/workplace_sing"
+        android:id="@+id/academy_sing"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_toStartOf="@+id/workplace_dance"
+        android:layout_toStartOf="@+id/academy_dance"
         android:src="@drawable/affinity_sing" />
 
     <ImageView
-        android:id="@+id/workplace_charm"
+        android:id="@+id/academy_charm"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_toStartOf="@+id/workplace_sing"
+        android:layout_toStartOf="@+id/academy_sing"
         android:src="@drawable/affinity_act" />
 
     <TextView
-        android:id="@+id/workplace_name"
+        android:id="@+id/academy_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
-        android:layout_toEndOf="@+id/workplace_icon"
-        android:layout_toStartOf="@+id/workplace_charm"
+        android:layout_toStartOf="@+id/academy_charm"
+        android:layout_toEndOf="@+id/academy_icon"
+        android:text="Name"
         android:textColor="@color/darkGray"
         android:textSize="20dp"
-        android:textStyle="bold"
-        android:text="Name" />
+        android:textStyle="bold" />
 
 
     <TextView
-        android:id="@+id/workplace_cost"
+        android:id="@+id/academy_level"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/workplace_name"
+        android:layout_below="@+id/academy_name"
         android:layout_marginStart="5dp"
         android:layout_marginTop="5dp"
-        android:layout_toEndOf="@+id/workplace_icon"
-        android:textSize="15dp"
+        android:layout_toEndOf="@+id/academy_icon"
+        android:text="Level: "
         android:textColor="@color/darkGray"
-        android:text="Cost: $"
-        />
+        android:textSize="15dp" />
 
     <TextView
-        android:id="@+id/workplace_cost_content"
+        android:id="@+id/academyLevelContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/workplace_name"
+        android:layout_below="@+id/academy_name"
         android:layout_marginTop="5dp"
-        android:layout_toEndOf="@+id/workplace_cost"
+        android:layout_toEndOf="@+id/academy_level"
         android:textSize="15dp"
         android:textColor="@color/darkGray"
         android:text="0"
         />
 
     <TextView
-        android:id="@+id/workplace_profit"
+        android:id="@+id/academy_occupied_slots"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/workplace_cost"
+        android:layout_below="@+id/academy_level"
         android:layout_marginStart="5dp"
         android:layout_marginTop="3dp"
-        android:layout_toEndOf="@+id/workplace_icon"
-        android:textSize="15dp"
+        android:layout_toEndOf="@+id/academy_icon"
+        android:text="# of Training Idols: "
         android:textColor="@color/darkGray"
-        android:text="Profit: $"
-        />
+        android:textSize="15dp" />
 
     <TextView
-        android:id="@+id/workplace_profit_content"
+        android:id="@+id/academy_occupied_slots_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/workplace_cost"
+        android:layout_below="@+id/academy_level"
         android:layout_marginTop="3dp"
-        android:layout_toEndOf="@+id/workplace_profit"
+        android:layout_toEndOf="@+id/academy_occupied_slots"
         android:textSize="15dp"
         android:textColor="@color/darkGray"
         android:text="0"
         />
 
     <TextView
-        android:id="@+id/workplace_duration"
+        android:id="@+id/academy_total_slots"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/workplace_profit"
+        android:layout_below="@+id/academy_occupied_slots"
         android:layout_marginStart="5dp"
         android:layout_marginTop="3dp"
-        android:layout_toEndOf="@+id/workplace_icon"
-        android:textSize="15dp"
+        android:layout_toEndOf="@+id/academy_icon"
+        android:text="Total # of Slots: "
         android:textColor="@color/darkGray"
-        android:text="Duration:" />
+        android:textSize="15dp" />
 
     <TextView
-        android:id="@+id/workplace_duration_content"
+        android:id="@+id/academy_total_slots_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/workplace_profit"
+        android:layout_below="@+id/academy_occupied_slots"
         android:layout_marginStart="3dp"
         android:layout_marginTop="3dp"
-        android:layout_toEndOf="@+id/workplace_duration"
+        android:layout_toEndOf="@+id/academy_total_slots"
         android:textSize="15dp"
         android:textColor="@color/darkGray"
         android:text="0" />

@@ -18,24 +18,24 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-public class WorkplaceFragment extends Fragment
-{
-    private Task workplace;
+public class AcademyFragment extends Fragment {
+
+    private Task academy;
     private static int SLOTTED_IDOLS = 1;
 
     private Agency agency;
 
-    public WorkplaceFragment()
+    public AcademyFragment()
     {
         //empty constructor
     }
 
     //Creates the workplace
-    public static WorkplaceFragment createWorkplaceFragment(Task workplace, Bundle agency)
+    public static AcademyFragment createAcademyFragment(Task academy, Bundle agency)
     {
-        WorkplaceFragment fragment = new WorkplaceFragment();
+        AcademyFragment fragment = new AcademyFragment();
         fragment.agency = (Agency)agency.getSerializable("Agency");
-        fragment.workplace = workplace;
+        fragment.academy = academy;
 
         return fragment;
     }
@@ -53,15 +53,15 @@ public class WorkplaceFragment extends Fragment
         super.onViewCreated(view, savedInstanceState);
 
         //TODO: Put the actual dynamic icon showing here along with the onClick function.
-        if(Integer.parseInt(agency.GetLevel()) >= workplace.reqLevel)
+        if(Integer.parseInt(agency.GetLevel()) >= academy.reqLevel)
         {
-            workplace.unlocked = true;
+            academy.unlocked = true;
         }
         final RelativeLayout fragmentLayout = view.findViewById(R.id.workplaceFragment);
         fragmentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(workplace.unlocked)
+                if(academy.unlocked)
                 {
                     Animation shrink = AnimationUtils.loadAnimation(getActivity(), R.anim.button_press);
                     fragmentLayout.startAnimation(shrink);
@@ -76,39 +76,37 @@ public class WorkplaceFragment extends Fragment
         });
 
         ImageView icon = view.findViewById(R.id.workplace_icon);
-        icon.setImageResource(workplace.image);
+        icon.setImageResource(academy.image);
 
         ImageView danceIcon = view.findViewById(R.id.workplace_dance);
-        if(workplace.dance != 1)
+        if(academy.dance != 1)
         {
             danceIcon.setVisibility(View.INVISIBLE);
         }
 
         ImageView singIcon = view.findViewById(R.id.workplace_sing);
-        if(workplace.sing != 1)
+        if(academy.sing != 1)
         {
             singIcon.setVisibility(View.INVISIBLE);
         }
 
         ImageView charmIcon = view.findViewById(R.id.workplace_charm);
-        if(workplace.charm != 1)
+        if(academy.charm != 1)
         {
             charmIcon.setVisibility(View.INVISIBLE);
         }
 
-        TextView name = view.findViewById(R.id.workplace_name);
-        name.setText(workplace.name);
+        TextView name = view.findViewById(R.id.academy_name);
+        name.setText(academy.name);
 
-        TextView cost = view.findViewById(R.id.workplace_cost_content);
-        cost.setText(Integer.toString(workplace.cost));
+        TextView level = view.findViewById(R.id.academyLevelContent);
+        level.setText(Integer.toString(academy.level));
 
-        TextView profit = view.findViewById(R.id.workplace_profit_content);
-        profit.setText(Integer.toString(workplace.rewardCurrency));
+        TextView occupied = view.findViewById(R.id.academy_occupied_slots_content);
+        occupied.setText(Integer.toString(academy.numOfIdols));
 
-        TextView duration = view.findViewById(R.id.workplace_duration_content);
-        int processTime = (int) workplace.processTime/100;
-        String durationText = processTime + " seconds"; //TODO Probably want to change this so it tells you how many hours and stuff too.
-        duration.setText(durationText);
+        TextView totalSlots = view.findViewById(R.id.academy_total_slots_content);
+        totalSlots.setText(Integer.toString(academy.numSlots));
     }
 
     private void ShowCard()
@@ -120,15 +118,11 @@ public class WorkplaceFragment extends Fragment
 
         Bundle sendToIdolList = new Bundle();
         sendToIdolList.putParcelableArrayList("IdolArrayList", agency.GetIdols());
-        sendToIdolList.putInt("numberOfSlots", workplace.numSlots);
-        sendToIdolList.putParcelableArray("IdolSlot", workplace.idolSlots);
-        sendToIdolList.putInt("cost", workplace.cost);
-        sendToIdolList.putInt("profit", workplace.rewardCurrency);
-        sendToIdolList.putLong("duration", workplace.processTime);
-        sendToIdolList.putFloat("dance", workplace.dance);
-        sendToIdolList.putFloat("sing", workplace.sing);
-        sendToIdolList.putFloat("charm", workplace.charm);
-        sendToIdolList.putBoolean("started", workplace.started);
+        sendToIdolList.putInt("numberOfSlots", academy.numSlots);
+        sendToIdolList.putParcelableArray("IdolSlot", academy.idolSlots);
+        sendToIdolList.putFloat("dance", academy.dance);
+        sendToIdolList.putFloat("sing", academy.sing);
+        sendToIdolList.putFloat("charm", academy.charm);
         taskIdolCard.setArguments(sendToIdolList);
 
         //Opens the TaskIdolCard
@@ -146,11 +140,7 @@ public class WorkplaceFragment extends Fragment
             if(resultCode == Activity.RESULT_OK)
             {
                 Idol[] getSlottedIdols = (Idol[]) intent.getParcelableArrayExtra("slottedIdols");
-                workplace.idolSlots = getSlottedIdols;
-            }
-            else if(resultCode == 2)
-            {
-                workplace.started = intent.getBooleanExtra("startedTask", false);
+                academy.idolSlots = getSlottedIdols;
             }
         }
     }

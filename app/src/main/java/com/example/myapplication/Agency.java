@@ -5,7 +5,6 @@ import android.widget.Toast;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Agency extends Application implements Serializable {
 
@@ -165,7 +164,7 @@ public class Agency extends Application implements Serializable {
 
     public void levelUp()
     {
-        if(this.curExp > this.expNeededToLevelUp)
+        if(this.curExp >= this.expNeededToLevelUp)
         {
             this.level += 1;
             this.curExp = this.curExp - this.expNeededToLevelUp;

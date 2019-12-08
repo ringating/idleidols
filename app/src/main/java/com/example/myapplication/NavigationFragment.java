@@ -2,15 +2,11 @@ package com.example.myapplication;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -50,7 +46,7 @@ public class NavigationFragment extends Fragment {
         academies.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), Train.class));
+                startActivity(new Intent(getActivity(), ActivityAcademy.class));
                 getActivity().overridePendingTransition(0, 0);
             }
         });
@@ -58,7 +54,7 @@ public class NavigationFragment extends Fragment {
         workplace.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), Work.class));
+                startActivity(new Intent(getActivity(), ActivityWork.class));
                 getActivity().overridePendingTransition(0, 0);
             }
         });
@@ -98,12 +94,12 @@ public class NavigationFragment extends Fragment {
                 params.height = ViewGroup.LayoutParams.MATCH_PARENT;
                 home.setBackgroundResource(R.drawable.nav_icon_background_expanded);
                 home.setLayoutParams(params);
-            } else if (getActivity().getClass() == Train.class) {
+            } else if (getActivity().getClass() == ActivityAcademy.class) {
                 ViewGroup.LayoutParams params = academies.getLayoutParams();
                 params.height = ViewGroup.LayoutParams.MATCH_PARENT;
                 academies.setBackgroundResource(R.drawable.nav_icon_background_expanded);
                 academies.setLayoutParams(params);
-            } else if (getActivity().getClass() == Work.class) {
+            } else if (getActivity().getClass() == ActivityWork.class) {
                 ViewGroup.LayoutParams params = workplace.getLayoutParams();
                 params.height = ViewGroup.LayoutParams.MATCH_PARENT;
                 workplace.setBackgroundResource(R.drawable.nav_icon_background_expanded);
