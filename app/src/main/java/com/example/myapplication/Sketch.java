@@ -1,13 +1,26 @@
 package com.example.myapplication;
 
+import android.app.Activity;
 import android.os.AsyncTask;
+import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import processing.core.PApplet;
 import processing.core.PGraphics;
 import processing.core.PImage;
+import processing.core.PShape;
+import processing.core.PVector;
 
 public class Sketch extends PApplet {
 
+    int multiplier = 1;
+    int combo = 0;
+    int dance = -1;
+    boolean hit;
+
+    // For making a Scrolling Background that Scrolls in the Background
     class ScrollingBackground {
         private int x;
         private int y;
@@ -27,6 +40,7 @@ public class Sketch extends PApplet {
 
         void scroll()
         {
+            imageMode(CORNER);
             image(image, -(x%displayWidth), -(y%displayHeight));
             image(image, -((x%displayWidth) - displayWidth), -(y%displayHeight));
             image(image, -(x%displayWidth), -((y%displayHeight) - displayHeight));
@@ -49,18 +63,463 @@ public class Sketch extends PApplet {
         }
     }
 
+    // Displays an Idol with a body and head and soul
+    class DisplayIdol {
+
+        private int x;
+        private int y;
+
+        private PImage body;
+        private PImage head;
+
+        private PImage dance1;
+        private PImage dance2;
+        private PImage dance3;
+        private PImage dance4;
+
+        private PImage arms1;
+        private PImage arms2;
+        private PImage arms3;
+        private PImage arms4;
+
+        private PImage head2;
+
+        int xHeadOffset;
+        int yHeadOffset;
+
+        int yBodyOffset;
+
+        int xLeftBound;
+        int xRightBound;
+        int yTopBound;
+        int yBottomBound;
+
+        int xBoundOffset;
+        int yBoundOffset;
+
+        DisplayIdol(int x, int y, int xHeadOffset, int yHeadOffset, int yBodyOffset, int xBoundOffset, int yBoundOffset, double sizeMultiplier, String bodyImage, String headImage)
+        {
+            this.x = x; //Position of the Idol
+            this.y = y; //
+
+            this.body = loadImage(bodyImage);   // Appearance of the Idol body
+            this.head = loadImage(headImage);   //                    and head
+
+            body.resize((int)(body.width * sizeMultiplier), (int)(body.height * sizeMultiplier));   // Resizes the body according to the sizeMultiplier
+            head.resize((int)(900 * sizeMultiplier),(int)(900 * sizeMultiplier));                   // Same for the head; the head is already resized down because he head too big for he gotdamn screen
+
+            this.xHeadOffset = (int)(xHeadOffset * sizeMultiplier); // Offsets the position of the head so he isn't decapitated
+            this.yHeadOffset = (int)(yHeadOffset * sizeMultiplier); //
+
+            this.yBodyOffset = (int)(yBodyOffset * sizeMultiplier); // Offsets the body for the same reason as abouve
+
+            this.xBoundOffset = (int)(xBoundOffset * sizeMultiplier); // Changes the size of the mouse (or touch) detection box
+            this.yBoundOffset = (int)(yBoundOffset * sizeMultiplier); //
+
+            dance1 = loadImage("dance1.png");
+            dance2 = loadImage("dance2.png");
+            dance3 = loadImage("dance3.png");
+            dance4 = loadImage("dance4.png");
+
+            arms1 = loadImage("arms1.png");
+            arms2 = loadImage("arms2.png");
+            arms3 = loadImage("arms3.png");
+            arms4 = loadImage("arms4.png");
+
+            head2 = loadImage("flippedOnionHead.png");
+
+            dance1.resize((int)(dance1.width * sizeMultiplier), (int)(dance1.height * sizeMultiplier));
+            dance2.resize((int)(dance2.width * sizeMultiplier), (int)(dance2.height * sizeMultiplier));
+            dance3.resize((int)(dance3.width * sizeMultiplier), (int)(dance3.height * sizeMultiplier));
+            dance4.resize((int)(dance4.width * sizeMultiplier), (int)(dance4.height * sizeMultiplier));
+
+            arms1.resize((int)(arms1.width * sizeMultiplier), (int)(arms1.height * sizeMultiplier));
+            arms2.resize((int)(arms2.width * sizeMultiplier), (int)(arms2.height * sizeMultiplier));
+            arms3.resize((int)(arms3.width * sizeMultiplier), (int)(arms3.height * sizeMultiplier));
+            arms4.resize((int)(arms4.width * sizeMultiplier), (int)(arms4.height * sizeMultiplier));
+
+            head2.resize((int)(900 * sizeMultiplier),(int)(900 * sizeMultiplier));
+
+            generateBounds();
+        }
+
+        @SuppressWarnings("SameParameterValue")
+        void draw()
+        {
+            imageMode(CENTER);
+            image(body, x, y + this.yBodyOffset);
+            image(head, x + this.xHeadOffset, y + this.yHeadOffset);
+        }
+
+        void dance(int i)
+        {
+            imageMode(CENTER);
+            switch (i)
+            {
+                case 0:
+                    image(dance1, x, y + this.yBodyOffset);
+                    image(head, x + this.xHeadOffset, y + this.yHeadOffset);
+                    image(arms1, x, y + this.yBodyOffset);
+                    break;
+                case 1:
+                    image(dance2, x, y + this.yBodyOffset + 35);
+                    image(head, x + this.xHeadOffset, y + this.yHeadOffset + 35);
+                    image(arms2, x, y + this.yBodyOffset + 35);
+                    break;
+                case 2:
+                    image(dance3, x, y + this.yBodyOffset);
+                    image(head2, x + this.xHeadOffset, y + this.yHeadOffset);
+                    image(arms3, x, y + this.yBodyOffset);
+                    break;
+                case 3:
+                    image(dance4, x, y + this.yBodyOffset + 35);
+                    image(head2, x + this.xHeadOffset, y + this.yHeadOffset + 35);
+                    image(arms4, x, y + this.yBodyOffset + 35);
+                    break;
+                default:
+                    image(body, x, y + this.yBodyOffset);
+                    image(head, x + this.xHeadOffset, y + this.yHeadOffset);
+            }
+        }
+
+        void changeHead(String headImage, int xHeadOffset, int yHeadOffset)
+        {
+            this.head = loadImage(headImage);
+            this.xHeadOffset = xHeadOffset;
+            this.yHeadOffset = yHeadOffset;
+            generateBounds();
+        }
+
+        void changeBody(String bodyImage)
+        {
+            this.body = loadImage(bodyImage);
+        }
+
+        void changeBody(String bodyImage, int yBodyOffset)
+        {
+            this.body = loadImage(bodyImage);
+            this.yBodyOffset = yBodyOffset;
+        }
+
+        void generateBounds()
+        {
+            this.xLeftBound = (x - body.width/2) - xBoundOffset;
+            this.xRightBound = (x + body.width/2) + xBoundOffset;
+            this.yBottomBound = ((y + body.height/2) + yBodyOffset) + yBoundOffset;
+            this.yTopBound = (((y - body.height/2) + yBodyOffset) -  (head.height - (((y + head.height/2) + yHeadOffset) - ((y - body.height/2) + yBodyOffset)))) - yBoundOffset;
+        }
+
+        boolean isMouseInIdol()
+        {
+            boolean isInIdol = false;
+
+            if ((mouseX > xLeftBound && mouseX < xRightBound) && (mouseY < yBottomBound && mouseY > yTopBound))
+            {
+                isInIdol = true;
+            }
+
+            return isInIdol;
+        }
+    }
+
+    class BeatBar
+    {
+        private int xPosition;
+        private int yPosition;
+        private int hitCircleXPosition;
+        private int hitCircleYPosition;
+        private int beatBarHeight;
+        private int beatBarWidth;
+        private int hitCircleWidth;
+        private int hitCircleHeight;
+        private int timing = 0;
+        List<PVector> coordinates;
+        List<PVector> remove;
+        private DisplayIdol idol;
+        int n;
+        int sizeOfText;
+        boolean enlarge;
+        boolean hitCircleEnlarge;
+        int hitCircleSize;
+        int hitCircleAlpha;
+        boolean hitCircleDraw;
+
+        BeatBar(int xPosition, int yPosition, int beatBarHeight, int beatBarWidth, DisplayIdol idol)
+        {
+            this.xPosition = xPosition;
+            this.yPosition = yPosition;
+            this.beatBarHeight = beatBarHeight;
+            this.beatBarWidth = beatBarWidth;
+            this.hitCircleWidth = beatBarHeight;
+            this.hitCircleHeight = beatBarHeight;
+            this.sizeOfText = 128;
+            hitCircleXPosition = xPosition - 350;
+            hitCircleYPosition = yPosition;
+            hitCircleWidth = 100;
+            hitCircleHeight = 100;
+            this.idol = idol;
+            coordinates = new ArrayList<>();
+            remove = new ArrayList<>();
+            enlarge = false;
+            hitCircleEnlarge = false;
+            hitCircleSize = 100;
+            hitCircleAlpha = 255;
+            hitCircleDraw = false;
+        }
+
+        void draw()
+        {
+            rectMode(CENTER);
+            fill(color(75, 0, 130), 200);
+            rect(xPosition, yPosition, beatBarWidth, beatBarHeight, 20);
+            beatCircle();
+            fill(color(0,0,0), 0);
+            stroke(200,200,200);
+            strokeWeight(5);
+            ellipseMode(CENTER);
+            ellipse(hitCircleXPosition, hitCircleYPosition, 100, 100);
+            hitEffect();
+            stroke(0,0);
+            fill(color(0,0,0), 255);
+        }
+
+        void hitEffect()
+        {
+            if (hitCircleDraw) {
+                if (hitCircleEnlarge) {
+                    hitCircleSize = 100;
+                    hitCircleAlpha = 255;
+                    hitCircleEnlarge = false;
+                }
+
+                fill(color(0, 0, 0), 0);
+                stroke(255, 5, 5, hitCircleAlpha);
+                strokeWeight(15);
+                ellipse(hitCircleXPosition, hitCircleYPosition, hitCircleSize, hitCircleSize);
+
+                if (hitCircleAlpha > 0) {
+                    hitCircleAlpha -= 8;
+                    hitCircleSize++;
+                }
+                else
+                {
+                    hitCircleDraw = false;
+                }
+            }
+        }
+
+        void beatCircle()
+        {
+            timing++;
+            if (timing >= ((1/(float)multiplier) + 0.7) * 30)
+            {
+                coordinates.add(new PVector(xPosition + 470, yPosition));
+                timing = 0;
+            }
+
+            hit = false;
+            n = 0;
+            for (PVector coords : coordinates)
+            {
+                fill(color(255, 0, 0));
+                ellipse(coords.x, coords.y, 100, 100);
+                coords.x -= 10;
+                if (coords.x < xPosition - 470)
+                {
+                    multiplier = 1;
+                    dance = -1;
+                    combo = 0;
+                    remove.add(coords);
+                }
+                else if ((mousePressed && (idol.isMouseInIdol())) && isInHitCircle(coords))
+                {
+                    if (combo < 32)
+                    {
+                        combo++;
+                    }
+                    if (multiplier < 32 && (combo%4 == 0)) {
+                        multiplier *= 2;
+                        enlarge = true;
+                    }
+                    hitCircleDraw = true;
+                    hitCircleEnlarge = true;
+                    dance++;
+                    if (dance > 3)
+                    {
+                        dance = 0;
+                    }
+                    remove.add(coords);
+                }
+                hit = hit || isInHitCircle(coords);
+            }
+            multiplierNumber();
+
+            if (!remove.isEmpty()) {
+                coordinates.removeAll(remove);
+                remove.clear();
+            }
+        }
+
+        void multiplierNumber()
+        {
+            if (enlarge)
+            {
+                sizeOfText = 256;
+                enlarge = false;
+            }
+            textAlign(CENTER, CENTER);
+            textSize(sizeOfText);
+            fill(color(229, 83, 0));
+            text("x" + multiplier, xPosition, yPosition + 150);
+            if (sizeOfText > 128)
+            {
+                sizeOfText -= 2;
+            }
+        }
+
+        boolean isInHitCircle(PVector vector)
+        {
+            return vector.x > (hitCircleXPosition - hitCircleWidth) && vector.x < (hitCircleXPosition + hitCircleWidth/2);
+        }
+    }
+
+    // PARTICLE SYSTEM CURRENTLY PLACEHOLDER
+
+    // System of particles for particling
+    class MoneyParticle {
+        ArrayList<MoneyText> particles;
+        PVector origin;
+
+        MoneyParticle(PVector position) {
+            origin = position.copy();
+            particles = new ArrayList<MoneyText>();
+        }
+
+        void addParticle(String text) {
+            particles.add(new MoneyText(origin, text));
+        }
+
+        void run() {
+            for (int i = particles.size()-1; i >= 0; i--) {
+                MoneyText p = particles.get(i);
+                p.run();
+                if (p.isDead()) {
+                    particles.remove(i);
+                }
+            }
+        }
+    }
+
+    // Particle class for young particles to learn
+    class MoneyText {
+        PVector position;
+        PVector velocity;
+        PVector acceleration;
+        String text;
+        float lifespan;
+
+        MoneyText(PVector l, String text) {
+            this.text = text;
+            acceleration = new PVector((float)0, (float)0.05);
+            velocity = new PVector(random(-32, 32), random(-4, 32));
+            position = l.copy();
+            lifespan = (float)255.0;
+        }
+
+        void run() {
+            update();
+            display();
+        }
+
+        // Method to update position
+        void update() {
+            velocity.add(acceleration);
+            position.add(velocity);
+            lifespan -= 1.0;
+        }
+
+        // Method to display
+        void display() {
+            fill(color(95, 147, 65));
+            textSize(64);
+            text(text, position.x, position.y);
+        }
+
+        // Is the particle still useful?
+        boolean isDead() {
+            if (lifespan < 0.0) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+
+    // PARTICLE SYSTEM CURRENTLY PLACEHOLDER
+
+    // End Classes
+
     public void settings() {
         size(displayWidth, displayHeight, OPENGL);
     }
 
     private ScrollingBackground homeBackground;
+    private DisplayIdol idol;
+    private BeatBar beat;
+    private MoneyParticle monies;
+    private int idolX;
+    private int idolY;
+    private boolean pressed;
+    private boolean incrementMonies;
+    private boolean drawEffect;
+
+    Agency agency;
+    TextView currency;
+    Activity act;
 
     public void setup() {
+
+        act = this.getActivity();
+        agency = (Agency) act.getApplicationContext();
+        currency = act.findViewById(R.id.currency);
+
         frameRate(60);
         homeBackground = new ScrollingBackground(0, 0, 1, 1, "background.png");
+        idolX = displayWidth/2 + 50;
+        idolY = (displayHeight/2) - 150;
+        idol = new DisplayIdol(idolX, idolY, -40, -260, 400, -200, -150, 0.8,"IdolBody2.png", "onionHead.png");
+        beat = new BeatBar(displayWidth/2, displayHeight - 600,  100, 1000, idol);
+        monies = new MoneyParticle(new PVector(idolX, idolY));
+
     }
 
     public void draw() {
         homeBackground.scroll();
+        idol.dance(dance);
+        beat.draw();
+        monies.run();
+        textSize(40);
+    }
+
+
+    public void mousePressed()
+    {
+        if (idol.isMouseInIdol())
+        {
+            agency.SetCurrency(agency.GetCurrentCurrency() + 10 * multiplier);
+            act.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    currency.setText(Integer.toString(agency.GetCurrentCurrency()));
+                }
+            });
+            monies.addParticle("$" + (10 * multiplier));
+            if (!hit)
+            {
+                multiplier = 1;
+                combo = 0;
+                dance = -1;
+            }
+        }
     }
 }
