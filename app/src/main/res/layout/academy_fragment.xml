@@ -6,7 +6,7 @@
     android:layout_height="130dp"
     android:padding="10dp"
     android:background="@drawable/achievement_fragment_background"
-    android:id="@+id/academyFragment"
+    android:id="@+id/academy_fragment"
     tools:context=".ActivityWork">
 
     <ImageView
