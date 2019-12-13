@@ -143,6 +143,23 @@ public class AcademyFragment extends Fragment {
                 Idol[] getSlottedIdols = (Idol[]) intent.getParcelableArrayExtra("slottedIdols");
                 academy.idolSlots = getSlottedIdols;
             }
+            if(resultCode == 2)
+            {
+                Idol[] getSlottedIdols = (Idol[]) intent.getParcelableArrayExtra("slottedIdols");
+                academy.idolSlots = getSlottedIdols;
+                if(intent.getBooleanExtra("startedTask", false))
+                {
+                    for(int i = 0; i < academy.numSlots; i++)
+                    {
+                        if(academy.idolSlots[i] != null && academy.idolSlots[i].getStatus())
+                        {
+                            academy.idolSlots[i].setDanceStat(academy.idolSlots[i].getDanceStat() + academy.getIdolDanceGained(i));
+                            academy.idolSlots[i].setSingStat(academy.idolSlots[i].getSingStat() + academy.getIdolSingGained(i));
+                            academy.idolSlots[i].setCharmStat(academy.idolSlots[i].getCharmStat() + academy.getIdolCharmGained(i));
+                        }
+                    }
+                }
+            }
         }
     }
 }

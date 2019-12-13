@@ -16,7 +16,32 @@ public enum Task
             200,
             0,
             1,
-            0), //TODO ADD OVERRIDE METHODS HERE
+            0)
+            {
+                @Override
+                public long getIdolTrainTime(int slotIndex)
+                {
+                    return Calendar.getInstance().getTimeInMillis() - idolStartTimes[slotIndex];
+                }
+                @Override
+                // returns how much dance stat has been gained by this idol since it began this training session
+                public float getIdolDanceGained(int slotIndex)
+                {
+                    return dance * (getIdolTrainTime(slotIndex) / 3600000f); // an hour in ms
+                }
+                @Override
+                // returns how much sing stat has been gained by this idol since it began this training session
+                public float getIdolSingGained(int slotIndex)
+                {
+                    return sing * (getIdolTrainTime(slotIndex) / 3600000f); // an hour in ms
+                }
+                @Override
+                // returns how much charm stat has been gained by this idol since it began this training session
+                public float getIdolCharmGained(int slotIndex)
+                {
+                    return charm * (getIdolTrainTime(slotIndex) / 3600000f); // an hour in ms
+                }
+            }, //TODO ADD OVERRIDE METHODS HERE
     FLASH_MOB("Flash Mob",
             0,
             R.drawable.work_realitytv,
@@ -27,7 +52,32 @@ public enum Task
             200,
             1,
             1,
-            0),
+            0)
+            {
+                @Override
+                public long getIdolTrainTime(int slotIndex)
+                {
+                    return Calendar.getInstance().getTimeInMillis() - idolStartTimes[slotIndex];
+                }
+                @Override
+                // returns how much dance stat has been gained by this idol since it began this training session
+                public float getIdolDanceGained(int slotIndex)
+                {
+                    return dance * (getIdolTrainTime(slotIndex) / 3600000f); // an hour in ms
+                }
+                @Override
+                // returns how much sing stat has been gained by this idol since it began this training session
+                public float getIdolSingGained(int slotIndex)
+                {
+                    return sing * (getIdolTrainTime(slotIndex) / 3600000f); // an hour in ms
+                }
+                @Override
+                // returns how much charm stat has been gained by this idol since it began this training session
+                public float getIdolCharmGained(int slotIndex)
+                {
+                    return charm * (getIdolTrainTime(slotIndex) / 3600000f); // an hour in ms
+                }
+            },
     STAND_UP("Stand Up Comedy",
             0,
             R.drawable.work_standup,
@@ -38,7 +88,32 @@ public enum Task
             200,
             0,
             0,
-            1),//TODO Add the Override methods here!
+            1)
+            {
+                @Override
+                public long getIdolTrainTime(int slotIndex)
+                {
+                    return Calendar.getInstance().getTimeInMillis() - idolStartTimes[slotIndex];
+                }
+                @Override
+                // returns how much dance stat has been gained by this idol since it began this training session
+                public float getIdolDanceGained(int slotIndex)
+                {
+                    return dance * (getIdolTrainTime(slotIndex) / 3600000f); // an hour in ms
+                }
+                @Override
+                // returns how much sing stat has been gained by this idol since it began this training session
+                public float getIdolSingGained(int slotIndex)
+                {
+                    return sing * (getIdolTrainTime(slotIndex) / 3600000f); // an hour in ms
+                }
+                @Override
+                // returns how much charm stat has been gained by this idol since it began this training session
+                public float getIdolCharmGained(int slotIndex)
+                {
+                    return charm * (getIdolTrainTime(slotIndex) / 3600000f); // an hour in ms
+                }
+            },//TODO Add the Override methods here!
     DANCE_SCHOOL("Dance School",
             1,
             R.drawable.class_dance,
@@ -49,7 +124,32 @@ public enum Task
             0,
             0.1f,
             0,
-            0),
+            0)
+            {
+                @Override
+                public long getIdolTrainTime(int slotIndex)
+                {
+                    return Calendar.getInstance().getTimeInMillis() - idolStartTimes[slotIndex];
+                }
+                @Override
+                // returns how much dance stat has been gained by this idol since it began this training session
+                public float getIdolDanceGained(int slotIndex)
+                {
+                    return dance * (getIdolTrainTime(slotIndex) / 3600000f); // an hour in ms
+                }
+                @Override
+                // returns how much sing stat has been gained by this idol since it began this training session
+                public float getIdolSingGained(int slotIndex)
+                {
+                    return sing * (getIdolTrainTime(slotIndex) / 3600000f); // an hour in ms
+                }
+                @Override
+                // returns how much charm stat has been gained by this idol since it began this training session
+                public float getIdolCharmGained(int slotIndex)
+                {
+                    return charm * (getIdolTrainTime(slotIndex) / 3600000f); // an hour in ms
+                }
+            },
     VOCAL_TRAINING("Vocal Training",
             1,
             R.drawable.class_sing,
@@ -60,7 +160,33 @@ public enum Task
             0,
             0,
             0.1f,
-            0),
+            0)
+            {
+                @Override
+                public long getIdolTrainTime(int slotIndex)
+                {
+                    return Calendar.getInstance().getTimeInMillis() - idolStartTimes[slotIndex];
+                }
+                @Override
+                // returns how much dance stat has been gained by this idol since it began this training session
+                public float getIdolDanceGained(int slotIndex)
+                {
+                    return dance * (getIdolTrainTime(slotIndex) / 3600000f); // an hour in ms
+                }
+                @Override
+                // returns how much sing stat has been gained by this idol since it began this training session
+                public float getIdolSingGained(int slotIndex)
+                {
+                    return sing * (getIdolTrainTime(slotIndex) / 3600000f); // an hour in ms
+                }
+                @Override
+                // returns how much charm stat has been gained by this idol since it began this training session
+                public float getIdolCharmGained(int slotIndex)
+                {
+                    return charm * (getIdolTrainTime(slotIndex) / 3600000f); // an hour in ms
+                }
+            },
+
     IMROMPTU("Impromptu Class",
             1,
             R.drawable.class_act,
@@ -71,7 +197,32 @@ public enum Task
             0,
             0,
             0,
-            0.1f);
+            0.1f)
+            {
+                @Override
+                public long getIdolTrainTime(int slotIndex)
+                {
+                    return Calendar.getInstance().getTimeInMillis() - idolStartTimes[slotIndex];
+                }
+                @Override
+                // returns how much dance stat has been gained by this idol since it began this training session
+                public float getIdolDanceGained(int slotIndex)
+                {
+                    return dance * (getIdolTrainTime(slotIndex) / 3600000f); // an hour in ms
+                }
+                @Override
+                // returns how much sing stat has been gained by this idol since it began this training session
+                public float getIdolSingGained(int slotIndex)
+                {
+                    return sing * (getIdolTrainTime(slotIndex) / 3600000f); // an hour in ms
+                }
+                @Override
+                // returns how much charm stat has been gained by this idol since it began this training session
+                public float getIdolCharmGained(int slotIndex)
+                {
+                    return charm * (getIdolTrainTime(slotIndex) / 3600000f); // an hour in ms
+                }
+            };
 
 
     public interface Workplace
@@ -87,10 +238,7 @@ public enum Task
     {
         public void unsetAllIdols();
         public boolean setIdol(int idolID, int slotIndex);
-        public long getIdolTrainTime(int slotIndex);
-        public float getIdolDanceGained(int slotIndex);
-        public float getIdolSingGained(int slotIndex);
-        public float getIdolCharmGained(int slotIndex);
+
         public int costMultiplier(int level);
     }
 
@@ -113,6 +261,7 @@ public enum Task
 
     public Idol[] idolSlots;
     public ImageView[] idolIcons;
+    public long[] idolStartTimes;
 
     Task(String name, int type, int image, int numSlots, int reqLevel, long processTime, int cost, int rewardCurrency, float dance, float sing, float charm)
     {
@@ -136,7 +285,12 @@ public enum Task
         this.unlocked = false;
         this.idolSlots = new Idol[this.numSlots];
         this.idolIcons = new ImageView[this.numSlots];
+        this.idolStartTimes = new long[this.numSlots];
     }
+    public abstract long getIdolTrainTime(int slotIndex);
+    public abstract float getIdolDanceGained(int slotIndex);
+    public abstract float getIdolSingGained(int slotIndex);
+    public abstract float getIdolCharmGained(int slotIndex);
 
     // check level against this task's required level
     public boolean isUnlocked(int agencyLevel)

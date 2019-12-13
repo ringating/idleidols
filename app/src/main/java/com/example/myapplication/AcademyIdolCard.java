@@ -139,6 +139,7 @@ public class AcademyIdolCard extends DialogFragment
                 selected.setImageResource(getIdol.getImage());
                 selected = null; //resets selected image.
                 idolForTask[selectedIndex] = getIdol;
+                sendStartedState(true, idolForTask);
             }
         }
     }
@@ -150,10 +151,11 @@ public class AcademyIdolCard extends DialogFragment
         getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, toWorkplaceFrag);
     }
 
-    private void sendStartedState(boolean started)
+    private void sendStartedState(boolean started, Idol[] idolsInTask)
     {
         Intent toWorkplaceFrag = new Intent();
         toWorkplaceFrag.putExtra("startedTask", started);
+        toWorkplaceFrag.putExtra("slottedIdols", idolsInTask);
         getTargetFragment().onActivityResult(getTargetRequestCode(), STARTED, toWorkplaceFrag);
     }
 }
