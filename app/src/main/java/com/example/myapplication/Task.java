@@ -120,7 +120,7 @@ public enum Task
             4,
             1,
             0,
-            0,
+            100,
             0,
             0.1f,
             0,
@@ -156,7 +156,7 @@ public enum Task
             3,
             1,
             0,
-            0,
+            100,
             0,
             0,
             0.1f,
@@ -193,7 +193,7 @@ public enum Task
             2,
             1,
             0,
-            0,
+            100,
             0,
             0,
             0,
@@ -246,17 +246,17 @@ public enum Task
     public final String name;
     public final int type; //This determines whether it's a Workplace or an Academy
     public final int image;
-    public final int numSlots; //number of slots available
+    public int numSlots; //number of slots available
     public final int reqLevel;
     public int level;
     public int numOfIdols;
     public boolean unlocked;
     public final long processTime; //in milliseconds
-    public final int cost;
+    public int cost;
     public final int rewardCurrency;
-    public final float dance; //if Academy, this will be the growth rate, if Workplace, this will be the affinity determination.
-    public final float sing;
-    public final float charm;
+    public float dance; //if Academy, this will be the growth rate, if Workplace, this will be the affinity determination.
+    public float sing;
+    public float charm;
     public boolean started;
 
     public Idol[] idolSlots;
@@ -352,6 +352,46 @@ public enum Task
         }
         return count;
     }
+
+    public void upgradeAcademy(Agency agency)
+    {
+        agency.SetCurrency(agency.GetCurrentCurrency() - this.cost);
+
+        if(this.level % 5 == 0)
+        {
+            this.numSlots++;
+        }
+        if(this.dance == 0)
+        {
+            this.dance = 0.1f;
+        }
+        else
+        {
+            this.dance *= 2;
+        }
+
+        if(this.sing == 0)
+        {
+            this.sing = 0.1f;
+        }
+        else
+        {
+            this.sing *= 2;
+        }
+
+        if(this.charm == 0)
+        {
+            this.charm = 0.1f;
+        }
+        else
+        {
+            this.charm *= 2;
+        }
+
+        this.level++;
+        this.cost *= this.level;
+    }
+
 }
 /*
 public class Workplace extends Task

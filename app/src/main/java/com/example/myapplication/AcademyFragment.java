@@ -116,6 +116,7 @@ public class AcademyFragment extends Fragment {
         taskIdolCard.setTargetFragment(this, SLOTTED_IDOLS);
 
         Bundle sendToIdolList = new Bundle();
+        sendToIdolList.putSerializable("agency", agency);
         sendToIdolList.putParcelableArrayList("IdolArrayList", agency.GetIdols());
         sendToIdolList.putInt("numberOfSlots", academy.numSlots);
         sendToIdolList.putParcelableArray("IdolSlot", academy.idolSlots);
@@ -159,6 +160,10 @@ public class AcademyFragment extends Fragment {
                         }
                     }
                 }
+            }
+            if(resultCode == 3)
+            {
+                academy.upgradeAcademy(agency);
             }
         }
     }

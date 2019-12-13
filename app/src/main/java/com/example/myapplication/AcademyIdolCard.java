@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
@@ -34,6 +35,7 @@ public class AcademyIdolCard extends DialogFragment
     private int selectedIndex;
 
     private ImageView selected;
+    private Agency agency;
 
     private final IdolListMenuDialog idolListMenu = new IdolListMenuDialog();
 
@@ -52,6 +54,7 @@ public class AcademyIdolCard extends DialogFragment
         numOfSlots = getArguments().getInt("numberOfSlots");
         idolForTask = (Idol[]) getArguments().getParcelableArray("IdolSlot");
         idolIcons = new ImageView[numOfSlots];
+        agency = (Agency)getArguments().getSerializable("agency");
 
         TextView exitButton = (TextView)view.findViewById(R.id.exitButton);
         exitButton.setOnClickListener(new View.OnClickListener() {
@@ -81,10 +84,12 @@ public class AcademyIdolCard extends DialogFragment
         }
 
         TextView level = view.findViewById(R.id.academyCardLevelContent);
-        level.setText(Integer.toString(getArguments().getInt("level")));
+        final int academyLevel = getArguments().getInt("level");
+        level.setText(Integer.toString(academyLevel));
 
-        TextView cost = view.findViewById(R.id.academyUpgradeCostContent);
-        cost.setText(Integer.toString(getArguments().getInt("cost")));
+        final TextView cost = view.findViewById(R.id.academyUpgradeCostContent);
+        final int upgradeCost = getArguments().getInt("cost");
+        cost.setText(Integer.toString(upgradeCost));
 
         TextView dance = view.findViewById(R.id.academyCardDanceContent);
         dance.setText(Float.toString(getArguments().getFloat("dance")));
@@ -94,6 +99,25 @@ public class AcademyIdolCard extends DialogFragment
 
         TextView charm = view.findViewById(R.id.academyCardCharmContent);
         charm.setText(Float.toString(getArguments().getFloat("dance")));
+
+        final Button upgrade = view.findViewById(R.id.academyUpgradeButton);
+        upgrade.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Animation shrink = AnimationUtils.loadAnimation(getActivity(), R.anim.button_press);
+                upgrade.startAnimation(shrink);
+                if(agency.GetCurrentCurrency() >= upgradeCost)
+                {
+                    upgrade();
+                    cost.setText(Integer.toString(upgradeCost * (academyLevel + 1)));
+                }
+                else
+                {
+                    Toast toast = Toast.makeText(getContext(), "Not enough money", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }
+        });
 
 
         //TODO THIS IS WHERE THE IMAGES ARE LOADED
@@ -157,5 +181,11 @@ public class AcademyIdolCard extends DialogFragment
         toWorkplaceFrag.putExtra("startedTask", started);
         toWorkplaceFrag.putExtra("slottedIdols", idolsInTask);
         getTargetFragment().onActivityResult(getTargetRequestCode(), STARTED, toWorkplaceFrag);
+    }
+
+    private void upgrade()
+    {
+        Intent toWorkplaceFrag = new Intent();
+        getTargetFragment().onActivityResult(getTargetRequestCode(), 3, toWorkplaceFrag);
     }
 }
