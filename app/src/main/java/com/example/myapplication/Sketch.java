@@ -15,6 +15,10 @@ import processing.core.PVector;
 
 public class Sketch extends PApplet {
 
+    int multiplier = 1;
+    int combo = 0;
+    boolean hit;
+
     // For making a Scrolling Background that Scrolls in the Background
     class ScrollingBackground {
         private int x;
@@ -139,84 +143,121 @@ public class Sketch extends PApplet {
         }
     }
 
-    class CoordShape
-    {
-        private PVector position;
-        private PShape shape;
-
-        CoordShape(float x, float y, float a, float b)
-        {
-            ellipseMode(CENTER);
-            shape = createShape(ELLIPSE, x, y, a, b);
-            position = new PVector(x, y);
-        }
-
-        void translate(int x, int y)
-        {
-            shape.translate(x, y);
-            position.x += x;
-            position.y += y;
-        }
-
-        int getX()
-        {
-            return (int)position.x;
-        }
-
-        int getY()
-        {
-            return (int)position.y;
-        }
-
-        PShape getShape()
-        {
-            return shape;
-        }
-    }
-
     class BeatBar
     {
         private int xPosition;
         private int yPosition;
+        private int hitCircleXPosition;
+        private int hitCircleYPosition;
+        private int beatBarHeight;
+        private int beatBarWidth;
+        private int hitCircleWidth;
+        private int hitCircleHeight;
         private int timing = 0;
-        List<CoordShape> shapes;
-        private CoordShape tempShape;
+        List<PVector> coordinates;
+        List<PVector> remove;
+        private DisplayIdol idol;
+        int n;
+        int sizeOfText;
+        boolean enlarge;
 
-        BeatBar(int xPosition, int yPosition)
+        BeatBar(int xPosition, int yPosition, int beatBarHeight, int beatBarWidth, DisplayIdol idol)
         {
             this.xPosition = xPosition;
             this.yPosition = yPosition;
-            shapes = new ArrayList<>();
+            this.beatBarHeight = beatBarHeight;
+            this.beatBarWidth = beatBarWidth;
+            this.hitCircleWidth = beatBarHeight;
+            this.hitCircleHeight = beatBarHeight;
+            this.sizeOfText = 64;
+            hitCircleXPosition = xPosition - 350;
+            hitCircleYPosition = yPosition;
+            hitCircleWidth = 100;
+            hitCircleHeight = 100;
+            this.idol = idol;
+            coordinates = new ArrayList<>();
+            remove = new ArrayList<>();
+            enlarge = false;
         }
 
         void draw()
         {
             rectMode(CENTER);
             fill(color(0, 0, 255));
-            rect(xPosition, yPosition, 1000, 100, 20);
-            fill(color(255, 0, 0));
+            rect(xPosition, yPosition, beatBarWidth, beatBarHeight, 20);
             beatCircle();
+            fill(color(0,0,0), 0);
+            stroke(200,200,200);
+            strokeWeight(5);
+            ellipseMode(CENTER);
+            ellipse(hitCircleXPosition, hitCircleYPosition, 100, 100);
+            stroke(0,0);
+            fill(color(0,0,0), 255);
         }
 
         void beatCircle()
         {
             timing++;
-            text("Timing: " + timing, 0, displayHeight/2 + 100);
-            if (timing >= 60)
+            if (timing >= 30)
             {
-                tempShape = new CoordShape(xPosition + 500, yPosition, 100, 100);
-                shapes.add(tempShape);
+                coordinates.add(new PVector(xPosition + 500, yPosition));
                 timing = 0;
             }
-            for (CoordShape currShape : shapes)
+
+            hit = false;
+            n = 0;
+            for (PVector coords : coordinates)
             {
-                currShape.translate(-1, 0);
-                shape(currShape.getShape());
-                if (currShape.getX() < yPosition - 500)
+                fill(color(255, 0, 0));
+                ellipse(coords.x, coords.y, 100, 100);
+                coords.x -= 10;
+                if (coords.x < xPosition - 500)
                 {
-                    shapes.remove(currShape);
+                    multiplier = 1;
+                    combo = 0;
+                    remove.add(coords);
                 }
+                else if ((mousePressed && (idol.isMouseInIdol())) && isInHitCircle(coords))
+                {
+                    if (combo < 32)
+                    {
+                        combo++;
+                    }
+                    if (multiplier < 32 && (combo%4 == 0)) {
+                        multiplier *= 2;
+                        enlarge = true;
+                    }
+                    remove.add(coords);
+                }
+                hit = hit || isInHitCircle(coords);
             }
+            multiplierNumber();
+            if (sizeOfText > 64)
+            {
+                sizeOfText--;
+            }
+
+            if (!remove.isEmpty()) {
+                coordinates.removeAll(remove);
+                remove.clear();
+            }
+        }
+
+        void multiplierNumber()
+        {
+            if (enlarge)
+            {
+                sizeOfText = 128;
+                enlarge = false;
+            }
+            textAlign(CENTER, CENTER);
+            textSize(sizeOfText);
+            text("x" + multiplier, xPosition, yPosition - 100);
+        }
+
+        boolean isInHitCircle(PVector vector)
+        {
+            return vector.x > (hitCircleXPosition - hitCircleWidth) && vector.x < (hitCircleXPosition + hitCircleWidth/2);
         }
     }
 
@@ -303,14 +344,13 @@ public class Sketch extends PApplet {
     private BeatBar beat;
     private int idolX;
     private int idolY;
+    private boolean pressed;
     private boolean incrementMonies;
     private boolean drawEffect;
 
     Agency agency;
     TextView currency;
     Activity act;
-
-    PShape testingShape;
 
     public void setup() {
 
@@ -320,13 +360,11 @@ public class Sketch extends PApplet {
 
         frameRate(60);
         homeBackground = new ScrollingBackground(0, 0, 1, 1, "background.png");
-        idolX = displayWidth/2;
+        idolX = displayWidth/2 + 50;
         idolY = (displayHeight/2) - 150;
         idol = new DisplayIdol(idolX, idolY, -40, -300, 400, -200, -150, 0.8,"body.png", "onionHead.png");
-        beat = new BeatBar(displayWidth/2, displayHeight - 600);
+        beat = new BeatBar(displayWidth/2, displayHeight - 600,  100, 1000, idol);
 
-        testingShape = createShape(ELLIPSE, displayWidth/2, displayHeight/2, 200, 200);
-        testingShape.setFill(color(0, 255, 255));
     }
 
     public void draw() {
@@ -334,15 +372,6 @@ public class Sketch extends PApplet {
         idol.draw();
         beat.draw();
         textSize(40);
-        shape(testingShape);
-        if (idol.isMouseInIdol())
-        {
-            text("PRESSED", 0, displayHeight/2);
-        }
-        else
-        {
-            text("NOT PRESSED", 0, displayHeight/2);
-        }
     }
 
 
@@ -350,13 +379,18 @@ public class Sketch extends PApplet {
     {
         if (idol.isMouseInIdol())
         {
-            agency.SetCurrency(agency.GetCurrentCurrency() + 10);
+            agency.SetCurrency(agency.GetCurrentCurrency() + 10 * multiplier);
             act.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     currency.setText(Integer.toString(agency.GetCurrentCurrency()));
                 }
             });
+            if (!hit)
+            {
+                multiplier = 1;
+                combo = 0;
+            }
         }
     }
 }
