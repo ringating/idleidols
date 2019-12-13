@@ -20,10 +20,10 @@ import androidx.fragment.app.FragmentManager;
 
 public class WorkplaceFragment extends Fragment
 {
-    private Task workplace;
+    public Task workplace;
     private static int SLOTTED_IDOLS = 1;
 
-    private Agency agency;
+    public Agency agency;
 
     public WorkplaceFragment()
     {
@@ -51,6 +51,8 @@ public class WorkplaceFragment extends Fragment
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
         super.onViewCreated(view, savedInstanceState);
+
+        workplace.setStartTime(agency.taskStartTimes[workplace.ordinal()]); // load task's saved start time from agency
 
         //TODO: Put the actual dynamic icon showing here along with the onClick function.
         if(Integer.parseInt(agency.GetLevel()) >= workplace.reqLevel)
@@ -106,7 +108,7 @@ public class WorkplaceFragment extends Fragment
         profit.setText(Integer.toString(workplace.rewardCurrency));
 
         TextView duration = view.findViewById(R.id.workplace_duration_content);
-        int processTime = (int) workplace.processTime/100;
+        int processTime = (int) workplace.processTime/1000;
         String durationText = processTime + " seconds"; //TODO Probably want to change this so it tells you how many hours and stuff too.
         duration.setText(durationText);
     }
@@ -130,6 +132,7 @@ public class WorkplaceFragment extends Fragment
         sendToIdolList.putFloat("charm", workplace.charm);
         sendToIdolList.putBoolean("started", workplace.started);
         taskIdolCard.setArguments(sendToIdolList);
+        sendToIdolList.putInt("taskOrdinal", workplace.ordinal());
 
         //Opens the TaskIdolCard
         if(taskCard != null)

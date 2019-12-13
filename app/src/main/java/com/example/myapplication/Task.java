@@ -9,7 +9,7 @@ public enum Task
             R.drawable.work_hollywoodbowl,
             1,
             1,
-            500,
+            5000,
             50,
             200,
             0,
@@ -20,7 +20,7 @@ public enum Task
             R.drawable.work_realitytv,
             3,
             1,
-            500,
+            30000,
             50,
             200,
             1,
@@ -31,7 +31,7 @@ public enum Task
             R.drawable.work_standup,
             1,
             1,
-            500,
+            50000,
             50,
             200,
             0,
@@ -77,6 +77,8 @@ public enum Task
 
     public Idol[] idolSlots;
 
+    public long startTime;
+
     Task(String name, int type, int image, int numSlots, int reqLevel, long processTime, int cost, int rewardCurrency, float dance, float sing, float charm)
     {
         this.name = name;
@@ -98,6 +100,8 @@ public enum Task
         this.started = false;
         this.unlocked = false;
         this.idolSlots = new Idol[this.numSlots];
+
+        this.startTime = 0;
     }
 
     // check level against this task's required level
@@ -159,6 +163,44 @@ public enum Task
             }
         }
         return count;
+    }
+
+    public void setStartTime(long startTime)
+    {
+        this.startTime = startTime;
+    }
+
+    public long getStartTime(){ return this.startTime; }
+
+    public long getRemainingTime()
+    {
+        return this.processTime - this.getElapsedTime();
+    }
+
+    public boolean isDone()
+    {
+        return this.getRemainingTime() < 0;
+    }
+
+    public long getElapsedTime()
+    {
+        return Calendar.getInstance().getTimeInMillis() - this.startTime;
+    }
+
+    public boolean startTask()
+    {
+        if(getNumSlottedIdols() < 1)
+        {
+            return false;
+        }
+
+        if (this.startTime == 0)
+        {
+            this.startTime = Calendar.getInstance().getTimeInMillis();
+            return true;
+        }
+
+        return false;
     }
 }
 /*
