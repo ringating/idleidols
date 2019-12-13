@@ -22,6 +22,9 @@ import androidx.fragment.app.FragmentManager;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class TaskIdolCard extends DialogFragment {
 
@@ -38,19 +41,69 @@ public class TaskIdolCard extends DialogFragment {
 
     private ImageView selected;
 
+    private Agency agency;
+    private int taskOrdinal;
+
     private final IdolListMenuDialog idolListMenu = new IdolListMenuDialog();
+
+    private TextView timeTextContent;
+    private TextView timeText;
+    private ProgressBar timeDuration;
+    private Button startButton;
+
+    private int remainingTime = -1;
+    private int remainingTimeMs = -1;
+
+    Timer timer = new Timer();
+    TimerTask t = new TimerTask()
+    {
+        @Override
+        public void run()
+        {
+            getActivity().runOnUiThread(Timer_Tick);
+        }
+    };
+
+    private Runnable Timer_Tick = new Runnable()
+    {
+        public void run()
+        {
+            // update UI in response to passing time here!
+
+            remainingTimeMs = Math.max(0, (int)(getArguments().getLong("duration") - (Calendar.getInstance().getTimeInMillis() - agency.taskStartTimes[taskOrdinal])));
+            remainingTime = Math.max(0, Math.round((getArguments().getLong("duration") - (Calendar.getInstance().getTimeInMillis() - agency.taskStartTimes[taskOrdinal])) / 1000f));
+            if (remainingTime == 0)
+            {
+                timeDuration.setVisibility(View.INVISIBLE);
+                timeText.setVisibility(View.INVISIBLE);
+                timeTextContent.setText(Math.round(getArguments().getLong("duration") / 1000f) + " sec");
+                timeTextContent.setVisibility(View.INVISIBLE);
+                startButton.setVisibility(View.VISIBLE);
+                startButton.setEnabled(true);
+            }
+            else
+            {
+                timeTextContent.setText("" + remainingTime + " sec");
+                timeDuration.setMax((int) getArguments().getLong("duration"));
+                timeDuration.setProgress((int) getArguments().getLong("duration") - remainingTimeMs);
+            }
+        }
+    };
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setStyle(STYLE_NO_TITLE, R.style.DialogTheme_transparent);
+        agency = (Agency) getActivity().getApplicationContext();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState)
     {
         View view = inflater.inflate(R.layout.work_card, container, false);
+
+        taskOrdinal = getArguments().getInt("taskOrdinal");
 
         numOfSlots = getArguments().getInt("numberOfSlots");
         idolForTask = (Idol[]) getArguments().getParcelableArray("IdolSlot");
@@ -88,9 +141,9 @@ public class TaskIdolCard extends DialogFragment {
         TextView profit = view.findViewById(R.id.workCardProfitContent);
         profit.setText(Integer.toString(getArguments().getInt("profit")));
 
-        TextView duration = view.findViewById(R.id.workCardDurationContent);
+        final TextView duration = view.findViewById(R.id.workCardDurationContent);
         String durationContent = "";
-        durationContent += getArguments().getLong("duration")/100 + " seconds"; //TODO later change such that it says days, hours, minutes, seconds, etc.
+        durationContent += getArguments().getLong("duration")/1000f + " seconds"; //TODO later change such that it says days, hours, minutes, seconds, etc.
         duration.setText(durationContent);
 
         ImageView danceIcon = view.findViewById(R.id.workCardDance);
@@ -144,10 +197,10 @@ public class TaskIdolCard extends DialogFragment {
         }
 
         //TODO THIS IS WHERE THE START BUTTON TO PROGRESS IS SHOWN
-        final Button startButton = view.findViewById(R.id.workCardStartButton);
-        final ProgressBar timeDuration = view.findViewById(R.id.workCardProgress);
-        final TextView timeText = view.findViewById(R.id.workCardTime);
-        final TextView timeTextContent = view.findViewById(R.id.workCardTimeContent);
+        startButton = view.findViewById(R.id.workCardStartButton);
+        timeDuration = view.findViewById(R.id.workCardProgress);
+        timeText = view.findViewById(R.id.workCardTime);
+        timeTextContent = view.findViewById(R.id.workCardTimeContent);
         started = getArguments().getBoolean("started");
         if(started)
         {
@@ -177,9 +230,13 @@ public class TaskIdolCard extends DialogFragment {
                     Animation shrink = AnimationUtils.loadAnimation(getActivity(), R.anim.button_press);
                     startButton.startAnimation(shrink);
                     //TODO START PROGRESS HERE :D
+                    agency.taskStartTimes[taskOrdinal] = Calendar.getInstance().getTimeInMillis();
                 }
             });
         }
+
+        timer.scheduleAtFixedRate(t,1,333);
+
         return view;
     }
 
@@ -210,5 +267,12 @@ public class TaskIdolCard extends DialogFragment {
         Intent toWorkplaceFrag = new Intent();
         toWorkplaceFrag.putExtra("startedTask", started);
         getTargetFragment().onActivityResult(getTargetRequestCode(), STARTED, toWorkplaceFrag);
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        timer.cancel();
     }
 }
