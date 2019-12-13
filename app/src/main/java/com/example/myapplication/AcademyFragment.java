@@ -51,7 +51,7 @@ public class AcademyFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState)
     {
         super.onViewCreated(view, savedInstanceState);
-        
+
         if(Integer.parseInt(agency.GetLevel()) >= academy.reqLevel)
         {
             academy.unlocked = true;
@@ -112,13 +112,15 @@ public class AcademyFragment extends Fragment {
     {
         FragmentManager taskCard = getFragmentManager();
         //Sends information to IdolListMenuDialog
-        TaskIdolCard taskIdolCard = new TaskIdolCard(); //TODO CHANGE THE CARD LOAD OUT HERE
+        AcademyIdolCard taskIdolCard = new AcademyIdolCard(); //TODO CHANGE THE CARD LOAD OUT HERE
         taskIdolCard.setTargetFragment(this, SLOTTED_IDOLS);
 
         Bundle sendToIdolList = new Bundle();
         sendToIdolList.putParcelableArrayList("IdolArrayList", agency.GetIdols());
         sendToIdolList.putInt("numberOfSlots", academy.numSlots);
         sendToIdolList.putParcelableArray("IdolSlot", academy.idolSlots);
+        sendToIdolList.putInt("level", academy.level);
+        sendToIdolList.putInt("cost", academy.cost);
         sendToIdolList.putFloat("dance", academy.dance);
         sendToIdolList.putFloat("sing", academy.sing);
         sendToIdolList.putFloat("charm", academy.charm);

@@ -1,5 +1,7 @@
 package com.example.myapplication;
 
+import android.widget.ImageView;
+
 import java.util.Calendar;
 
 public enum Task
@@ -89,6 +91,7 @@ public enum Task
         public float getIdolDanceGained(int slotIndex);
         public float getIdolSingGained(int slotIndex);
         public float getIdolCharmGained(int slotIndex);
+        public int costMultiplier(int level);
     }
 
 
@@ -109,6 +112,7 @@ public enum Task
     public boolean started;
 
     public Idol[] idolSlots;
+    public ImageView[] idolIcons;
 
     Task(String name, int type, int image, int numSlots, int reqLevel, long processTime, int cost, int rewardCurrency, float dance, float sing, float charm)
     {
@@ -131,6 +135,7 @@ public enum Task
         this.started = false;
         this.unlocked = false;
         this.idolSlots = new Idol[this.numSlots];
+        this.idolIcons = new ImageView[this.numSlots];
     }
 
     // check level against this task's required level
