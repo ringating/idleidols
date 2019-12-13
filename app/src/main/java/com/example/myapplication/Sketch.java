@@ -17,6 +17,7 @@ public class Sketch extends PApplet {
 
     int multiplier = 1;
     int combo = 0;
+    int dance = -1;
     boolean hit;
 
     // For making a Scrolling Background that Scrolls in the Background
@@ -71,6 +72,18 @@ public class Sketch extends PApplet {
         private PImage body;
         private PImage head;
 
+        private PImage dance1;
+        private PImage dance2;
+        private PImage dance3;
+        private PImage dance4;
+
+        private PImage arms1;
+        private PImage arms2;
+        private PImage arms3;
+        private PImage arms4;
+
+        private PImage head2;
+
         int xHeadOffset;
         int yHeadOffset;
 
@@ -103,6 +116,30 @@ public class Sketch extends PApplet {
             this.xBoundOffset = (int)(xBoundOffset * sizeMultiplier); // Changes the size of the mouse (or touch) detection box
             this.yBoundOffset = (int)(yBoundOffset * sizeMultiplier); //
 
+            dance1 = loadImage("dance1.png");
+            dance2 = loadImage("dance2.png");
+            dance3 = loadImage("dance3.png");
+            dance4 = loadImage("dance4.png");
+
+            arms1 = loadImage("arms1.png");
+            arms2 = loadImage("arms2.png");
+            arms3 = loadImage("arms3.png");
+            arms4 = loadImage("arms4.png");
+
+            head2 = loadImage("flippedOnionHead.png");
+
+            dance1.resize((int)(dance1.width * sizeMultiplier), (int)(dance1.height * sizeMultiplier));
+            dance2.resize((int)(dance2.width * sizeMultiplier), (int)(dance2.height * sizeMultiplier));
+            dance3.resize((int)(dance3.width * sizeMultiplier), (int)(dance3.height * sizeMultiplier));
+            dance4.resize((int)(dance4.width * sizeMultiplier), (int)(dance4.height * sizeMultiplier));
+
+            arms1.resize((int)(arms1.width * sizeMultiplier), (int)(arms1.height * sizeMultiplier));
+            arms2.resize((int)(arms2.width * sizeMultiplier), (int)(arms2.height * sizeMultiplier));
+            arms3.resize((int)(arms3.width * sizeMultiplier), (int)(arms3.height * sizeMultiplier));
+            arms4.resize((int)(arms4.width * sizeMultiplier), (int)(arms4.height * sizeMultiplier));
+
+            head2.resize((int)(900 * sizeMultiplier),(int)(900 * sizeMultiplier));
+
             generateBounds();
         }
 
@@ -114,12 +151,54 @@ public class Sketch extends PApplet {
             image(head, x + this.xHeadOffset, y + this.yHeadOffset);
         }
 
+        void dance(int i)
+        {
+            imageMode(CENTER);
+            switch (i)
+            {
+                case 0:
+                    image(dance1, x, y + this.yBodyOffset);
+                    image(head, x + this.xHeadOffset, y + this.yHeadOffset);
+                    image(arms1, x, y + this.yBodyOffset);
+                    break;
+                case 1:
+                    image(dance2, x, y + this.yBodyOffset + 35);
+                    image(head, x + this.xHeadOffset, y + this.yHeadOffset + 35);
+                    image(arms2, x, y + this.yBodyOffset + 35);
+                    break;
+                case 2:
+                    image(dance3, x, y + this.yBodyOffset);
+                    image(head2, x + this.xHeadOffset, y + this.yHeadOffset);
+                    image(arms3, x, y + this.yBodyOffset);
+                    break;
+                case 3:
+                    image(dance4, x, y + this.yBodyOffset + 35);
+                    image(head2, x + this.xHeadOffset, y + this.yHeadOffset + 35);
+                    image(arms4, x, y + this.yBodyOffset + 35);
+                    break;
+                default:
+                    image(body, x, y + this.yBodyOffset);
+                    image(head, x + this.xHeadOffset, y + this.yHeadOffset);
+            }
+        }
+
         void changeHead(String headImage, int xHeadOffset, int yHeadOffset)
         {
             this.head = loadImage(headImage);
             this.xHeadOffset = xHeadOffset;
             this.yHeadOffset = yHeadOffset;
             generateBounds();
+        }
+
+        void changeBody(String bodyImage)
+        {
+            this.body = loadImage(bodyImage);
+        }
+
+        void changeBody(String bodyImage, int yBodyOffset)
+        {
+            this.body = loadImage(bodyImage);
+            this.yBodyOffset = yBodyOffset;
         }
 
         void generateBounds()
@@ -215,11 +294,11 @@ public class Sketch extends PApplet {
 
                 fill(color(0, 0, 0), 0);
                 stroke(255, 5, 5, hitCircleAlpha);
-                strokeWeight(12);
+                strokeWeight(15);
                 ellipse(hitCircleXPosition, hitCircleYPosition, hitCircleSize, hitCircleSize);
 
                 if (hitCircleAlpha > 0) {
-                    hitCircleAlpha -= 10;
+                    hitCircleAlpha -= 8;
                     hitCircleSize++;
                 }
                 else
@@ -248,6 +327,7 @@ public class Sketch extends PApplet {
                 if (coords.x < xPosition - 470)
                 {
                     multiplier = 1;
+                    dance = -1;
                     combo = 0;
                     remove.add(coords);
                 }
@@ -263,6 +343,11 @@ public class Sketch extends PApplet {
                     }
                     hitCircleDraw = true;
                     hitCircleEnlarge = true;
+                    dance++;
+                    if (dance > 3)
+                    {
+                        dance = 0;
+                    }
                     remove.add(coords);
                 }
                 hit = hit || isInHitCircle(coords);
@@ -301,22 +386,22 @@ public class Sketch extends PApplet {
     // PARTICLE SYSTEM CURRENTLY PLACEHOLDER
 
     // System of particles for particling
-    class ParticleSystem {
-        ArrayList<Particle> particles;
+    class MoneyParticle {
+        ArrayList<MoneyText> particles;
         PVector origin;
 
-        ParticleSystem(PVector position) {
+        MoneyParticle(PVector position) {
             origin = position.copy();
-            particles = new ArrayList<Particle>();
+            particles = new ArrayList<MoneyText>();
         }
 
-        void addParticle() {
-            particles.add(new Particle(origin));
+        void addParticle(String text) {
+            particles.add(new MoneyText(origin, text));
         }
 
         void run() {
             for (int i = particles.size()-1; i >= 0; i--) {
-                Particle p = particles.get(i);
+                MoneyText p = particles.get(i);
                 p.run();
                 if (p.isDead()) {
                     particles.remove(i);
@@ -326,15 +411,17 @@ public class Sketch extends PApplet {
     }
 
     // Particle class for young particles to learn
-    class Particle {
+    class MoneyText {
         PVector position;
         PVector velocity;
         PVector acceleration;
+        String text;
         float lifespan;
 
-        Particle(PVector l) {
+        MoneyText(PVector l, String text) {
+            this.text = text;
             acceleration = new PVector((float)0, (float)0.05);
-            velocity = new PVector(random(-1, 1), random(-2, 0));
+            velocity = new PVector(random(-32, 32), random(-4, 32));
             position = l.copy();
             lifespan = (float)255.0;
         }
@@ -353,9 +440,9 @@ public class Sketch extends PApplet {
 
         // Method to display
         void display() {
-            stroke(255, lifespan);
-            fill(255, lifespan);
-            ellipse(position.x, position.y, 8, 8);
+            fill(color(95, 147, 65));
+            textSize(64);
+            text(text, position.x, position.y);
         }
 
         // Is the particle still useful?
@@ -379,6 +466,7 @@ public class Sketch extends PApplet {
     private ScrollingBackground homeBackground;
     private DisplayIdol idol;
     private BeatBar beat;
+    private MoneyParticle monies;
     private int idolX;
     private int idolY;
     private boolean pressed;
@@ -399,15 +487,17 @@ public class Sketch extends PApplet {
         homeBackground = new ScrollingBackground(0, 0, 1, 1, "background.png");
         idolX = displayWidth/2 + 50;
         idolY = (displayHeight/2) - 150;
-        idol = new DisplayIdol(idolX, idolY, -40, -300, 400, -200, -150, 0.8,"body.png", "onionHead.png");
+        idol = new DisplayIdol(idolX, idolY, -40, -260, 400, -200, -150, 0.8,"IdolBody2.png", "onionHead.png");
         beat = new BeatBar(displayWidth/2, displayHeight - 600,  100, 1000, idol);
+        monies = new MoneyParticle(new PVector(idolX, idolY));
 
     }
 
     public void draw() {
         homeBackground.scroll();
-        idol.draw();
+        idol.dance(dance);
         beat.draw();
+        monies.run();
         textSize(40);
     }
 
@@ -423,10 +513,12 @@ public class Sketch extends PApplet {
                     currency.setText(Integer.toString(agency.GetCurrentCurrency()));
                 }
             });
+            monies.addParticle("$" + (10 * multiplier));
             if (!hit)
             {
                 multiplier = 1;
                 combo = 0;
+                dance = -1;
             }
         }
     }
