@@ -137,6 +137,16 @@ public class Idol implements Parcelable {
         return this.merged;
     }
 
+    public void setStatus(boolean status)
+    {
+        this.isBeingUsed = status;
+    }
+
+    public boolean getStatus()
+    {
+        return this.isBeingUsed;
+    }
+
     @Override
     public int describeContents()
     {

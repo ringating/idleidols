@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
-
+import android.widget.Toast;
 
 
 import androidx.annotation.Nullable;
@@ -51,10 +51,19 @@ public class IdolListMenuDialog extends DialogFragment {
             idolList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    if(idolArrayList.get(position) != null)
+                    if(idolArrayList.get(position) != null  )
                     {
-                        SendIdol(idolArrayList.get(position));
-                        getDialog().dismiss();
+                        if(!idolArrayList.get(position).getStatus())
+                        {
+                            idolArrayList.get(position).setStatus(true);
+                            SendIdol(idolArrayList.get(position));
+                            getDialog().dismiss();
+                        }
+                        else
+                        {
+                            Toast toast = Toast.makeText(getContext(), "This Idol is already active", Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
                     }
                 }
             });
