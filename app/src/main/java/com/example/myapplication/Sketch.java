@@ -160,6 +160,10 @@ public class Sketch extends PApplet {
         int n;
         int sizeOfText;
         boolean enlarge;
+        boolean hitCircleEnlarge;
+        int hitCircleSize;
+        int hitCircleAlpha;
+        boolean hitCircleDraw;
 
         BeatBar(int xPosition, int yPosition, int beatBarHeight, int beatBarWidth, DisplayIdol idol)
         {
@@ -169,7 +173,7 @@ public class Sketch extends PApplet {
             this.beatBarWidth = beatBarWidth;
             this.hitCircleWidth = beatBarHeight;
             this.hitCircleHeight = beatBarHeight;
-            this.sizeOfText = 64;
+            this.sizeOfText = 128;
             hitCircleXPosition = xPosition - 350;
             hitCircleYPosition = yPosition;
             hitCircleWidth = 100;
@@ -178,12 +182,16 @@ public class Sketch extends PApplet {
             coordinates = new ArrayList<>();
             remove = new ArrayList<>();
             enlarge = false;
+            hitCircleEnlarge = false;
+            hitCircleSize = 100;
+            hitCircleAlpha = 255;
+            hitCircleDraw = false;
         }
 
         void draw()
         {
             rectMode(CENTER);
-            fill(color(0, 0, 255));
+            fill(color(75, 0, 130), 200);
             rect(xPosition, yPosition, beatBarWidth, beatBarHeight, 20);
             beatCircle();
             fill(color(0,0,0), 0);
@@ -191,16 +199,42 @@ public class Sketch extends PApplet {
             strokeWeight(5);
             ellipseMode(CENTER);
             ellipse(hitCircleXPosition, hitCircleYPosition, 100, 100);
+            hitEffect();
             stroke(0,0);
             fill(color(0,0,0), 255);
+        }
+
+        void hitEffect()
+        {
+            if (hitCircleDraw) {
+                if (hitCircleEnlarge) {
+                    hitCircleSize = 100;
+                    hitCircleAlpha = 255;
+                    hitCircleEnlarge = false;
+                }
+
+                fill(color(0, 0, 0), 0);
+                stroke(255, 5, 5, hitCircleAlpha);
+                strokeWeight(12);
+                ellipse(hitCircleXPosition, hitCircleYPosition, hitCircleSize, hitCircleSize);
+
+                if (hitCircleAlpha > 0) {
+                    hitCircleAlpha -= 10;
+                    hitCircleSize++;
+                }
+                else
+                {
+                    hitCircleDraw = false;
+                }
+            }
         }
 
         void beatCircle()
         {
             timing++;
-            if (timing >= 30)
+            if (timing >= ((1/(float)multiplier) + 0.7) * 30)
             {
-                coordinates.add(new PVector(xPosition + 500, yPosition));
+                coordinates.add(new PVector(xPosition + 470, yPosition));
                 timing = 0;
             }
 
@@ -211,7 +245,7 @@ public class Sketch extends PApplet {
                 fill(color(255, 0, 0));
                 ellipse(coords.x, coords.y, 100, 100);
                 coords.x -= 10;
-                if (coords.x < xPosition - 500)
+                if (coords.x < xPosition - 470)
                 {
                     multiplier = 1;
                     combo = 0;
@@ -227,15 +261,13 @@ public class Sketch extends PApplet {
                         multiplier *= 2;
                         enlarge = true;
                     }
+                    hitCircleDraw = true;
+                    hitCircleEnlarge = true;
                     remove.add(coords);
                 }
                 hit = hit || isInHitCircle(coords);
             }
             multiplierNumber();
-            if (sizeOfText > 64)
-            {
-                sizeOfText--;
-            }
 
             if (!remove.isEmpty()) {
                 coordinates.removeAll(remove);
@@ -247,12 +279,17 @@ public class Sketch extends PApplet {
         {
             if (enlarge)
             {
-                sizeOfText = 128;
+                sizeOfText = 256;
                 enlarge = false;
             }
             textAlign(CENTER, CENTER);
             textSize(sizeOfText);
-            text("x" + multiplier, xPosition, yPosition - 100);
+            fill(color(229, 83, 0));
+            text("x" + multiplier, xPosition, yPosition + 150);
+            if (sizeOfText > 128)
+            {
+                sizeOfText -= 2;
+            }
         }
 
         boolean isInHitCircle(PVector vector)
